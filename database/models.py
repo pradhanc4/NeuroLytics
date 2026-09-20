@@ -1,6 +1,12 @@
 from datetime import date
 
-from sqlalchemy import Date, ForeignKey, Integer, String, UniqueConstraint
+from sqlalchemy import (
+    Date,
+    ForeignKey,
+    Integer,
+    String,
+    UniqueConstraint,
+)
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database.engine import Base
@@ -124,6 +130,7 @@ class HistoricalResult(Base):
         back_populates="historical_results",
     )
 
+
 class PannaReference(Base):
     """Stores validated Panna/Panel reference values."""
 
@@ -165,4 +172,88 @@ class PannaReference(Base):
     is_active: Mapped[bool] = mapped_column(
         default=True,
         nullable=False,
+    )
+
+
+class JodiFamily(Base):
+    """Represents a reference family containing Jodi members."""
+
+    __tablename__ = "jodi_families"
+
+    id: Mapped[int] = mapped_column(
+        Integer,
+        primary_key=True,
+        autoincrement=True,
+    )
+
+    family_name: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+        unique=True,
+    )
+
+    description: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True,
+    )
+
+    is_active: Mapped[bool] = mapped_column(
+        default=True,
+        nullable=False,
+    )
+
+    members: Mapped[list["JodiFamilyMember"]] = relationship(
+        back_populates="family",
+        cascade="all, delete-orphan",
+    )
+
+
+class JodiFamilyMember(Base):
+    """Stores an individual Jodi belonging to a Jodi family."""
+
+    __tablename__ = "jodi_family_members"
+
+    __table_args__ = (
+        UniqueConstraint(
+            "family_id",
+            "jodi",
+            name="uq_jodi_family_member_family_jodi",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(
+        Integer,
+        primary_key=True,
+        autoincrement=True,
+    )
+
+    family_id: Mapped[int] = mapped_column(
+        ForeignKey("jodi_families.id"),
+        nullable=False,
+        index=True,
+    )
+
+    jodi: Mapped[str] = mapped_column(
+        String(2),
+        nullable=False,
+        index=True,
+    )
+
+    digit_1: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+    )
+
+    digit_2: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+    )
+
+    is_active: Mapped[bool] = mapped_column(
+        default=True,
+        nullable=False,
+    )
+
+    family: Mapped["JodiFamily"] = relationship(
+        back_populates="members",
     )

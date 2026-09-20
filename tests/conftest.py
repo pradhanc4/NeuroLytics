@@ -3,6 +3,8 @@ import pytest
 from database.engine import Base, SessionLocal, engine
 from database.models import (
     HistoricalResult,
+    JodiFamily,
+    JodiFamilyMember,
     Market,
     PannaReference,
 )
@@ -22,6 +24,8 @@ def db():
     finally:
         session.rollback()
 
+        session.execute(delete(JodiFamilyMember))
+        session.execute(delete(JodiFamily))
         session.execute(delete(PannaReference))
         session.execute(delete(HistoricalResult))
         session.execute(delete(Market))
