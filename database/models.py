@@ -123,3 +123,46 @@ class HistoricalResult(Base):
     market: Mapped["Market"] = relationship(
         back_populates="historical_results",
     )
+
+class PannaReference(Base):
+    """Stores validated Panna/Panel reference values."""
+
+    __tablename__ = "panna_reference"
+
+    id: Mapped[int] = mapped_column(
+        Integer,
+        primary_key=True,
+        autoincrement=True,
+    )
+
+    panna: Mapped[str] = mapped_column(
+        String(3),
+        nullable=False,
+        unique=True,
+        index=True,
+    )
+
+    digit_1: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+    )
+
+    digit_2: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+    )
+
+    digit_3: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+    )
+
+    panna_type: Mapped[str | None] = mapped_column(
+        String(50),
+        nullable=True,
+    )
+
+    is_active: Mapped[bool] = mapped_column(
+        default=True,
+        nullable=False,
+    )

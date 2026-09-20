@@ -2,30 +2,8 @@ from datetime import date
 
 import pytest
 
-from database.engine import Base, SessionLocal, engine
 from database.historical_input_service import HistoricalInputService
 from database.models import HistoricalResult, Market
-from sqlalchemy import delete
-
-
-@pytest.fixture
-def db():
-    """Create an isolated database session for each test."""
-
-    Base.metadata.create_all(bind=engine)
-
-    session = SessionLocal()
-
-    try:
-        yield session
-    finally:
-        session.rollback()
-
-        session.execute(delete(HistoricalResult))
-        session.execute(delete(Market))
-
-        session.commit()
-        session.close()
 
 
 def test_add_historical_result(db):
@@ -127,6 +105,8 @@ def test_empty_market_name_is_rejected(db):
             jodi_result="45",
             close_result="678",
         )
+
+
 def test_empty_open_is_rejected(db):
     service = HistoricalInputService(db)
 
@@ -225,6 +205,8 @@ def test_missing_result_date_is_rejected(db):
             jodi_result="45",
             close_result="678",
         )
+
+
 def test_parser_integration_generates_all_columns(db):
     service = HistoricalInputService(db)
 
@@ -281,6 +263,8 @@ def test_parser_integration_preserves_leading_zeros(db):
     assert result.col6 == 0
     assert result.col7 == 0
     assert result.col8 == 3
+
+
 def test_historical_input_is_persisted_to_sql(db):
     service = HistoricalInputService(db)
 
@@ -408,6 +392,8 @@ def test_persisted_result_can_be_retrieved_by_date(db):
         stored_result.col7,
         stored_result.col8,
     ] == [9, 8, 7, 6, 5, 4, 3, 2]
+
+
 def test_duplicate_historical_result_is_rejected_without_creating_extra_record(
     db,
 ):
