@@ -257,3 +257,90 @@ class JodiFamilyMember(Base):
     family: Mapped["JodiFamily"] = relationship(
         back_populates="members",
     )
+class PanelFamily(Base):
+    """Represents a reference family containing Panel members."""
+
+    __tablename__ = "panel_families"
+
+    id: Mapped[int] = mapped_column(
+        Integer,
+        primary_key=True,
+        autoincrement=True,
+    )
+
+    family_name: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+        unique=True,
+    )
+
+    description: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True,
+    )
+
+    is_active: Mapped[bool] = mapped_column(
+        default=True,
+        nullable=False,
+    )
+
+    members: Mapped[list["PanelFamilyMember"]] = relationship(
+        back_populates="family",
+        cascade="all, delete-orphan",
+    )
+
+
+class PanelFamilyMember(Base):
+    """Stores an individual Panel belonging to a Panel family."""
+
+    __tablename__ = "panel_family_members"
+
+    __table_args__ = (
+        UniqueConstraint(
+            "family_id",
+            "panel",
+            name="uq_panel_family_member_family_panel",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(
+        Integer,
+        primary_key=True,
+        autoincrement=True,
+    )
+
+    family_id: Mapped[int] = mapped_column(
+        ForeignKey("panel_families.id"),
+        nullable=False,
+        index=True,
+    )
+
+    panel: Mapped[str] = mapped_column(
+        String(3),
+        nullable=False,
+        index=True,
+    )
+
+    digit_1: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+    )
+
+    digit_2: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+    )
+
+    digit_3: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+    )
+
+    is_active: Mapped[bool] = mapped_column(
+        default=True,
+        nullable=False,
+    )
+
+    family: Mapped["PanelFamily"] = relationship(
+        back_populates="members",
+    )

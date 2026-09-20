@@ -6,32 +6,59 @@ from database.panna_validator import validate_panna
 
 
 class PannaReferenceService:
-    """Service layer for Panna/Panel reference operations."""
+    """Service layer for Panna reference operations."""
 
     def __init__(self, db: Session):
         self.db = db
+
+    @staticmethod
+    def _validate_panna_type(
+        panna_type: str | None,
+    ) -> str | None:
+        """Validate and normalize an optional Panna type."""
+
+        if panna_type is None:
+            return None
+
+        panna_type = str(
+            panna_type
+        ).strip()
+
+        if not panna_type:
+            return None
+
+        return panna_type
 
     def create_panna(
         self,
         panna: str,
         panna_type: str | None = None,
     ) -> PannaReference:
-        """Validate and create a Panna reference."""
+        """
+        Create a new Panna reference.
+
+        The Panna value is validated and normalized
+        before persistence.
+        """
 
         panna = validate_panna(panna)
 
-        existing_panna = self.db.scalar(
+        panna_type = self._validate_panna_type(
+            panna_type
+        )
+
+        existing = self.db.scalar(
             select(PannaReference).where(
                 PannaReference.panna == panna
             )
         )
 
-        if existing_panna:
+        if existing:
             raise ValueError(
                 f"Panna '{panna}' already exists."
             )
 
-        panna_reference = PannaReference(
+        reference = PannaReference(
             panna=panna,
             digit_1=int(panna[0]),
             digit_2=int(panna[1]),
@@ -39,17 +66,17 @@ class PannaReferenceService:
             panna_type=panna_type,
         )
 
-        self.db.add(panna_reference)
+        self.db.add(reference)
         self.db.commit()
-        self.db.refresh(panna_reference)
+        self.db.refresh(reference)
 
-        return panna_reference
+        return reference
 
     def get_panna(
         self,
         panna: str,
     ) -> PannaReference | None:
-        """Retrieve a Panna reference by its exact value."""
+        """Retrieve a Panna reference by value."""
 
         panna = validate_panna(panna)
 
@@ -77,9 +104,8 @@ class PannaReferenceService:
         """
         Retrieve Panna references.
 
-        By default, only active Panna references are returned.
-        Set active_only=False to retrieve both active and inactive
-        references.
+        By default, only active Pannas are returned.
+        Set active_only=False to retrieve all Pannas.
         """
 
         statement = select(PannaReference)
@@ -104,30 +130,44 @@ class PannaReferenceService:
         active_only: bool = True,
     ) -> list[PannaReference]:
         """
-        Search Panna references using optional filters.
+        Search Panna references.
 
-        Search behavior:
-        - panna: partial text match
-        - panna_type: exact type match
-        - active_only: return only active references by default
+        Supports:
+        - partial Panna value search
+        - exact Panna type filtering
+        - active/inactive filtering
+
+        Both panna and panna_type are optional.
+        At least one search criterion must be provided.
         """
+
+        if panna is None and panna_type is None:
+            raise ValueError(
+                "At least one search criterion is required."
+            )
 
         statement = select(PannaReference)
 
         if panna is not None:
             panna = str(panna).strip()
 
-            if panna:
-                statement = statement.where(
-                    PannaReference.panna.like(
-                        f"%{panna}%"
-                    )
+            if not panna:
+                raise ValueError(
+                    "Panna search value cannot be empty."
                 )
 
-        if panna_type is not None:
-            panna_type = panna_type.strip()
+            statement = statement.where(
+                PannaReference.panna.ilike(
+                    f"%{panna}%"
+                )
+            )
 
-            if panna_type:
+        if panna_type is not None:
+            panna_type = self._validate_panna_type(
+                panna_type
+            )
+
+            if panna_type is not None:
                 statement = statement.where(
                     PannaReference.panna_type
                     == panna_type

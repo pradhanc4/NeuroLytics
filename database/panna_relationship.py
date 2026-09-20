@@ -47,6 +47,10 @@ def analyze_panna_structure(panna: str) -> dict:
         "sorted_digits": sorted(digits),
         "unique_digits": unique_digits,
         "unique_digit_count": len(unique_digits),
-        "repeated_digit_count": repeated_digit_count,
-        "has_repeated_digit": repeated_digit_count > 0,
+        "repeated_digit_count": (
+            repeated_digit_count
+        ),
+        "has_repeated_digit": (
+            repeated_digit_count > 0
+        ),
     }

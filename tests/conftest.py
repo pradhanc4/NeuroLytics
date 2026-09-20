@@ -7,6 +7,8 @@ from database.models import (
     JodiFamilyMember,
     Market,
     PannaReference,
+    PanelFamily,
+    PanelFamilyMember,
 )
 from sqlalchemy import delete
 
@@ -24,11 +26,27 @@ def db():
     finally:
         session.rollback()
 
-        session.execute(delete(JodiFamilyMember))
-        session.execute(delete(JodiFamily))
-        session.execute(delete(PannaReference))
-        session.execute(delete(HistoricalResult))
-        session.execute(delete(Market))
+        session.execute(
+            delete(PanelFamilyMember)
+        )
+        session.execute(
+            delete(PanelFamily)
+        )
+        session.execute(
+            delete(JodiFamilyMember)
+        )
+        session.execute(
+            delete(JodiFamily)
+        )
+        session.execute(
+            delete(PannaReference)
+        )
+        session.execute(
+            delete(HistoricalResult)
+        )
+        session.execute(
+            delete(Market)
+        )
 
         session.commit()
         session.close()
