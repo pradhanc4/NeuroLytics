@@ -146,3 +146,38 @@ Status: **COMPLETE**
 - Added classification lookup by version and date range.
 - Added comprehensive classification test coverage.
 - Full regression verified with 292 passing tests.
+
+## Phase 8 — Data Validation & Quality Engine
+
+### Added
+
+- Added versioned `historical_data_quality` SQL table.
+- Added historical data-quality validation rules.
+- Added `DataQualityService`.
+- Added `HistoricalQualityChecker`.
+- Added market-level historical quality validation.
+- Added quality status tracking for `VALID`, `WARNING`, and `INVALID`.
+- Added quality percentage calculation.
+- Added unchecked historical-record detection.
+- Added historical date coverage analysis.
+- Added missing-calendar-date reporting.
+- Added `QualityReportService`.
+- Added structured market quality reports.
+- Added frontend-friendly ISO date formatting.
+- Added validation-version support for independent quality assessments.
+- Added Phase 8 integration and edge-case tests.
+
+### Data integrity
+
+- Leading zeros remain preserved in Open, Jodi, and Close values.
+- Actual zero values remain valid historical data.
+- Invalid derived digit columns are detected.
+- Historical source values are not modified by quality reporting.
+- Missing calendar dates are reported separately and are not automatically treated as invalid records.
+
+### Testing
+
+- Phase 8 focused tests: 86 passed
+- Full project regression: 378 passed
+
+Phase 8 completed and verified.

@@ -137,6 +137,11 @@ class HistoricalResult(Base):
         cascade="all, delete-orphan",
     )
 
+    data_quality_records: Mapped[list["HistoricalDataQuality"]] = relationship(
+        back_populates="historical_result",
+        cascade="all, delete-orphan",
+    )
+
 
 class PannaReference(Base):
     """Stores validated Panna/Panel reference values."""
@@ -420,4 +425,68 @@ class HistoricalClassification(Base):
 
     historical_result: Mapped["HistoricalResult"] = relationship(
         back_populates="classifications",
+    )
+
+
+class HistoricalDataQuality(Base):
+    """
+    Stores data-quality validation results for historical records.
+
+    Quality records are versioned so validation rules can evolve
+    without overwriting previous quality assessments.
+    """
+
+    __tablename__ = "historical_data_quality"
+
+    __table_args__ = (
+        UniqueConstraint(
+            "historical_result_id",
+            "validation_version",
+            name="uq_historical_data_quality_result_version",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(
+        Integer,
+        primary_key=True,
+        autoincrement=True,
+    )
+
+    historical_result_id: Mapped[int] = mapped_column(
+        ForeignKey("historical_results.id"),
+        nullable=False,
+        index=True,
+    )
+
+    validation_version: Mapped[str] = mapped_column(
+        String(20),
+        nullable=False,
+        index=True,
+    )
+
+    status: Mapped[str] = mapped_column(
+        String(20),
+        nullable=False,
+        index=True,
+    )
+
+    issue_count: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+        default=0,
+    )
+
+    issue_summary: Mapped[str | None] = mapped_column(
+        String(2000),
+        nullable=True,
+    )
+
+    checked_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        nullable=False,
+        server_default=func.now(),
+    )
+
+    historical_result: Mapped["HistoricalResult"] = relationship(
+        back_populates="data_quality_records",
     )

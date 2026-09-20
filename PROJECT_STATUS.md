@@ -453,3 +453,119 @@ Testing:
 - Full project regression: 292 passed
 
 Phase 7 is complete and verified.
+
+
+## Phase 8 — Data Validation & Quality Engine
+
+Status: **COMPLETE**
+
+Completed milestones:
+
+- 8.1 Data-quality model / foundation
+- 8.2 Validation rules
+- 8.3 Data-quality validation service
+- 8.4 Historical data quality checks
+- 8.5 Quality reporting
+- 8.6 Complete testing
+- 8.7 Documentation + GitHub
+
+### Data-quality foundation
+
+Added the `historical_data_quality` SQL table with versioned quality assessments.
+
+Quality records contain:
+
+- Historical result reference
+- Validation version
+- Quality status
+- Issue count
+- Issue summary
+- Validation timestamp
+
+### Validation rules
+
+Historical records are checked for:
+
+- Open result length and numeric format
+- Jodi result length and numeric format
+- Close result length and numeric format
+- Leading-zero preservation
+- Digit column presence
+- Digit column integer validation
+- Digit range `0-9`
+- Derived-column consistency
+- Valid market ID
+- Valid historical result date
+
+Actual zero values are treated as valid data and are not confused with missing values.
+
+### Historical quality checks
+
+Added dataset-level historical quality checking.
+
+Capabilities include:
+
+- Validate all historical records for a market
+- Detect invalid historical records
+- Track valid, warning, and invalid records
+- Calculate quality percentage
+- Identify unchecked historical records
+- Revalidate records without creating duplicate quality records
+- Analyze historical date coverage
+- Identify missing calendar dates
+- Identify duplicate dates during date analysis
+
+Missing calendar dates are reported separately and are not automatically classified as invalid because missing dates may represent legitimate market closures or unavailable historical data.
+
+### Quality reporting
+
+Added `QualityReportService`.
+
+Reports include:
+
+- Market information
+- Validation version
+- Total records
+- Checked records
+- Unchecked records
+- Valid records
+- Warning records
+- Invalid records
+- Quality percentage
+- Quality status
+- First historical date
+- Last historical date
+- Missing calendar dates
+- Duplicate dates
+- Invalid record IDs
+- Warning record IDs
+
+Frontend-friendly reports can return dates in ISO format.
+
+Quality reporting categories:
+
+- `EXCELLENT` — 99% or higher
+- `GOOD` — 95% to below 99%
+- `FAIR` — 90% to below 95%
+- `NEEDS_REVIEW` — below 90%
+
+These categories are reporting labels only and do not modify the underlying validation result.
+
+### Phase 8 testing
+
+Phase-specific testing includes:
+
+- Data-quality rule tests
+- Data-quality service tests
+- Historical quality checker tests
+- Quality report service tests
+- Phase 8 integration tests
+- Edge-case verification
+- Full project regression testing
+
+Final full project regression:
+
+**378 tests passed**
+
+Phase 8 was completed and verified without regression.
+

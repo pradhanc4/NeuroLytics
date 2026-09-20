@@ -1,8 +1,22 @@
+import sys
+from pathlib import Path
+
 import pytest
+from sqlalchemy import delete
+
+
+# Ensure the NeuroLytics project root is available
+# when pytest loads the test configuration.
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 
 from database.engine import Base, SessionLocal, engine
 from database.models import (
     HistoricalClassification,
+    HistoricalDataQuality,
     HistoricalResult,
     JodiFamily,
     JodiFamilyMember,
@@ -11,7 +25,6 @@ from database.models import (
     PanelFamily,
     PanelFamilyMember,
 )
-from sqlalchemy import delete
 
 
 @pytest.fixture
@@ -24,11 +37,17 @@ def db():
 
     try:
         yield session
+
     finally:
         session.rollback()
 
         # Delete dependent tables first to respect
         # foreign-key relationships.
+
+        session.execute(
+            delete(HistoricalDataQuality)
+        )
+
         session.execute(
             delete(HistoricalClassification)
         )
@@ -63,3 +82,4 @@ def db():
 
         session.commit()
         session.close()
+
