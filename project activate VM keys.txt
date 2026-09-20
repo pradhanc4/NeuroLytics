@@ -1,0 +1,5 @@
+project activate VM 
+
+python -m venv venv
+
+venv\Scripts\activate
