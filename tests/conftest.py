@@ -2,6 +2,7 @@ import pytest
 
 from database.engine import Base, SessionLocal, engine
 from database.models import (
+    HistoricalClassification,
     HistoricalResult,
     JodiFamily,
     JodiFamilyMember,
@@ -26,24 +27,36 @@ def db():
     finally:
         session.rollback()
 
+        # Delete dependent tables first to respect
+        # foreign-key relationships.
+        session.execute(
+            delete(HistoricalClassification)
+        )
+
         session.execute(
             delete(PanelFamilyMember)
         )
+
         session.execute(
             delete(PanelFamily)
         )
+
         session.execute(
             delete(JodiFamilyMember)
         )
+
         session.execute(
             delete(JodiFamily)
         )
+
         session.execute(
             delete(PannaReference)
         )
+
         session.execute(
             delete(HistoricalResult)
         )
+
         session.execute(
             delete(Market)
         )

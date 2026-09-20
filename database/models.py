@@ -1,11 +1,13 @@
-from datetime import date
+from datetime import date, datetime
 
 from sqlalchemy import (
     Date,
+    DateTime,
     ForeignKey,
     Integer,
     String,
     UniqueConstraint,
+    func,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -128,6 +130,11 @@ class HistoricalResult(Base):
 
     market: Mapped["Market"] = relationship(
         back_populates="historical_results",
+    )
+
+    classifications: Mapped[list["HistoricalClassification"]] = relationship(
+        back_populates="historical_result",
+        cascade="all, delete-orphan",
     )
 
 
@@ -257,6 +264,8 @@ class JodiFamilyMember(Base):
     family: Mapped["JodiFamily"] = relationship(
         back_populates="members",
     )
+
+
 class PanelFamily(Base):
     """Represents a reference family containing Panel members."""
 
@@ -343,4 +352,72 @@ class PanelFamilyMember(Base):
 
     family: Mapped["PanelFamily"] = relationship(
         back_populates="members",
+    )
+
+
+class HistoricalClassification(Base):
+    """
+    Stores descriptive classifications associated with
+    historical results.
+
+    Classification records are versioned so classification
+    rules can evolve without overwriting previous results.
+    """
+
+    __tablename__ = "historical_classifications"
+
+    __table_args__ = (
+        UniqueConstraint(
+            "historical_result_id",
+            "classification_version",
+            name="uq_historical_classification_result_version",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(
+        Integer,
+        primary_key=True,
+        autoincrement=True,
+    )
+
+    historical_result_id: Mapped[int] = mapped_column(
+        ForeignKey("historical_results.id"),
+        nullable=False,
+        index=True,
+    )
+
+    classification_version: Mapped[str] = mapped_column(
+        String(20),
+        nullable=False,
+        index=True,
+    )
+
+    open_class: Mapped[str | None] = mapped_column(
+        String(100),
+        nullable=True,
+    )
+
+    jodi_class: Mapped[str | None] = mapped_column(
+        String(100),
+        nullable=True,
+    )
+
+    close_class: Mapped[str | None] = mapped_column(
+        String(100),
+        nullable=True,
+    )
+
+    overall_class: Mapped[str | None] = mapped_column(
+        String(100),
+        nullable=True,
+    )
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        nullable=False,
+        server_default=func.now(),
+    )
+
+    historical_result: Mapped["HistoricalResult"] = relationship(
+        back_populates="classifications",
     )
