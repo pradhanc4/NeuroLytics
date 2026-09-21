@@ -569,3 +569,186 @@ Final full project regression:
 
 Phase 8 was completed and verified without regression.
 
+## Phase 9 — Frequency / Statistical Analysis
+
+Status: **IN PROGRESS**
+
+### Step 9.1 — Statistical Analysis Foundation
+
+Status: **COMPLETE**
+
+Implemented the foundation for the Phase 9 statistical analysis layer.
+
+### Statistical analysis foundation
+
+Added:
+
+- `analytics/statistical_foundation.py`
+- `tests/test_statistical_foundation.py`
+
+The statistical foundation provides:
+
+- Standard analysis column definitions for `col1` through `col8`
+- Statistical analysis request structure
+- Analysis version support
+- Analysis date-range validation
+- Market ID validation
+- Supported-column validation
+- Historical observation extraction
+- Standard statistical observation structure
+- Standard statistical analysis result structure
+
+### Data integrity rules
+
+The statistical foundation preserves the distinction between valid zero values and missing values.
+
+- Actual digit value `0` remains a valid observation.
+- `NULL` values are treated as missing observations.
+- Missing values are never converted into zero.
+- Boolean values are rejected.
+- Non-integer values are rejected.
+- Values outside the digit range `0-9` are rejected.
+- Historical record dates are required for statistical observations.
+
+### Analysis scope
+
+Statistical analysis currently supports the following historical digit columns:
+
+- `col1`
+- `col2`
+- `col3`
+- `col4`
+- `col5`
+- `col6`
+- `col7`
+- `col8`
+
+The foundation does not perform prediction.
+
+It provides reusable structures and validation for the statistical analysis modules that will be implemented in later Phase 9 steps.
+
+
+## Phase 9 — Frequency / Statistical Analysis
+
+Status: **IN PROGRESS**
+
+### Step 9.1 — Statistical Analysis Foundation
+
+Status: **COMPLETE**
+
+Implemented the foundation for the Phase 9 statistical analysis layer.
+
+### Statistical analysis foundation
+
+Added:
+
+- `analytics/__init__.py`
+- `analytics/statistical_foundation.py`
+- `tests/test_statistical_foundation.py`
+
+The statistical foundation provides:
+
+- Standard analysis column definitions for `col1` through `col8`
+- Statistical analysis request structure
+- Analysis version support
+- Analysis date-range validation
+- Market ID validation
+- Supported-column validation
+- Historical observation extraction
+- Standard statistical observation structure
+- Standard statistical analysis result structure
+
+### Data integrity rules
+
+The statistical foundation preserves the distinction between valid zero values and missing values.
+
+- Actual digit value `0` remains a valid observation.
+- `NULL` values are treated as missing observations.
+- Missing values are never converted into zero.
+- Boolean values are rejected.
+- Non-integer values are rejected.
+- Values outside the digit range `0-9` are rejected.
+- Historical record dates are required for statistical observations.
+
+### Analysis scope
+
+Statistical analysis currently supports the following historical digit columns:
+
+- `col1`
+- `col2`
+- `col3`
+- `col4`
+- `col5`
+- `col6`
+- `col7`
+- `col8`
+
+The foundation does not perform prediction.
+
+It provides reusable structures and validation for the statistical analysis modules that will be implemented in later Phase 9 steps.
+
+### Actual verification output
+
+#### Focused Step 9.1 test
+
+Command:
+
+```text
+pytest -q tests\test_statistical_foundation.py
+````
+
+Actual output:
+
+```text
+(venv) D:\NeuroLytics>pytest -q tests\test_statistical_foundation.py
+.................                                                    [100%]
+17 passed in 0.10s
+```
+
+#### Full project regression
+
+Command:
+
+```text
+pytest -q
+```
+
+Actual output:
+
+```text
+(venv) D:\NeuroLytics>pytest -q
+.................................................................... [ 17%]
+.................................................................... [ 34%]
+.................................................................... [ 51%]
+.................................................................... [ 68%]
+.................................................................... [ 86%]
+.......................................................              [100%]
+395 passed in 9.21s
+```
+
+### Testing summary
+
+* Step 9.1 focused tests: **17 passed**
+* Full project regression: **395 passed**
+* Regression time: **9.21 seconds**
+* No regression detected in previous phases
+
+Step 9.1 was completed and verified successfully.
+
+### Phase 9 status
+
+Phase 9 remains **IN PROGRESS**.
+
+Completed:
+
+* 9.1 Statistical Analysis Foundation
+
+Remaining:
+
+* 9.2 Frequency analysis
+* 9.3 Position-wise frequency analysis
+* 9.4 Daily / weekly / monthly statistics
+* 9.5 Distribution analysis
+* 9.6 Statistical feature storage
+* 9.7 Testing
+* 9.8 Documentation + GitHub

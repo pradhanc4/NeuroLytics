@@ -181,3 +181,97 @@ Status: **COMPLETE**
 - Full project regression: 378 passed
 
 Phase 8 completed and verified.
+
+
+## Phase 9.1 — Statistical Analysis Foundation
+
+### Added
+
+- Added statistical analysis foundation.
+- Added `analytics/__init__.py`.
+- Added `analytics/statistical_foundation.py`.
+- Added `tests/test_statistical_foundation.py`.
+- Added standardized analysis column definitions for `col1` through `col8`.
+- Added statistical analysis request structure.
+- Added statistical observation structure.
+- Added statistical analysis result structure.
+- Added analysis version support.
+- Added analysis date-range validation.
+- Added market ID validation.
+- Added supported-column validation.
+- Added historical observation extraction.
+
+### Data integrity
+
+- Actual zero values remain valid statistical observations.
+- `NULL` values remain distinct from zero.
+- Missing values are not converted into zero.
+- Invalid boolean values are rejected.
+- Non-integer values are rejected.
+- Values outside the valid digit range `0-9` are rejected.
+- Historical record dates are required for observations.
+
+### Analysis scope
+
+The statistical foundation currently supports:
+
+- `col1`
+- `col2`
+- `col3`
+- `col4`
+- `col5`
+- `col6`
+- `col7`
+- `col8`
+
+The foundation does not perform prediction.
+
+It provides reusable structures and validation for later Phase 9 statistical analysis modules.
+
+### Verification output
+
+#### Step 9.1 focused test
+
+Command:
+
+```text
+pytest -q tests\test_statistical_foundation.py
+````
+
+Actual result:
+
+```text
+(venv) D:\NeuroLytics>pytest -q tests\test_statistical_foundation.py
+.................                                                    [100%]
+17 passed in 0.10s
+```
+
+#### Full project regression
+
+Command:
+
+```text
+pytest -q
+```
+
+Actual result:
+
+```text
+(venv) D:\NeuroLytics>pytest -q
+.................................................................... [ 17%]
+.................................................................... [ 34%]
+.................................................................... [ 51%]
+.................................................................... [ 68%]
+.................................................................... [ 86%]
+.......................................................              [100%]
+395 passed in 9.21s
+```
+
+### Testing summary
+
+* Step 9.1 focused tests: **17 passed**
+* Full project regression: **395 passed**
+* Regression time: **9.21 seconds**
+* No regression detected
+
+Step 9.1 completed and verified without regression.
