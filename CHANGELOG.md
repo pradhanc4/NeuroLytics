@@ -234,29 +234,28 @@ It provides reusable structures and validation for later Phase 9 statistical ana
 
 Command:
 
-```text
+
 pytest -q tests\test_statistical_foundation.py
-````
+
 
 Actual result:
 
-```text
 (venv) D:\NeuroLytics>pytest -q tests\test_statistical_foundation.py
 .................                                                    [100%]
 17 passed in 0.10s
-```
+
 
 #### Full project regression
 
 Command:
 
-```text
+
 pytest -q
-```
+
 
 Actual result:
 
-```text
+
 (venv) D:\NeuroLytics>pytest -q
 .................................................................... [ 17%]
 .................................................................... [ 34%]
@@ -265,7 +264,7 @@ Actual result:
 .................................................................... [ 86%]
 .......................................................              [100%]
 395 passed in 9.21s
-```
+
 
 ### Testing summary
 
@@ -275,3 +274,69 @@ Actual result:
 * No regression detected
 
 Step 9.1 completed and verified without regression.
+
+## Phase 9.2 — Frequency Analysis
+
+### Added
+
+- Added historical frequency analysis.
+- Added `analytics/frequency_analysis.py`.
+- Added `tests/test_frequency_analysis.py`.
+- Added digit frequency calculation for `col1` through `col8`.
+- Added frequency counts for digits `0-9`.
+- Added percentage calculation for each digit.
+- Added complete frequency distributions including zero-occurrence digits.
+- Added individual column frequency analysis.
+- Added all-column frequency analysis.
+- Added frequency record lookup.
+- Added empty-observation handling.
+
+### Data integrity
+
+- Actual zero values remain valid observations.
+- Missing values are not converted into zero.
+- Only the requested analysis column is included in a column-specific frequency calculation.
+- Unsupported columns are rejected.
+- Digit values are restricted to `0-9`.
+- Empty datasets return a valid zero-frequency distribution.
+- Frequency analysis does not perform prediction.
+
+### Verification output
+
+#### Step 9.2 focused test
+
+Command:
+
+pytest -q tests\test_frequency_analysis.py
+
+Actual result:
+
+(venv) D:\NeuroLytics>pytest -q tests\test_frequency_analysis.py
+...........                                                          [100%]
+11 passed in 0.04s
+
+#### Full project regression
+
+Command:
+
+pytest -q
+
+Actual result:
+
+(venv) D:\NeuroLytics>pytest -q
+.................................................................... [ 16%]
+.................................................................... [ 33%]
+.................................................................... [ 50%]
+.................................................................... [ 66%]
+.................................................................... [ 83%]
+..................................................................   [100%]
+406 passed in 5.49s
+
+### Testing summary
+
+- Step 9.2 focused tests: **11 passed**
+- Full project regression: **406 passed**
+- Regression time: **5.49 seconds**
+- No regression detected
+
+Step 9.2 frequency analysis completed and verified successfully.

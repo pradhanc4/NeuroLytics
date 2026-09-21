@@ -752,3 +752,126 @@ Remaining:
 * 9.6 Statistical feature storage
 * 9.7 Testing
 * 9.8 Documentation + GitHub
+
+### Step 9.2 — Frequency Analysis
+
+Status: **COMPLETE**
+
+Implemented the historical frequency-analysis layer for the eight supported digit columns.
+
+### Frequency analysis capabilities
+
+Added:
+
+- `analytics/frequency_analysis.py`
+- `tests/test_frequency_analysis.py`
+
+The frequency analysis module provides:
+
+- Digit frequency calculation for `col1` through `col8`
+- Frequency counts for digits `0` through `9`
+- Percentage calculation for each digit
+- Complete digit distributions including digits with zero occurrences
+- Individual column frequency analysis
+- Frequency analysis across all supported columns
+- Frequency record lookup by digit
+- Empty-observation handling
+
+### Data integrity rules
+
+Frequency analysis preserves the distinction between valid values and missing data.
+
+- Actual digit `0` is counted as a valid observation.
+- `NULL` values are not converted into zero.
+- Only observations belonging to the requested analysis column are included.
+- Digits are restricted to the valid range `0-9`.
+- Unsupported analysis columns are rejected.
+- Missing/empty observations produce a valid zero-frequency distribution.
+- Frequency analysis does not generate predictions.
+
+### Frequency result structure
+
+Each analyzed column produces:
+
+- Column name
+- Total number of valid observations
+- Frequency record for every digit `0-9`
+- Count for each digit
+- Percentage for each digit
+
+Digits with no historical occurrences remain present with:
+
+- Count: `0`
+- Percentage: `0.0`
+
+This provides a consistent result structure for later analytics and frontend components.
+
+### Supported analysis columns
+
+Frequency analysis currently supports:
+
+- `col1`
+- `col2`
+- `col3`
+- `col4`
+- `col5`
+- `col6`
+- `col7`
+- `col8`
+
+### Testing
+
+#### Step 9.2 focused test
+
+Command:
+
+pytest -q tests\test_frequency_analysis.py
+
+Actual output:
+
+(venv) D:\NeuroLytics>pytest -q tests\test_frequency_analysis.py
+...........                                                          [100%]
+11 passed in 0.04s
+
+#### Full project regression
+
+Command:
+
+pytest -q
+
+Actual output:
+
+(venv) D:\NeuroLytics>pytest -q
+.................................................................... [ 16%]
+.................................................................... [ 33%]
+.................................................................... [ 50%]
+.................................................................... [ 66%]
+.................................................................... [ 83%]
+..................................................................   [100%]
+406 passed in 5.49s
+
+### Testing summary
+
+- Step 9.2 focused tests: **11 passed**
+- Full project regression: **406 passed**
+- Regression time: **5.49 seconds**
+- Previous Phase 9.1 tests remain passing
+- No regression detected
+
+### Phase 9 status
+
+Phase 9 remains **IN PROGRESS**.
+
+Completed:
+
+- 9.1 Statistical Analysis Foundation
+- 9.2 Frequency Analysis
+
+Remaining:
+
+- 9.3 Position-wise frequency analysis
+- 9.4 Daily / weekly / monthly statistics
+- 9.5 Distribution analysis
+- 9.6 Statistical feature storage
+- 9.7 Testing
+- 9.8 Documentation + GitHub
