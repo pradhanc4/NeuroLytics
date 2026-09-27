@@ -1,0 +1,1734 @@
+Absolutely. Now that your ChatGPT Go plan is active, we can continue NeuroLytics without restarting anything.
+
+Below is the master project record we should use from this point onward. I’ll separate what is already completed, where we are now, and the full 76-phase roadmap with topics/subtopics.
+
+🧠 NeuroLytics — Complete Project Blueprint
+1. Project Identity
+
+Project name: NeuroLytics
+
+Purpose:
+A local-first, SQL-driven historical data analytics, statistical analysis, machine-learning, sequence-analysis, ranking, backtesting, monitoring, and prediction platform.
+
+Core architecture
+                    ┌─────────────────────┐
+                    │     User / Data     │
+                    │ Date + Open/Jodi/   │
+                    │ Close Result        │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Historical Input    │
+                    │ Parser / Validation │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │     SQL Database    │
+                    │ SQLite / SQLAlchemy │
+                    └──────────┬──────────┘
+                               │
+              ┌────────────────┼────────────────┐
+              ▼                ▼                ▼
+       Classification      Analytics        Features
+              │                │                │
+              └────────────────┼────────────────┘
+                               ▼
+                    ┌─────────────────────┐
+                    │ Statistical Models  │
+                    │ ML / Sequence       │
+                    │ Models              │
+                    └──────────┬──────────┘
+                               ▼
+                    ┌─────────────────────┐
+                    │ Ranking / Candidate  │
+                    │ Scoring              │
+                    └──────────┬──────────┘
+                               ▼
+                    ┌─────────────────────┐
+                    │ Backtesting /        │
+                    │ Evaluation            │
+                    └──────────┬──────────┘
+                               ▼
+                    ┌─────────────────────┐
+                    │ Flask API + Frontend│
+                    │ Dashboard            │
+                    └─────────────────────┘
+2. Important Project Principles
+
+These are already established and should remain consistent throughout development.
+
+Data principles
+SQL is the source of truth.
+Historical data is stored in SQL.
+CSV/input files are ingestion sources, not the permanent source of truth.
+Leading zeros must be preserved.
+0 is a valid actual value.
+NULL means missing/unknown.
+0 must never automatically become NULL.
+NULL must never automatically become 0.
+Missing calendar dates are different from records containing zero.
+Duplicate historical records must be detected.
+Dates must remain actual dates.
+No future information should leak into training.
+ML principles
+Leakage-safe features
+Time-aware datasets
+Walk-forward validation
+Historical backtesting
+Model comparison
+Calibration
+Explainability
+Model/version tracking
+Monitoring
+Drift detection
+Important project boundary
+
+The system is being built as a technical analytics/ML platform. Statistical/model outputs should be treated as model-generated analysis rather than guaranteed future outcomes.
+
+3. Input Data Structure
+
+Our future daily input format is:
+
+Date
+Open
+Jodi
+Close
+
+Example:
+
+Date        Open   Jodi   Close
+2026-09-24  123    45     678
+
+Internally:
+
+123 45 678
+
+becomes:
+
+12345678
+
+and then:
+
+col1 = 1
+col2 = 2
+col3 = 3
+col4 = 4
+col5 = 5
+col6 = 6
+col7 = 7
+col8 = 8
+
+The original Open/Jodi/Close values are also retained.
+
+4. Current Project Structure
+
+Current architecture:
+
+D:\NeuroLytics
+│
+├── backend/
+│
+├── database/
+│   ├── config.py
+│   ├── engine.py
+│   ├── init_db.py
+│   ├── connection.py
+│   ├── models.py
+│   └── neurolytics.db
+│
+├── ml/
+│
+├── analytics/
+│
+├── features/
+│
+├── models/
+│
+├── ranking/
+│
+├── backtesting/
+│
+├── frontend/
+│
+├── tests/
+│
+├── reports/
+│
+├── scripts/
+│
+├── docs/
+│
+├── .gitignore
+├── README.md
+├── PROJECT_STATUS.md
+├── CHANGELOG.md
+├── requirements.txt
+├── .env.example
+└── run.py
+5. What We Have Already Completed
+Phase 1 — Project Architecture & Environment ✅
+
+Completed.
+
+Topics
+Project architecture
+Folder structure
+Python environment
+Flask foundation
+Dependency management
+Configuration
+Basic test framework
+Environment variables
+.gitignore
+README
+Initial project documentation
+
+Initial tests:
+
+2 passed
+Phase 2 — SQL Database Foundation ✅
+
+Completed.
+
+2.1 Database configuration
+SQLite
+SQLAlchemy
+Database connection
+Environment configuration
+2.2 Database engine
+SQLAlchemy engine
+Session handling
+2.3 Database initialization
+python -m database.init_db
+2.4 Core models
+
+Historical data model contains:
+
+Market
+HistoricalResult
+PannaReference
+
+HistoricalResult includes:
+
+market
+date
+Open
+Jodi
+Close
+col1–col8
+2.5 Database integrity
+Unique market/date
+Input validation
+Data relationships
+CRUD foundation
+Phase 2.5
+
+Regression:
+
+36 passed
+Phase 3 — Historical Input / Parser ✅
+
+Completed.
+
+Topics
+Historical input service
+Open parsing
+Jodi parsing
+Close parsing
+Exact digit validation
+Leading-zero preservation
+Derived columns
+Database insertion
+Duplicate protection
+
+Main service:
+
+HistoricalInputService
+
+Method:
+
+add_historical_result()
+Phase 4 — Panna / Panel Reference System ✅
+
+Completed.
+
+Topics
+Panna reference data
+Panel structures
+Panna classification
+Reference lookup
+Validation
+Family/reference relationships
+
+Commit:
+
+fb569f0
+Complete Phase 4 Panna Panel Reference System
+Phase 5 — Jodi Family Reference System ✅
+
+Completed.
+
+Topics
+Jodi families
+Digit relationships
+Family grouping
+Reference calculations
+Average digit difference
+Validation
+Lookup
+
+Correct average digit difference:
+
+6.6666666667
+Phase 6 — Panel Family Reference System ✅
+
+Completed.
+
+Topics
+Panel families
+Family classification
+Panel relationships
+Reference lookup
+Validation
+Family-level analytics
+
+Regression:
+
+219 passed
+
+Commit:
+
+7dcd41c
+Complete Phase 6 Panel Family Reference System
+Phase 7 — Historical Classification ✅
+
+Completed.
+
+This is one of the important foundations of NeuroLytics.
+
+Classification areas
+7.1 Three-digit structure
+Open structure
+Close structure
+Panna/panel structure
+7.2 Zero classification
+Actual zero
+Zero position
+Zero count
+7.3 Digit sum
+Digit sum
+Derived classification
+7.4 Parity
+Odd/even structure
+7.5 Digit order
+Ascending
+Descending
+Other order relationships
+7.6 Jodi structure
+Jodi relationships
+Jodi classification
+7.7 Open/Close relationship
+Open vs Close comparison
+7.8 Digit overlap
+Shared digits
+Overlap classification
+7.9 Versioned classification
+
+Classification rules are versioned.
+
+Important
+
+This phase is historical classification, not prediction.
+
+Regression:
+
+292 passed
+
+Commit:
+
+e198159
+Complete Phase 7 Historical Classification
+Phase 8 — Data Validation & Quality Engine ✅
+
+Completed.
+
+8.1 Data quality model
+
+Created:
+
+HistoricalDataQuality
+8.2 Validation rules
+
+Checks include:
+
+NULL values
+actual zero values
+negative values
+duplicate dates
+missing calendar dates
+invalid records
+8.3 Important distinction
+0       = valid actual value
+NULL    = missing/unknown
+8.4 Quality status
+VALID
+WARNING
+INVALID
+8.5 Quality reporting
+
+Reporting labels:
+
+EXCELLENT
+GOOD
+FAIR
+NEEDS_REVIEW
+
+These are descriptive reporting labels, not predictions.
+
+Regression:
+
+378 passed
+
+Commit:
+
+5accec7
+Complete Phase 8 data validation and quality engine
+6. Phase 9 — Frequency & Statistical Analysis
+
+This is our current major phase.
+
+Phase 9.1 — Statistical Analysis Foundation ✅
+
+Created:
+
+analytics/statistical_foundation.py
+Topics
+Analysis columns
+Statistical request
+Statistical observations
+Statistical result
+Validation
+Digit extraction
+NULL handling
+Zero handling
+Integer validation
+Digit range validation
+Date handling
+
+Supported analysis columns:
+
+col1
+col2
+col3
+col4
+col5
+col6
+col7
+col8
+Safety rules
+NULL skipped
+0 counted
+Boolean rejected
+Non-integer rejected
+Values outside 0–9 rejected
+
+Regression:
+
+395 passed
+
+Commit:
+
+eb79869
+Complete Phase 9.1 statistical analysis foundation
+Phase 9.2 — Frequency Analysis ✅
+
+Created:
+
+analytics/frequency_analysis.py
+Topics
+Digit frequency
+Column frequency
+Digit 0–9 representation
+Zero counting
+Missing-value handling
+Frequency lookup
+
+Every digit:
+
+0 1 2 3 4 5 6 7 8 9
+
+is represented.
+
+Regression:
+
+406 passed
+Phase 9.3 — Position-Wise Frequency & Distribution Analysis
+
+This became a large analytical subsystem.
+
+9.3.1 Position Frequency ✅
+analytics/position_frequency.py
+
+Topics:
+
+Frequency by position
+Digit frequency by col1–col8
+Position-level aggregation
+Lookup
+
+Regression:
+
+417 passed
+9.3.2 Position Frequency Summary ✅
+analytics/position_frequency_summary.py
+
+Topics:
+
+Most frequent digits
+Frequency summaries
+Tie preservation
+Position-level summary
+
+Regression:
+
+428 passed
+9.3.3 Position Distribution ✅
+analytics/position_distribution.py
+
+Topics:
+
+Distribution by position
+Digit percentages
+Distribution matrix
+Position-level percentages
+
+Regression:
+
+439 passed
+9.3.8 Distribution Comparison Metrics ✅
+
+Topics:
+
+Distribution comparison
+Mean absolute difference
+Position comparison
+All-position comparison
+
+Regression:
+
+450 passed
+9.3.9 Distribution Comparison Matrix ✅
+
+Topics:
+
+Position-to-position comparison
+Comparison matrix
+Matrix lookup
+
+Regression:
+
+452 passed
+9.3.10 Distribution Comparison Summary ✅
+
+Topics:
+
+Mean
+Median
+Minimum
+Maximum
+Population standard deviation
+
+Regression:
+
+461 passed
+9.3.11 Stability Analysis ✅
+
+Topics:
+
+Historical distribution stability
+Stability comparison
+Stable vs changing distributions
+
+Regression:
+
+461 passed
+9.3.12 Change Detection ✅
+
+Topics:
+
+Digit distribution changes
+Consecutive-window comparison
+Change detection
+Change summary
+
+Regression:
+
+472 passed
+9.3.13 Change Classification ✅
+
+Change categories:
+
+INCREASING
+DECREASING
+UNCHANGED
+MIXED
+
+Regression:
+
+484 passed
+9.3.14 Change Summary ✅
+
+Topics:
+
+Change counts
+Change aggregation
+Position summaries
+
+Regression:
+
+497 passed
+9.3.15 Change Magnitude ✅
+
+Thresholds:
+
+LOW       < 2
+MEDIUM    >= 2 and < 5
+HIGH      >= 5
+
+Regression:
+
+516 passed
+9.3.16 Change Magnitude Summary ✅
+
+Topics:
+
+Low-change count
+Medium-change count
+High-change count
+Aggregated magnitude metrics
+
+Regression:
+
+534 passed
+9.3.17 Change Trend ✅
+
+Topics:
+
+Consecutive changes
+Direction
+Trend
+
+Directions:
+
+INCREASING
+DECREASING
+UNCHANGED
+MIXED
+
+Regression:
+
+552 passed
+9.3.18 Trend Persistence ✅
+
+Topics:
+
+Dominant direction
+Persistence percentage
+Longest streak
+Trend persistence
+
+Regression:
+
+573 passed
+9.3.19 Trend Strength ✅
+
+Topics:
+
+Total change
+Mean change
+Absolute change
+Direction
+Strength
+
+Regression:
+
+595 passed
+9.3.20 Trend Strength Summary ✅
+
+Topics:
+
+Position-level trend strength
+Aggregated trend metrics
+
+Regression:
+
+614 passed
+9.3.21 Trend Consistency ✅
+
+Topics:
+
+Dominant direction
+Consistency percentage
+Trend consistency level
+
+Thresholds:
+
+HIGH      >= 80%
+MEDIUM    >= 50% and < 80%
+LOW       < 50%
+
+Regression:
+
+636 passed
+9.3.22 Distribution Volatility ✅
+
+Created:
+
+analytics/position_distribution_volatility.py
+Metrics
+Window count
+Change count
+Total absolute change
+Mean absolute change
+Maximum absolute change
+Minimum absolute change
+Volatility level
+
+Example:
+
+10 → 15 → 9 → 16
+
+Absolute changes:
+
+5, 6, 7
+
+Therefore:
+
+total = 18
+mean = 6
+max = 7
+min = 5
+
+Volatility:
+
+LOW       < 2
+MEDIUM    < 5
+HIGH      >= 5
+
+Regression:
+
+658 passed
+9.3.23 Volatility Summary ✅
+
+Topics:
+
+Low volatility count
+Medium volatility count
+High volatility count
+Total absolute change
+Average mean absolute change
+Position-level results
+
+Regression:
+
+677 passed
+9.3.24 Stability Summary ✅
+
+Stability is effectively the inverse interpretation of volatility.
+
+Thresholds:
+
+STABLE       < 2
+MODERATE     >= 2 and < 5
+UNSTABLE     >= 5
+
+Topics:
+
+Stable digit count
+Moderate digit count
+Unstable digit count
+Total change
+Average change
+Stability result collection
+
+Regression:
+
+703 passed
+9.3.25 Stability Detail ✅
+
+Topics:
+
+Position
+Digit
+Window count
+Change count
+Total absolute change
+Mean absolute change
+Maximum change
+Minimum change
+Stability level
+
+Regression:
+
+733 passed
+9.3.26 Position Distribution Stability Comparison ✅
+
+This moves from digit-level stability to position-level stability comparison.
+
+Output
+PositionDistributionStabilityComparison
+
+Fields:
+
+position
+digit_count
+stable_digit_count
+moderate_digit_count
+unstable_digit_count
+total_absolute_change
+average_mean_absolute_change
+minimum_mean_absolute_change
+maximum_mean_absolute_change
+stability_level
+Classification
+< 2       STABLE
+2–<5      MODERATE
+>=5       UNSTABLE
+Validation
+Position validation
+Digit count validation
+Negative metric protection
+Classification consistency
+Duplicate position detection
+Position mismatch protection
+Empty-input handling
+
+Regression:
+
+769 passed
+9.3.27 — Stability Comparison Summary ✅
+
+This aggregates the 9.3.26 outputs.
+
+Output
+PositionDistributionStabilityComparisonSummary
+
+Fields:
+
+position_count
+stable_position_count
+moderate_position_count
+unstable_position_count
+total_absolute_change
+average_mean_absolute_change
+minimum_mean_absolute_change
+maximum_mean_absolute_change
+comparisons
+Topics
+Position count
+Stable position count
+Moderate position count
+Unstable position count
+Total absolute change
+Average mean absolute change
+Minimum
+Maximum
+Input-order preservation
+Duplicate detection
+Validation
+Lookup
+Empty summary
+
+Focused tests:
+
+25 passed
+
+Full regression:
+
+794 passed
+
+This 794 passed is our latest confirmed major regression count.
+
+9.3.28 — Position Distribution Stability Overview 🔄 CURRENT
+
+This is where we are now.
+
+The goal is to create a higher-level overview from 9.3.27.
+
+Output
+PositionDistributionStabilityOverview
+
+Fields:
+
+position_count
+stable_position_count
+moderate_position_count
+unstable_position_count
+
+stable_percentage
+moderate_percentage
+unstable_percentage
+
+total_absolute_change
+average_mean_absolute_change
+minimum_mean_absolute_change
+maximum_mean_absolute_change
+
+overall_stability_level
+Overall classification
+< 2.0       STABLE
+2.0–<5.0    MODERATE
+>= 5.0      UNSTABLE
+Percentages
+stable percentage
+= stable positions / total positions × 100
+
+Same for moderate and unstable.
+
+Empty behavior
+position_count = 0
+stable = 0
+moderate = 0
+unstable = 0
+
+all percentages = 0
+
+all metrics = 0
+
+overall_stability_level = STABLE
+Production file
+analytics/position_distribution_stability_overview.py
+Test file
+tests/test_position_distribution_stability_overview.py
+
+There was an initial circular-import problem. That production problem was fixed.
+
+The test suite initially produced:
+
+4 failed, 29 passed
+
+Those four failures were traced to invalid test fixtures whose classification counts did not equal position_count, not to the production implementation.
+
+A corrected complete test file was prepared, but we have not yet confirmed the rerun result because we switched to the GitHub upload step.
+
+7. Current GitHub State
+
+This is important.
+
+We already created a major local commit:
+
+72004c0
+Complete Phase 9 frequency and position distribution analysis
+
+That commit contains:
+
+46 files changed
+12,302 insertions
+8 deletions
+
+At that point:
+
+main
+ahead of origin/main by 1 commit
+working tree clean
+
+Then Phase 9.3.28 files were created.
+
+The latest known Git status before the last commit command was:
+
+A  analytics/position_distribution_stability_overview.py
+A  tests/test_position_distribution_stability_overview.py
+
+Those were staged.
+
+We then instructed:
+
+git commit -m "Complete Phase 9.3.28 stability overview foundation"
+
+We have not yet received the output confirming whether that commit succeeded.
+
+So our next GitHub process is:
+
+1. Confirm current commit
+2. Confirm working tree
+3. Check commits missing from origin
+4. Push all local commits
+5. Verify remote synchronization
+
+We will not force-push.
+
+8. Full NeuroLytics Roadmap
+
+This is the master roadmap we originally established.
+
+Phase 1 — Project Architecture & Environment ✅
+Architecture
+Environment
+Flask
+Configuration
+Dependencies
+Testing
+Documentation
+Phase 2 — SQL Database Foundation ✅
+Subtopics
+SQLite
+SQLAlchemy
+Database engine
+Models
+Relationships
+Constraints
+CRUD
+Initialization
+Phase 3 — Historical Input / Parser ✅
+Subtopics
+Input parsing
+Open
+Jodi
+Close
+Digit extraction
+Leading zeros
+Validation
+Database insertion
+Phase 4 — Panna / Panel Reference ✅
+Subtopics
+Panna reference
+Panel structures
+Classification
+Lookup
+Validation
+Phase 5 — Jodi Family Reference ✅
+Subtopics
+Jodi family
+Digit relationships
+Family grouping
+Reference metrics
+Lookup
+Phase 6 — Panel Family Reference ✅
+Subtopics
+Panel family
+Family classification
+Family relationships
+Reference lookup
+Phase 7 — Historical Classification ✅
+Subtopics
+3-digit structure
+Zero
+Digit sum
+Parity
+Digit order
+Jodi structure
+Open/Close relation
+Digit overlap
+Versioning
+Phase 8 — Data Validation & Quality ✅
+Subtopics
+NULL
+Zero
+Negative values
+Duplicate dates
+Missing dates
+Validation status
+Quality reporting
+Data integrity
+Phase 9 — Analytics
+9.1 Statistical Foundation ✅
+Statistical observations
+Requests
+Results
+Validation
+Column extraction
+9.2 Frequency Analysis ✅
+Digit frequency
+Position frequency
+Frequency lookup
+9.3 Position Distribution Analysis 🔄
+Completed
+Position frequency
+Frequency summary
+Position distribution
+Distribution comparison
+Comparison matrix
+Comparison summary
+Stability
+Change detection
+Change classification
+Change magnitude
+Change summary
+Change trend
+Trend persistence
+Trend strength
+Trend consistency
+Volatility
+Volatility summary
+Stability summary
+Stability detail
+Stability comparison
+Stability comparison summary
+Current
+9.3.28 Position Distribution Stability Overview
+Then
+
+We continue extending the analytical foundation until Phase 9 is complete.
+
+Phase 10 — Trend / Correlation / Anomaly Analysis ⏳
+Topics
+Time trends
+Short-term trends
+Long-term trends
+Moving averages
+Rolling statistics
+Correlation
+Cross-position correlation
+Change-point analysis
+Outlier detection
+Anomaly detection
+Historical anomaly reports
+Phase 11 — Relationship & Cross-Position Analysis ⏳
+Topics
+Position relationships
+Digit relationships
+Open/Close relationships
+Cross-column relationships
+Conditional distributions
+Association metrics
+Relationship matrices
+Phase 12 — Sequence / Transition Analysis ⏳
+Topics
+Sequential patterns
+Previous → next relationships
+Digit transitions
+Position transitions
+Transition matrices
+Sequence frequencies
+Sequence statistics
+Phase 13 — Leakage-Safe Feature Framework ⏳
+
+This is extremely important before ML.
+
+Topics
+Feature definitions
+Historical-only features
+Time-aware features
+Feature timestamps
+Leakage prevention
+Feature validation
+Feature availability rules
+Phase 14 — Time / Frequency / Recency Features ⏳
+Topics
+Frequency features
+Recency
+Rolling frequency
+Moving averages
+Time windows
+Short-term statistics
+Long-term statistics
+Phase 15 — Family / Relationship / Transition Features ⏳
+Topics
+Jodi family features
+Panel family features
+Relationship features
+Transition features
+Historical family behavior
+Phase 16 — Sequence Dataset Builder ⏳
+Topics
+Training sequences
+Input windows
+Target construction
+Historical ordering
+Sequence validation
+Dataset generation
+Phase 17 — Feature / Dataset Versioning ⏳
+Topics
+Dataset versions
+Feature versions
+Feature metadata
+Reproducibility
+Dataset lineage
+Phase 18 — Statistical Baseline ⏳
+
+Before advanced ML, establish simple baselines.
+
+Topics
+Historical frequency baseline
+Distribution baseline
+Recency baseline
+Transition baseline
+Baseline evaluation
+Phase 19 — Bayesian Analysis ⏳
+Topics
+Prior
+Likelihood
+Posterior
+Bayesian feature analysis
+Historical probability estimation
+Calibration
+Phase 20 — Logistic Regression ⏳
+Topics
+Dataset preparation
+Training
+Validation
+Hyperparameters
+Metrics
+Feature importance
+Model persistence
+Phase 21 — Decision Tree ⏳
+Topics
+Tree construction
+Depth
+Splitting
+Validation
+Overfitting
+Explainability
+Phase 22 — Random Forest ⏳
+Topics
+Ensemble trees
+Feature sampling
+Hyperparameters
+Importance
+Validation
+Phase 23 — Extra Trees ⏳
+Topics
+Extremely randomized trees
+Ensemble behavior
+Comparison with Random Forest
+Phase 24 — Gradient Boosting ⏳
+Topics
+Boosting
+Sequential learners
+Learning rate
+Tree depth
+Validation
+Phase 25 — XGBoost ⏳
+Topics
+XGBoost
+Hyperparameter tuning
+Regularization
+Feature importance
+Evaluation
+Phase 26 — LightGBM ⏳
+Topics
+LightGBM
+Efficient boosting
+Feature handling
+Hyperparameters
+Evaluation
+Phase 27 — CatBoost ⏳
+Topics
+CatBoost
+Categorical handling
+Boosting
+Evaluation
+Model comparison
+Phase 28 — Markov Models ⏳
+Topics
+States
+Transitions
+Transition probabilities
+Markov chains
+Higher-order transitions
+Historical sequence analysis
+Phase 29 — Hidden Markov Models ⏳
+Topics
+Hidden states
+Observed states
+Transition probabilities
+Emission probabilities
+Sequence inference
+Phase 30 — LSTM ⏳
+Topics
+Sequence preparation
+Sliding windows
+LSTM architecture
+Training
+Validation
+Overfitting
+Evaluation
+Phase 31 — GRU ⏳
+Topics
+GRU architecture
+Sequence learning
+Training
+Evaluation
+LSTM comparison
+Phase 32 — Transformer ⏳
+Topics
+Attention
+Sequence embeddings
+Positional encoding
+Transformer architecture
+Training
+Evaluation
+Phase 33 — Advanced Sequence Framework ⏳
+Topics
+Sequence ensembles
+Multi-model sequence learning
+Long-term dependencies
+Feature + sequence integration
+Phase 34 — Model Evaluation ⏳
+Topics
+Accuracy
+Precision
+Recall
+F1
+Log loss
+ROC-AUC where applicable
+Top-K evaluation
+Calibration metrics
+Time-aware evaluation
+Phase 35 — Calibration ⏳
+Topics
+Probability calibration
+Reliability
+Calibration curves
+Brier score
+Calibrated models
+Phase 36 — Model Comparison ⏳
+Topics
+Model metrics
+Walk-forward comparison
+Stability
+Performance history
+Model selection criteria
+
+We will not simply select a model based on one test score.
+
+Phase 37 — Explainability ⏳
+Topics
+Feature importance
+SHAP-style analysis
+Model explanations
+Feature contribution
+Prediction explanation
+Phase 38 — Ensemble System ⏳
+Topics
+Model combination
+Voting
+Weighted models
+Probability aggregation
+Ensemble validation
+Phase 39 — Candidate Scoring ⏳
+Topics
+Candidate generation
+Feature scores
+Model scores
+Historical evidence
+Composite scoring
+Phase 40 — Learning-to-Rank Dataset ⏳
+Topics
+Ranking datasets
+Query groups
+Candidate features
+Ranking targets
+Historical ranking data
+Phase 41 — Learning-to-Rank Model ⏳
+Topics
+Ranking model
+Training
+Evaluation
+Ranking metrics
+Phase 42 — Panel Ranking ⏳
+Topics
+Panel candidates
+Panel feature scoring
+Historical ranking
+Ranking output
+Phase 43 — Jodi Ranking ⏳
+Topics
+Jodi candidates
+Jodi features
+Ranking
+Evaluation
+Phase 44 — Top-K System ⏳
+Topics
+Top-K candidates
+K selection
+Ranking stability
+Historical evaluation
+Phase 45 — Walk-Forward Validation ⏳
+
+One of the most important ML phases.
+
+Topics
+Train → Validate → Move forward → Train again
+Temporal splits
+Rolling windows
+Expanding windows
+Leakage prevention
+Historical simulation
+Phase 46 — Actual vs Ranked Analysis ⏳
+Topics
+Historical actual results
+Ranked candidates
+Hit/miss analysis
+Rank position
+Historical comparison
+Phase 47 — Performance Over Time ⏳
+Topics
+Performance timeline
+Rolling performance
+Model degradation
+Historical stability
+Phase 48 — Ranking Stability ⏳
+Topics
+Rank changes
+Candidate stability
+Rank volatility
+Model disagreement
+Phase 49 — Disagreement / Consensus ⏳
+Topics
+Model disagreement
+Model consensus
+Ensemble agreement
+Conflict analysis
+Phase 50 — Monitoring ⏳
+Topics
+System monitoring
+Data monitoring
+Model monitoring
+Prediction monitoring
+Performance monitoring
+Phase 51 — Drift Detection ⏳
+Topics
+Data drift
+Feature drift
+Distribution drift
+Concept drift
+Drift metrics
+Phase 52 — Model Degradation ⏳
+Topics
+Performance decline
+Stability decline
+Error increase
+Ranking degradation
+Phase 53 — Retraining Triggers ⏳
+Topics
+Scheduled retraining
+Drift-triggered retraining
+Performance-triggered retraining
+Data-volume triggers
+Phase 54 — Challenger Models ⏳
+Topics
+Champion model
+Challenger model
+Parallel evaluation
+Historical comparison
+Phase 55 — Promotion / Rejection ⏳
+Topics
+Model promotion criteria
+Model rejection criteria
+Evaluation reports
+Validation gates
+Phase 56 — Model Registry / Lifecycle ⏳
+Topics
+Model versions
+Metadata
+Training datasets
+Feature versions
+Model status
+Lifecycle history
+Phase 57 — Backend / API ⏳
+Topics
+Flask API
+Routes
+Services
+Database integration
+Analytics endpoints
+ML endpoints
+Ranking endpoints
+Error handling
+Phase 58 — Frontend Foundation ⏳
+Topics
+UI architecture
+Navigation
+Components
+API integration
+Responsive layout
+Phase 59 — Dashboard ⏳
+
+Main dashboard.
+
+Planned areas
+Historical data overview
+Data quality
+Statistics
+Trends
+Model status
+System status
+Phase 60 — Data Entry UI ⏳
+User input
+Date
+Open
+Jodi
+Close
+Features
+Validation
+Preview
+Save
+Duplicate warning
+Error handling
+Phase 61 — Historical UI ⏳
+Topics
+Historical table
+Filters
+Date ranges
+Search
+Record details
+Data quality indicators
+Phase 62 — Analytics Center ⏳
+Topics
+Frequency
+Distribution
+Stability
+Volatility
+Trends
+Correlations
+Relationships
+Phase 63 — Model Lab ⏳
+Topics
+Model list
+Training status
+Model metrics
+Model comparison
+Explainability
+Phase 64 — Training Center ⏳
+Topics
+Dataset selection
+Feature version
+Model selection
+Training
+Validation
+Training logs
+Phase 65 — Experiment Lab ⏳
+Topics
+Experiments
+Hyperparameters
+Dataset versions
+Metrics
+Experiment comparison
+Reproducibility
+Phase 66 — Prediction / Ranking UI ⏳
+Topics
+Prediction input
+Model selection
+Candidate generation
+Ranking
+Score display
+Explanation
+Phase 67 — Backtest Lab ⏳
+Topics
+Historical simulation
+Walk-forward backtesting
+Model comparison
+Ranking evaluation
+Performance metrics
+Phase 68 — Monitoring UI ⏳
+Topics
+Data quality
+Drift
+Model performance
+System health
+Alerts
+Phase 69 — Explainability UI ⏳
+Topics
+Feature importance
+Model explanation
+Historical evidence
+Decision explanation
+Phase 70 — Prediction History ⏳
+Topics
+Prediction records
+Model version
+Feature version
+Timestamp
+Historical evaluation
+Actual-vs-model comparison
+Phase 71 — Integration Testing ⏳
+Full workflow
+Input
+ ↓
+Validation
+ ↓
+SQL
+ ↓
+Classification
+ ↓
+Analytics
+ ↓
+Features
+ ↓
+Training
+ ↓
+Evaluation
+ ↓
+Ranking
+ ↓
+API
+ ↓
+Frontend
+Phase 72 — Leakage / Security / Integrity Audit ⏳
+Topics
+Data leakage
+Future-data leakage
+SQL integrity
+Input security
+API validation
+Authentication/authorization if required
+File security
+Model integrity
+Phase 73 — Performance ⏳
+Topics
+Database performance
+Query optimization
+Feature generation speed
+Model training speed
+API latency
+Frontend performance
+Phase 74 — Documentation ⏳
+Documentation areas
+Architecture
+Database
+Analytics
+Features
+ML
+Ranking
+Backtesting
+API
+Frontend
+Testing
+Deployment
+User guide
+Phase 75 — GitHub Release / Versioning ⏳
+Topics
+Git history
+Release version
+CHANGELOG
+PROJECT_STATUS
+README
+Tags
+Clean repository
+Reproducible setup
+Phase 76 — Final End-to-End Validation ⏳
+
+Final workflow:
+
+User enters data
+        ↓
+Input validation
+        ↓
+SQL storage
+        ↓
+Classification
+        ↓
+Analytics
+        ↓
+Feature generation
+        ↓
+Model training
+        ↓
+Evaluation
+        ↓
+Ranking
+        ↓
+Backtesting
+        ↓
+API
+        ↓
+Dashboard
+        ↓
+Monitoring
+
+Then:
+
+Full regression
++
+Integration tests
++
+Security/integrity audit
++
+Performance test
++
+Documentation audit
++
+GitHub release
+📊 Current Overall Position
+
+Our current position is approximately:
+
+Phase 1   ✅
+Phase 2   ✅
+Phase 3   ✅
+Phase 4   ✅
+Phase 5   ✅
+Phase 6   ✅
+Phase 7   ✅
+Phase 8   ✅
+Phase 9   🔄 IN PROGRESS
+Phase 10  ⏳
+...
+Phase 76  ⏳
+
+More specifically:
+
+Phase 9.1   ✅
+Phase 9.2   ✅
+Phase 9.3   🔄
+             ├── 9.3.1  ✅
+             ├── 9.3.2  ✅
+             ├── 9.3.3  ✅
+             ├── ...
+             ├── 9.3.26 ✅
+             ├── 9.3.27 ✅
+             └── 9.3.28 🔄 CURRENT
+Latest confirmed regression milestone
+794 passed
+
+That is the latest confirmed full regression result we have.
+
+🚀 What We Do Next
+
+Because you just upgraded and want to continue properly, I recommend we do not immediately jump into new ML models.
+
+We first need to lock down the current project state.
+
+Immediate sequence
+STEP 1
+Verify Git status
+        ↓
+STEP 2
+Commit Phase 9.3.28 files
+        ↓
+STEP 3
+Confirm all local commits
+        ↓
+STEP 4
+Push ALL accumulated NeuroLytics work to GitHub
+        ↓
+STEP 5
+Verify GitHub synchronization
+        ↓
+STEP 6
+Run corrected 9.3.28 focused tests
+        ↓
+STEP 7
+Run full regression
+        ↓
+STEP 8
+Update PROJECT_STATUS.md
+        ↓
+STEP 9
+Update CHANGELOG.md
+        ↓
+STEP 10
+Continue Phase 9.3 analytics
+        ↓
+STEP 11
+Complete Phase 9
+        ↓
+STEP 12
+Move into Phase 10+
+
+Most important: we now have a much larger workspace available for the data-analysis/ML portions, but we will still keep the project disciplined: one phase → implementation → focused tests → full regression → documentation → Git commit → next phase.
+
+That process is what has taken NeuroLytics from a basic project to the current 794-test analytical foundation.

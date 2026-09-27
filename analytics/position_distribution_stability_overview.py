@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from dataclasses import dataclass
 
 from analytics.position_distribution_stability_comparison_summary import (
@@ -97,36 +95,41 @@ def _validate_summary(
         > summary.maximum_mean_absolute_change
     ):
         raise ValueError(
-            "minimum_mean_absolute_change cannot exceed "
-            "maximum_mean_absolute_change."
+            "minimum_mean_absolute_change cannot exceed maximum "
+            "mean absolute change."
         )
 
 
 def classify_overall_stability(
     average_mean_absolute_change: float,
     stable_threshold: float = DEFAULT_STABLE_THRESHOLD,
-    unstable_threshold: float = DEFAULT_MODERATE_THRESHOLD,
+    moderate_threshold: float = DEFAULT_MODERATE_THRESHOLD,
 ) -> str:
-    if average_mean_absolute_change < 0:
-        raise ValueError(
-            "average_mean_absolute_change cannot be negative."
-        )
-
     if stable_threshold < 0:
         raise ValueError(
             "stable_threshold cannot be negative."
         )
 
-    if unstable_threshold < stable_threshold:
+    if moderate_threshold < 0:
         raise ValueError(
-            "unstable_threshold cannot be below "
-            "stable_threshold."
+            "moderate_threshold cannot be negative."
+        )
+
+    if stable_threshold >= moderate_threshold:
+        raise ValueError(
+            "stable_threshold must be less than "
+            "moderate_threshold."
+        )
+
+    if average_mean_absolute_change < 0:
+        raise ValueError(
+            "average_mean_absolute_change cannot be negative."
         )
 
     if average_mean_absolute_change < stable_threshold:
         return STABLE
 
-    if average_mean_absolute_change < unstable_threshold:
+    if average_mean_absolute_change < moderate_threshold:
         return MODERATE
 
     return UNSTABLE
@@ -136,12 +139,6 @@ def _calculate_percentage(
     count: int,
     total: int,
 ) -> float:
-    if count < 0:
-        raise ValueError("count cannot be negative.")
-
-    if total < 0:
-        raise ValueError("total cannot be negative.")
-
     if total == 0:
         return 0.0
 
@@ -151,7 +148,7 @@ def _calculate_percentage(
 def build_position_distribution_stability_overview(
     summary: PositionDistributionStabilityComparisonSummary,
     stable_threshold: float = DEFAULT_STABLE_THRESHOLD,
-    unstable_threshold: float = DEFAULT_MODERATE_THRESHOLD,
+    moderate_threshold: float = DEFAULT_MODERATE_THRESHOLD,
 ) -> PositionDistributionStabilityOverview:
     _validate_summary(summary)
 
@@ -160,11 +157,22 @@ def build_position_distribution_stability_overview(
             "stable_threshold cannot be negative."
         )
 
-    if unstable_threshold < stable_threshold:
+    if moderate_threshold < 0:
         raise ValueError(
-            "unstable_threshold cannot be below "
-            "stable_threshold."
+            "moderate_threshold cannot be negative."
         )
+
+    if stable_threshold >= moderate_threshold:
+        raise ValueError(
+            "stable_threshold must be less than "
+            "moderate_threshold."
+        )
+
+    overall_stability_level = classify_overall_stability(
+        summary.average_mean_absolute_change,
+        stable_threshold=stable_threshold,
+        moderate_threshold=moderate_threshold,
+    )
 
     stable_percentage = _calculate_percentage(
         summary.stable_position_count,
@@ -181,12 +189,6 @@ def build_position_distribution_stability_overview(
         summary.position_count,
     )
 
-    overall_stability_level = classify_overall_stability(
-        summary.average_mean_absolute_change,
-        stable_threshold=stable_threshold,
-        unstable_threshold=unstable_threshold,
-    )
-
     return PositionDistributionStabilityOverview(
         position_count=summary.position_count,
         stable_position_count=summary.stable_position_count,
@@ -196,14 +198,8 @@ def build_position_distribution_stability_overview(
         moderate_percentage=moderate_percentage,
         unstable_percentage=unstable_percentage,
         total_absolute_change=summary.total_absolute_change,
-        average_mean_absolute_change=(
-            summary.average_mean_absolute_change
-        ),
-        minimum_mean_absolute_change=(
-            summary.minimum_mean_absolute_change
-        ),
-        maximum_mean_absolute_change=(
-            summary.maximum_mean_absolute_change
-        ),
+        average_mean_absolute_change=summary.average_mean_absolute_change,
+        minimum_mean_absolute_change=summary.minimum_mean_absolute_change,
+        maximum_mean_absolute_change=summary.maximum_mean_absolute_change,
         overall_stability_level=overall_stability_level,
     )

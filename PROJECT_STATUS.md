@@ -1,877 +1,778 @@
-# Project Status
+NeuroLytics — Project Status
 
-## Current Phase
+Project Overview
 
-Phase 1 - Clean Project Foundation
+Project: NeuroLytics
+Architecture: SQL-first, local development
+Primary language: Python
+Database: SQLite / SQLAlchemy
+Backend foundation: Flask
+Current official phase: Phase 13 — Leakage-Safe Feature Framework
+Current status: COMPLETE
+Latest full regression: 2880 passed in 11.09s
 
-## Overall Status
+Overall Status
 
-Not started
+NeuroLytics has completed Phases 1 through 13 of the approved roadmap.
 
-## Architecture
+No known regression failures remain in the current test suite.
 
-SQL-first architecture confirmed.
+Core Architecture
 
-CSV is not part of the production architecture.
+User / Application Input
+        ↓
+Validation
+        ↓
+Parser / Normalization
+        ↓
+SQL Database
+        ↓
+Historical Services
+        ↓
+Reference Systems
+        ↓
+Historical Classification
+        ↓
+Statistical Analysis
+        ↓
+Position / Relationship / Sequence Analytics
+        ↓
+Point-in-Time Feature Engineering
+        ↓
+Feature Validation
+        ↓
+Leakage Detection
+        ↓
+Feature Versioning
+        ↓
+Feature Artifact / Integrity
+        ↓
+Future ML / Evaluation / Ranking Layers
 
-## Completed
+Architectural Principles
 
-- Fresh project directory planned
-- SQL-first architecture defined
-- Complete model roadmap defined
-- Analytics architecture defined
-- Model monitoring architecture defined
-- Retraining architecture defined
+SQL is the production source of truth.
 
-## Phase 1 Tasks
+Historical observations are persisted in SQL.
 
-- [ ] Create project directory
-- [ ] Create folder structure
-- [ ] Create Python virtual environment
-- [ ] Create requirements.txt
-- [ ] Install dependencies
-- [ ] Create .gitignore
-- [ ] Create .env.example
-- [ ] Create run.py
-- [ ] Create README.md
-- [ ] Create CHANGELOG.md
-- [ ] Create tests
-- [ ] Initialize Git
-- [ ] Connect GitHub repository
-- [ ] Commit Phase 1
-- [ ] Push Phase 1
+CSV is not the production source of truth.
 
-## Current Rule
+Leading zeros are preserved.
 
-Do not start Phase 2 until Phase 1 has been tested and committed.
+Digit 0 is a valid observed value.
+
+NULL and 0 are never treated as equivalent.
+
+Missing calendar dates are not silently converted into observations.
+
+Duplicate market/date observations are rejected.
+
+Feature engineering must be point-in-time correct.
+
+Future observations must never be used to construct historical features.
+
+Feature names must be globally unique.
+
+Feature definitions are versioned.
+
+Feature artifacts are reproducible and integrity-checkable.
+
+Production modules are tested independently and through full regression.
+
+Approved 76-Phase Roadmap
+
+Project Architecture & Environment
+
+SQL Database Foundation
+
+Historical Input / Parser
+
+Panna / Panel Reference
+
+Jodi Family Reference
+
+Panel Family Reference
+
+Historical Classification
+
+Data Validation & Quality
+
+Frequency / Statistical Analysis
+
+Trend / Correlation / Anomaly
+
+Relationship & Cross-Position
+
+Sequence / Transition
+
+Leakage-Safe Feature Framework
+
+Time / Frequency / Recency Features
+
+Family / Relationship / Transition Features
+
+Sequence Dataset Builder
+
+Feature / Dataset Versioning
+
+Statistical Baseline
+
+Bayesian Models
+
+Logistic Regression
+
+Decision Tree
+
+Random Forest
+
+Extra Trees
+
+Gradient Boosting
+
+XGBoost
+
+LightGBM
+
+CatBoost
+
+Markov Models
+
+Hidden Markov Models
+
+LSTM
+
+GRU
+
+Transformer
+
+Advanced Sequence Framework
+
+Model Evaluation
+
+Calibration
+
+Model Comparison
+
+Explainability
+
+Ensemble
+
+Candidate Scoring
+
+Learning-to-Rank Dataset
+
+Learning-to-Rank Model
+
+Panel Ranking
+
+Jodi Ranking
+
+Top-K Framework
+
+Walk-Forward Evaluation
+
+Actual-vs-Ranked Analysis
+
+Performance Over Time
+
+Ranking Stability
+
+Disagreement / Consensus
+
+Monitoring
+
+Data Drift
+
+Model Degradation
+
+Retraining Triggers
+
+Challenger Models
+
+Model Promotion / Rejection
+
+Model Registry / Lifecycle
+
+Backend / API
+
+Frontend Foundation
+
+Dashboard
+
+Data Entry UI
+
+Historical UI
+
+Analytics Center
+
+Model Lab
+
+Training Center
+
+Experiment Lab
+
+Prediction / Ranking UI
+
+Backtest Lab
+
+Monitoring UI
+
+Explainability UI
+
+Prediction History
+
+Integration Testing
+
+Leakage / Security / Integrity Audit
+
+Performance
+
+Documentation
+
+GitHub Release / Versioning
+
+Final End-to-End Verification
+
+Phase Status Summary
+
+Phase
+
+Name
+
+Status
+
+1
+
+Project Architecture & Environment
+
+COMPLETE
+
+2
+
+SQL Database Foundation
+
+COMPLETE
+
+3
+
+Historical Input / Parser
+
+COMPLETE
+
+4
+
+Panna / Panel Reference
+
+COMPLETE
+
+5
+
+Jodi Family Reference
+
+COMPLETE
+
+6
+
+Panel Family Reference
+
+COMPLETE
+
+7
+
+Historical Classification
+
+COMPLETE
+
+8
+
+Data Validation & Quality
+
+COMPLETE
+
+9
+
+Frequency / Statistical Analysis
+
+COMPLETE
+
+10
+
+Trend / Correlation / Anomaly
+
+NOT INDEPENDENTLY CLOSED
+
+11
+
+Relationship & Cross-Position
+
+RELATED IMPLEMENTATION EXISTS; NOT INDEPENDENTLY CLOSED
+
+12
+
+Sequence / Transition
+
+RELATED IMPLEMENTATION EXISTS; NOT INDEPENDENTLY CLOSED
+
+13
+
+Leakage-Safe Feature Framework
+
+COMPLETE
+
+14–76
+
+Future ML / Evaluation / Product Phases
+
+NOT STARTED
+
+Phase 1 — Project Architecture & Environment
+
+Status: COMPLETE
+
+Established the NeuroLytics project foundation, Python environment, production folders, dependency management, testing foundation, documentation foundation, and SQL-first architecture.
+
+Phase 2 — SQL Database Foundation
+
+Status: COMPLETE
+
+Implemented SQLAlchemy/SQLite foundation, database configuration, engine, sessions, models, initialization, services, uniqueness protection, parser integration, leading-zero preservation, and digit-level storage.
+
+Historical results contain Market, Result Date, Open, Jodi, Close, and col1–col8.
 
 Phase 3 — Historical Input / Parser
 
 Status: COMPLETE
 
-Completed milestones:
+Implemented historical input service, validation, parser, SQL persistence, duplicate market/date protection, retrieval, error handling, leading-zero preservation, and automatic col1–col8 derivation.
 
-3.1 Historical Input Service       ✅
-3.2 Input Validation               ✅
-3.3 Parser Integration             ✅
-3.4 SQL Persistence                ✅
-3.5 Error Handling                 ✅
-3.6 Complete Testing               ✅
-3.7 Documentation / GitHub         ✅
+Example:
 
-Phase 3 verification:
-- Full test suite: 36 passed
-- Historical input validation implemented
-- Open/Jodi/Close parser integrated
-- Automatic Col1-Col8 derivation verified
-- Leading-zero preservation verified
-- SQL persistence verified
-- Duplicate market/date protection verified
-- SQL retrieval verified
-- Error handling verified
+Open=123, Jodi=45, Close=678
+Combined=12345678
+col1=1 col2=2 col3=3 col4=4 col5=6 col6=7 col7=8
 
-Current architecture:
-User input
-→ Validation
-→ Parser
-→ Historical Input Service
-→ Historical Result Service
-→ SQL database
+Verification: 36 passed
 
-Next official roadmap phase:
-Phase 4 — Panna/Panel Reference System
-
-Phase 4 — Panna/Panel Reference System
+Phase 4 — Panna / Panel Reference System
 
 Status: COMPLETE
 
-Completed milestones:
+Implemented Panna SQL storage, validation, normalization, leading-zero preservation, type/status fields, creation, duplicate protection, lookup/search/filtering, and structural digit analysis.
 
-4.1 Panna/Panel data model
-- Added `panna_reference` SQL table.
-- Added Panna value storage with leading-zero preservation.
-- Added individual digit columns.
-- Added Panna type and active/inactive status.
+Verification: 73 passed
 
-4.2 Panna validation & normalization
-- Added Panna validation service.
-- Validates exactly 3 numeric digits.
-- Preserves leading zeros.
-- Rejects null, empty, non-numeric, short, and long values.
-
-4.3 Panna reference service
-- Added Panna creation.
-- Added duplicate protection.
-- Added Panna lookup.
-- Added ID-based lookup.
-
-4.4 Panna lookup/search
-- Added retrieval of all Pannas.
-- Added active/inactive filtering.
-- Added partial Panna search.
-- Added Panna type filtering.
-- Added combined search filters.
-
-4.5 Panna family/relationship preparation
-- Added structural Panna analysis.
-- Added digit extraction.
-- Added sorted digit analysis.
-- Added unique digit analysis.
-- Added repeated-digit detection.
-- No prediction logic is included.
-
-4.6 Complete testing
-- Added Panna integration tests.
-- Verified validation → SQL persistence → lookup → analysis workflow.
-- Full test suite: 73 passed.
-
-4.7 Documentation + GitHub
-- Documentation update in progress.
-
-## Phase 5 — Jodi Family Reference System
+Phase 5 — Jodi Family Reference System
 
 Status: COMPLETE
 
-Phase 5 implemented the Jodi Family Reference System as a SQL-backed reference layer for NeuroLytics.
+Implemented SQL-backed Jodi Family infrastructure including family/member models, lookup, search, active/inactive filtering, duplicate protection, structural analysis, relationship support, summaries, and validation.
 
-### Completed milestones
+Phase 6 — Panel Family Reference System
 
-- 5.1 Jodi family data model
-- 5.2 Jodi validation and normalization
-- 5.3 Jodi family service
-- 5.4 Jodi family lookup and search
-- 5.5 Jodi family relationship analysis
-- 5.6 Complete testing
-- 5.7 Documentation and GitHub
+Status: COMPLETE
 
-### Jodi Family Data Model
+Implemented Panel Family/member models and services, search/filtering, duplicate protection, leading-zero preservation, reverse relationships, same-position relationships, digit-sum relationships, relationship categorization, and family summaries.
 
-Added SQL-backed tables:
+Panel-specific tests: 85 passed
 
-- `jodi_families`
-- `jodi_family_members`
+Full regression: 219 passed
 
-Jodi families support:
+Phase 7 — Historical Classification
 
-- unique family names
-- optional descriptions
-- active/inactive status
-- multiple Jodi members
-- family/member relationships
-- duplicate protection
+Status: COMPLETE
 
-### Jodi Validation
+Implemented versioned descriptive classifications for three-digit structure, zero presence, digit sum, parity, order, Jodi structure, Open/Close relationship, digit overlap, lookup, date-range queries, validation, and leading-zero preservation.
 
-Jodi values are validated as exactly two numeric digits.
+Focused tests: 73 passed
 
-Examples:
+Full regression: 292 passed
 
-- `05` remains `05`
-- `00` remains `00`
-- `12` remains `12`
+Phase 8 — Data Validation & Quality Engine
 
-Leading zeros are preserved.
+Status: COMPLETE
 
-### Jodi Family Service
+Implemented historical data quality model, rules, service, checker, reports, NULL detection, zero validation, duplicate dates, missing calendar dates, structural validation, and VALID/WARNING/INVALID statuses.
 
-The service layer supports:
+Reporting labels: EXCELLENT, GOOD, FAIR, NEEDS_REVIEW.
 
-- family creation
-- family lookup
-- family lookup by ID
-- active/inactive family filtering
-- family search
-- Jodi member creation
-- member lookup
-- member listing
-- active/inactive member filtering
-- Jodi member search
-- duplicate protection
+Final regression: 378 passed
 
-### Jodi Relationship Analysis
+Phase 9 — Frequency / Statistical Analysis
 
-Added descriptive relationship analysis between Jodi values.
+Status: COMPLETE
 
-Supported relationship characteristics include:
+Phase 9.1
 
-- same Jodi
-- reversed Jodi
-- same first digit
-- same second digit
-- same digit sum
-- position-wise digit differences
-- total digit difference
+Implemented statistical observation contracts, analysis-column validation, observation extraction, result structures, type validation, zero handling, and NULL handling.
 
-Family-level analysis evaluates every unique member pair without comparing a member with itself.
+Focused tests: 17 passed
 
-### Relationship Categorization
+Full regression: 395 passed
 
-Relationships can be categorized as:
+Phase 9.2
 
-- `same`
-- `reverse`
-- `same_first_digit`
-- `same_second_digit`
-- `same_digit_sum`
-- `different`
+Implemented digit frequency analysis, all-position frequency analysis, frequency lookup, explicit digits 0–9, zero handling, and missing-value handling.
 
-Multiple categories may apply to the same relationship.
+Focused tests: 11 passed
 
-### Family Relationship Summary
+Full regression: 406 passed
 
-Family-level summaries include:
+Phase 9.3 — Position-Wise Distribution Analytics
 
-- family ID
-- family name
-- member count
-- pair count
-- average digit difference
-- reverse relationship count
-- same digit-sum relationship count
-- relationship category counts
+COMPLETE / PAUSED AT 9.3.75
 
-### Testing
+Implemented position-wise frequency, summaries, distributions, distribution comparison, comparison metrics/matrices/summaries, stability analysis/summaries/comparison, temporal position analysis, change detection/classification/summaries, distribution regimes/transitions/overview, position analytics consolidation, quality reports, and quality summaries.
 
-Phase 5 testing completed successfully.
+Core rules:
 
-Full NeuroLytics regression suite:
+0 is valid.
 
-- 134 tests passed
-- 0 failures
+NULL is not zero.
 
-Latest verification:
+Digits 0–9 are represented.
 
-`python -m pytest -q`
+Position order is preserved.
+
+Ties are preserved.
+
+Missing dates are not fabricated.
+
+Analytics are descriptive.
+
+Source data is not mutated.
+
+Final milestone: 9.3.75
+
+Final recorded Phase 9.3 regression: 2342 passed
+
+No artificial 9.3.76+ milestones are being invented.
+
+Phases 10–12 — Status Clarification
+
+Related trend, relationship, cross-position, sequence, and transition functionality exists in accumulated analytics and feature infrastructure.
+
+However, Phases 10, 11, and 12 are not being falsely marked independently complete. They remain roadmap phases until their formal intended scope is explicitly reviewed and verified.
+
+Phase 13 — Leakage-Safe Feature Framework
+
+Status: COMPLETE
+
+Purpose: convert historical SQL data into point-in-time-correct, validated, reproducible ML feature datasets.
+
+Architecture
+
+SQL HistoricalResult
+        ↓
+Historical Data Loader
+        ↓
+Point-in-Time Validation
+        ↓
+Feature Configuration
+        ↓
+Feature Engines
+        ↓
+Unified Feature Dataset
+        ↓
+Feature Schema
+        ↓
+Feature Validator
+        ↓
+Leakage Detector
+        ↓
+Feature Versioning
+        ↓
+Feature Pipeline
+        ↓
+Feature Dataset Contract
+        ↓
+Feature Artifact
+        ↓
+Artifact Integrity
+
+Implemented Feature Modules
+
+features/historical_data_loader.py
+features/point_in_time.py
+features/feature_config.py
+features/lag_features.py
+features/rolling_features.py
+features/recency_features.py
+features/position_features.py
+features/frequency_features.py
+features/sequence_features.py
+features/unified_dataset.py
+features/feature_schema.py
+features/feature_schema_builder.py
+features/feature_validator.py
+features/leakage_detector.py
+features/feature_versioning.py
+features/feature_pipeline.py
+features/feature_dataset_contract.py
+features/feature_artifact.py
+features/artifact_integrity.py
+
+Point-in-Time Rule
+
+For target date T, only:
+
+result_date < T
+
+may be used.
+
+Target-date and future observations are excluded.
+
+Feature Families
+
+Lag
+
+Configurable historical lag features.
+
+Rolling
+
+Mean, minimum, and maximum over historical windows.
+
+Recency
+
+Observations-since-last-seen and seen-within-lookback for digits 0–9.
+
+Position
+
+Latest value, parity, zero state, high state, historical mean, minimum, and maximum.
+
+Frequency
+
+Digit counts and percentages using the existing statistical frequency engine.
+
+Sequence
+
+Previous value, latest value, transition, transition distance, changed state, latest transition count, and latest transition percentage.
+
+Cross-Position
+
+Existing cross-position feature infrastructure is included in unified feature construction.
+
+Unified Dataset
+
+features/unified_dataset.py provides unified feature records, values, types, sources, counts, and global duplicate-name validation.
+
+Sequence feature names were namespaced to avoid collisions with position features.
+
+Example:
+
+col1_sequence_latest_value
+col1_sequence_transition
+
+Feature Schema
+
+Metadata includes:
+
+feature name
+
+feature version
+
+feature type
+
+source
+
+position
+
+window
+
+lag
+
+description
+
+availability rule
+
+data type
+
+Feature Validator
+
+Validates feature names, types, sources, schemas, duplicate names, metadata, and structure.
+
+Duplicate feature names are represented as structured validation failures.
+
+Focused tests: 36 passed
+
+Leakage Detector
+
+Leakage categories:
+
+FUTURE_ROW
+TARGET_DATE_INCLUDED
+DUPLICATE_DATE
+TEMPORAL_ORDER
+
+Statuses:
+
+CLEAN
+LEAKAGE
+
+Focused tests: 34 passed
+
+Feature Versioning
+
+Uses deterministic SHA-256 identity.
+
+Same definitions produce the same identity; changed definitions/configuration/schema produce different identities.
+
+Focused tests: 39 passed
+
+Feature Pipeline
+
+Pipeline:
+
+SQL
+ ↓
+Historical Loader
+ ↓
+Point-in-Time History
+ ↓
+Unified Features
+ ↓
+Schemas
+ ↓
+Validation
+ ↓
+Leakage Detection
+ ↓
+Version Identity
+
+Focused tests: 31 passed
+
+Feature Dataset Contract
+
+Validates target date, feature version, feature count, schema count, feature names, schema alignment, validation status, leakage status, and version identity.
+
+A valid contract requires:
+
+validation = VALID
+leakage = CLEAN
+
+Focused tests: 38 passed
+
+Feature Artifact
+
+Contains target date, feature version, feature names, values, schemas, version identity, validation status, and leakage status.
+
+Focused tests: 37 passed
+
+Artifact Integrity
+
+Uses SHA-256.
+
+Verified for feature values, zero vs None, feature version, target date, and schema metadata.
+
+Focused tests: 29 passed
+
+Phase 13 — Corrections
+
+Sequence / Position Feature Name Collision
+
+Both Position Features and Sequence Features initially generated names such as:
+
+col1_latest_value
+
+The duplicate validator was not weakened.
+
+Sequence features were namespaced:
+
+col1_sequence_latest_value
+
+This preserves global feature-name uniqueness.
+
+Frequency Feature Integration
+
+The initial frequency feature implementation passed HistoricalFeatureObservation directly to the existing statistical frequency engine, which expects StatisticalObservation with column_name.
+
+An explicit adapter was added in the feature layer. The existing analytics engine was reused rather than duplicated.
+
+Final frequency feature tests: 19 passed
+
+Feature Validator Correction
+
+Duplicate-name/schema errors were changed to structured validation failures instead of escaping as exceptions.
+
+Final validator tests: 36 passed
+
+Final Phase 13 Verification
+
+2880 passed in 11.09s
 
 Result:
 
-`134 passed in 2.27s`
+0 failed
+0 errors
 
-### Domain Safety
+Current Engineering Rules
 
-The Jodi family reference and relationship components are descriptive data-analysis infrastructure only.
+SQL is the source of truth.
 
-They do not generate betting-number predictions or recommendations.
+Do not fabricate missing data.
 
-### Phase 5 Result
+0 is a valid digit.
 
-The Jodi Family Reference System is complete and ready to support later analytics, feature engineering, sequence analysis, and model-development phases.
+NULL is distinct from zero.
 
-## Phase 6 — Panel Family Reference System
+Future observations cannot be used for historical features.
 
-Status: COMPLETE
+Duplicate dates are rejected where required.
 
-Phase 6 implemented the Panel Family Reference System as a SQL-backed reference layer for NeuroLytics.
+Feature names must be globally unique.
 
-### Completed milestones
+Feature definitions are versioned.
 
-- 6.1 Panel family data model
-- 6.2 Panel validation and normalization
-- 6.3 Panel family service
-- 6.4 Panel family lookup and search
-- 6.5 Panel family relationship analysis
-- 6.6 Complete testing
-- 6.7 Documentation and GitHub
+Feature artifacts are reproducible.
 
-### Panel Family Data Model
+Artifact integrity is deterministic.
 
-Added SQL-backed tables:
+Existing analytics should be reused instead of duplicated.
 
-- `panel_families`
-- `panel_family_members`
+Phase completion requires explicit scope verification.
 
-Panel families support:
+No model training or ranking is part of Phase 13.
 
-- unique family names
-- optional descriptions
-- active/inactive status
-- multiple Panel members
-- family/member relationships
-- duplicate protection
+Current Status
 
-### Panel Validation
+Phase 1   COMPLETE
+Phase 2   COMPLETE
+Phase 3   COMPLETE
+Phase 4   COMPLETE
+Phase 5   COMPLETE
+Phase 6   COMPLETE
+Phase 7   COMPLETE
+Phase 8   COMPLETE
+Phase 9   COMPLETE
+Phase 10  NOT INDEPENDENTLY CLOSED
+Phase 11  NOT INDEPENDENTLY CLOSED
+Phase 12  NOT INDEPENDENTLY CLOSED
+Phase 13  COMPLETE
+Phase 14+ NOT STARTED
 
-Panel values are validated as exactly three numeric digits.
+Latest project regression: 2880 passed in 11.09s
 
-Leading zeros are preserved.
+GitHub Release Status
 
-Examples:
+Before committing/pushing:
 
-- `005` remains `005`
-- `050` remains `050`
-- `000` remains `000`
-- `123` remains `123`
+review all changed files
 
-Individual digits are also stored separately for structural analysis.
+review README
 
-### Panel Family Service
+review PROJECT_STATUS.md
 
-The service layer supports:
+review CHANGELOG.md
 
-- family creation
-- family lookup
-- family lookup by ID
-- active/inactive family filtering
-- family search
-- Panel member creation
-- member lookup
-- member listing
-- active/inactive member filtering
-- Panel member search
-- duplicate protection
-- leading-zero preservation
+review Phase 9 documentation
 
-### Panel Relationship Analysis
+review Phase 13 documentation
 
-Added descriptive structural relationship analysis between Panel values.
+run full regression
 
-Supported characteristics include:
+inspect Git status
 
-- same Panel
-- reversed Panel
-- same first digit
-- same second digit
-- same third digit
-- same digit sum
-- position-wise digit differences
-- total digit difference
+review staged changes
 
-Family-level analysis evaluates every unique Panel pair without comparing a member with itself.
+commit
 
-### Relationship Categorization
-
-Relationships can be categorized as:
-
-- `same`
-- `reverse`
-- `same_first_digit`
-- `same_second_digit`
-- `same_third_digit`
-- `same_digit_sum`
-- `different`
-
-Multiple categories may apply to the same relationship.
-
-### Family Relationship Summary
-
-Panel family summaries include:
-
-- family ID
-- family name
-- member count
-- pair count
-- average digit difference
-- reverse relationship count
-- same digit-sum relationship count
-- relationship category counts
-
-### Edge-Case Testing
-
-Phase 6 testing covers:
-
-- leading-zero Panels
-- reversed Panels
-- repeated digits
-- multiple relationship categories
-- inactive members
-- active-only filtering
-- inclusion of inactive members
-- empty families
-- large families
-- unique pair generation
-- pair-count validation
-- average digit-difference calculations
-- category-count validation
-
-### Testing
-
-Phase 6 testing completed successfully.
-
-Panel-specific test suites:
-
-- 85 passed
-- 0 failures
-
-Full NeuroLytics regression suite:
-
-- 219 passed
-- 0 failures
-
-Latest verification:
-
-`python -m pytest -q`
-
-Result:
-
-`219 passed in 3.97s`
-
-### Domain Safety
-
-The Panel Family Reference System is descriptive data-analysis infrastructure only.
-
-It does not generate betting-number predictions or recommendations.
-
-### Phase 6 Result
-
-The Panel Family Reference System is complete and ready to support later historical classification, analytics, feature engineering, relationship analysis, sequence analysis, and model-development phases.
-
-## Phase 7 — Historical Classification
-
-Status: **COMPLETE**
-
-Completed milestones:
-
-- 7.1 Classification data model
-- 7.2 Classification rules
-- 7.3 Historical classification service
-- 7.4 Classification validation
-- 7.5 Classification queries / lookup
-- 7.6 Complete testing
-- 7.7 Documentation + GitHub
-
-Classification capabilities:
-
-- Versioned historical classifications
-- Descriptive three-digit structural classification
-- Zero presence classification
-- Digit-sum classification
-- Odd/even parity classification
-- Ascending/descending/mixed order classification
-- Jodi structural classification
-- Open/Close relationship classification
-- Digit-overlap classification
-- Classification lookup by ID
-- Classification lookup by version
-- Classification lookup by Open/Jodi/Close/Overall class
-- Classification lookup by date range
-- Classification validation
-- Leading-zero preservation
-
-Testing:
-
-- Classification-focused tests: 73 passed
-- Full project regression: 292 passed
-
-Phase 7 is complete and verified.
-
-
-## Phase 8 — Data Validation & Quality Engine
-
-Status: **COMPLETE**
-
-Completed milestones:
-
-- 8.1 Data-quality model / foundation
-- 8.2 Validation rules
-- 8.3 Data-quality validation service
-- 8.4 Historical data quality checks
-- 8.5 Quality reporting
-- 8.6 Complete testing
-- 8.7 Documentation + GitHub
-
-### Data-quality foundation
-
-Added the `historical_data_quality` SQL table with versioned quality assessments.
-
-Quality records contain:
-
-- Historical result reference
-- Validation version
-- Quality status
-- Issue count
-- Issue summary
-- Validation timestamp
-
-### Validation rules
-
-Historical records are checked for:
-
-- Open result length and numeric format
-- Jodi result length and numeric format
-- Close result length and numeric format
-- Leading-zero preservation
-- Digit column presence
-- Digit column integer validation
-- Digit range `0-9`
-- Derived-column consistency
-- Valid market ID
-- Valid historical result date
-
-Actual zero values are treated as valid data and are not confused with missing values.
-
-### Historical quality checks
-
-Added dataset-level historical quality checking.
-
-Capabilities include:
-
-- Validate all historical records for a market
-- Detect invalid historical records
-- Track valid, warning, and invalid records
-- Calculate quality percentage
-- Identify unchecked historical records
-- Revalidate records without creating duplicate quality records
-- Analyze historical date coverage
-- Identify missing calendar dates
-- Identify duplicate dates during date analysis
-
-Missing calendar dates are reported separately and are not automatically classified as invalid because missing dates may represent legitimate market closures or unavailable historical data.
-
-### Quality reporting
-
-Added `QualityReportService`.
-
-Reports include:
-
-- Market information
-- Validation version
-- Total records
-- Checked records
-- Unchecked records
-- Valid records
-- Warning records
-- Invalid records
-- Quality percentage
-- Quality status
-- First historical date
-- Last historical date
-- Missing calendar dates
-- Duplicate dates
-- Invalid record IDs
-- Warning record IDs
-
-Frontend-friendly reports can return dates in ISO format.
-
-Quality reporting categories:
-
-- `EXCELLENT` — 99% or higher
-- `GOOD` — 95% to below 99%
-- `FAIR` — 90% to below 95%
-- `NEEDS_REVIEW` — below 90%
-
-These categories are reporting labels only and do not modify the underlying validation result.
-
-### Phase 8 testing
-
-Phase-specific testing includes:
-
-- Data-quality rule tests
-- Data-quality service tests
-- Historical quality checker tests
-- Quality report service tests
-- Phase 8 integration tests
-- Edge-case verification
-- Full project regression testing
-
-Final full project regression:
-
-**378 tests passed**
-
-Phase 8 was completed and verified without regression.
-
-## Phase 9 — Frequency / Statistical Analysis
-
-Status: **IN PROGRESS**
-
-### Step 9.1 — Statistical Analysis Foundation
-
-Status: **COMPLETE**
-
-Implemented the foundation for the Phase 9 statistical analysis layer.
-
-### Statistical analysis foundation
-
-Added:
-
-- `analytics/statistical_foundation.py`
-- `tests/test_statistical_foundation.py`
-
-The statistical foundation provides:
-
-- Standard analysis column definitions for `col1` through `col8`
-- Statistical analysis request structure
-- Analysis version support
-- Analysis date-range validation
-- Market ID validation
-- Supported-column validation
-- Historical observation extraction
-- Standard statistical observation structure
-- Standard statistical analysis result structure
-
-### Data integrity rules
-
-The statistical foundation preserves the distinction between valid zero values and missing values.
-
-- Actual digit value `0` remains a valid observation.
-- `NULL` values are treated as missing observations.
-- Missing values are never converted into zero.
-- Boolean values are rejected.
-- Non-integer values are rejected.
-- Values outside the digit range `0-9` are rejected.
-- Historical record dates are required for statistical observations.
-
-### Analysis scope
-
-Statistical analysis currently supports the following historical digit columns:
-
-- `col1`
-- `col2`
-- `col3`
-- `col4`
-- `col5`
-- `col6`
-- `col7`
-- `col8`
-
-The foundation does not perform prediction.
-
-It provides reusable structures and validation for the statistical analysis modules that will be implemented in later Phase 9 steps.
-
-
-## Phase 9 — Frequency / Statistical Analysis
-
-Status: **IN PROGRESS**
-
-### Step 9.1 — Statistical Analysis Foundation
-
-Status: **COMPLETE**
-
-Implemented the foundation for the Phase 9 statistical analysis layer.
-
-### Statistical analysis foundation
-
-Added:
-
-- `analytics/__init__.py`
-- `analytics/statistical_foundation.py`
-- `tests/test_statistical_foundation.py`
-
-The statistical foundation provides:
-
-- Standard analysis column definitions for `col1` through `col8`
-- Statistical analysis request structure
-- Analysis version support
-- Analysis date-range validation
-- Market ID validation
-- Supported-column validation
-- Historical observation extraction
-- Standard statistical observation structure
-- Standard statistical analysis result structure
-
-### Data integrity rules
-
-The statistical foundation preserves the distinction between valid zero values and missing values.
-
-- Actual digit value `0` remains a valid observation.
-- `NULL` values are treated as missing observations.
-- Missing values are never converted into zero.
-- Boolean values are rejected.
-- Non-integer values are rejected.
-- Values outside the digit range `0-9` are rejected.
-- Historical record dates are required for statistical observations.
-
-### Analysis scope
-
-Statistical analysis currently supports the following historical digit columns:
-
-- `col1`
-- `col2`
-- `col3`
-- `col4`
-- `col5`
-- `col6`
-- `col7`
-- `col8`
-
-The foundation does not perform prediction.
-
-It provides reusable structures and validation for the statistical analysis modules that will be implemented in later Phase 9 steps.
-
-### Actual verification output
-
-#### Focused Step 9.1 test
-
-Command:
-
-```text
-pytest -q tests\test_statistical_foundation.py
-````
-
-Actual output:
-
-```text
-(venv) D:\NeuroLytics>pytest -q tests\test_statistical_foundation.py
-.................                                                    [100%]
-17 passed in 0.10s
-```
-
-#### Full project regression
-
-Command:
-
-```text
-pytest -q
-```
-
-Actual output:
-
-```text
-(venv) D:\NeuroLytics>pytest -q
-.................................................................... [ 17%]
-.................................................................... [ 34%]
-.................................................................... [ 51%]
-.................................................................... [ 68%]
-.................................................................... [ 86%]
-.......................................................              [100%]
-395 passed in 9.21s
-```
-
-### Testing summary
-
-* Step 9.1 focused tests: **17 passed**
-* Full project regression: **395 passed**
-* Regression time: **9.21 seconds**
-* No regression detected in previous phases
-
-Step 9.1 was completed and verified successfully.
-
-### Phase 9 status
-
-Phase 9 remains **IN PROGRESS**.
-
-Completed:
-
-* 9.1 Statistical Analysis Foundation
-
-Remaining:
-
-* 9.2 Frequency analysis
-* 9.3 Position-wise frequency analysis
-* 9.4 Daily / weekly / monthly statistics
-* 9.5 Distribution analysis
-* 9.6 Statistical feature storage
-* 9.7 Testing
-* 9.8 Documentation + GitHub
-
-### Step 9.2 — Frequency Analysis
-
-Status: **COMPLETE**
-
-Implemented the historical frequency-analysis layer for the eight supported digit columns.
-
-### Frequency analysis capabilities
-
-Added:
-
-- `analytics/frequency_analysis.py`
-- `tests/test_frequency_analysis.py`
-
-The frequency analysis module provides:
-
-- Digit frequency calculation for `col1` through `col8`
-- Frequency counts for digits `0` through `9`
-- Percentage calculation for each digit
-- Complete digit distributions including digits with zero occurrences
-- Individual column frequency analysis
-- Frequency analysis across all supported columns
-- Frequency record lookup by digit
-- Empty-observation handling
-
-### Data integrity rules
-
-Frequency analysis preserves the distinction between valid values and missing data.
-
-- Actual digit `0` is counted as a valid observation.
-- `NULL` values are not converted into zero.
-- Only observations belonging to the requested analysis column are included.
-- Digits are restricted to the valid range `0-9`.
-- Unsupported analysis columns are rejected.
-- Missing/empty observations produce a valid zero-frequency distribution.
-- Frequency analysis does not generate predictions.
-
-### Frequency result structure
-
-Each analyzed column produces:
-
-- Column name
-- Total number of valid observations
-- Frequency record for every digit `0-9`
-- Count for each digit
-- Percentage for each digit
-
-Digits with no historical occurrences remain present with:
-
-- Count: `0`
-- Percentage: `0.0`
-
-This provides a consistent result structure for later analytics and frontend components.
-
-### Supported analysis columns
-
-Frequency analysis currently supports:
-
-- `col1`
-- `col2`
-- `col3`
-- `col4`
-- `col5`
-- `col6`
-- `col7`
-- `col8`
-
-### Testing
-
-#### Step 9.2 focused test
-
-Command:
-
-pytest -q tests\test_frequency_analysis.py
-
-Actual output:
-
-(venv) D:\NeuroLytics>pytest -q tests\test_frequency_analysis.py
-...........                                                          [100%]
-11 passed in 0.04s
-
-#### Full project regression
-
-Command:
-
-pytest -q
-
-Actual output:
-
-(venv) D:\NeuroLytics>pytest -q
-.................................................................... [ 16%]
-.................................................................... [ 33%]
-.................................................................... [ 50%]
-.................................................................... [ 66%]
-.................................................................... [ 83%]
-..................................................................   [100%]
-406 passed in 5.49s
-
-### Testing summary
-
-- Step 9.2 focused tests: **11 passed**
-- Full project regression: **406 passed**
-- Regression time: **5.49 seconds**
-- Previous Phase 9.1 tests remain passing
-- No regression detected
-
-### Phase 9 status
-
-Phase 9 remains **IN PROGRESS**.
-
-Completed:
-
-- 9.1 Statistical Analysis Foundation
-- 9.2 Frequency Analysis
-
-Remaining:
-
-- 9.3 Position-wise frequency analysis
-- 9.4 Daily / weekly / monthly statistics
-- 9.5 Distribution analysis
-- 9.6 Statistical feature storage
-- 9.7 Testing
-- 9.8 Documentation + GitHub
+push only after explicit release confirmation
