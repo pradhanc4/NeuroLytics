@@ -1040,3 +1040,286 @@ tests/test_position_family.py
 
 Do not lose the completed Phase 15.1–15.4 state.
 
+
+### 3. `overview.txt`
+
+```text
+============================================================
+PHASE 16 — SEQUENCE DATASET BUILDER
+============================================================
+
+Status: COMPLETE
+Current release step: Phase 16.11 — Documentation / Release
+
+Phase 16 establishes the sequence dataset infrastructure required
+for future sequence-based machine learning.
+
+------------------------------------------------------------
+16.1 — SEQUENCE DATASET CONTRACT / FOUNDATION
+------------------------------------------------------------
+
+Status: COMPLETE
+
+Established immutable contracts for:
+
+- SequenceDatasetConfig
+- SequenceSample
+- SequenceDataset
+
+The contract enforces:
+
+- sequence length
+- configured input positions
+- target positions
+- feature names
+- sequence/target temporal separation
+- deterministic sample structure
+
+
+------------------------------------------------------------
+16.2 — SEQUENCE WINDOW CONSTRUCTION
+------------------------------------------------------------
+
+Status: COMPLETE
+
+Implemented chronological sequence-window construction.
+
+Includes:
+
+- configurable sequence length
+- chronological observation validation
+- duplicate-date protection
+- incomplete-sequence handling
+- result identity preservation
+- market identity preservation
+
+Focused tests:
+40 passed
+
+
+------------------------------------------------------------
+16.3 — TARGET CONSTRUCTION
+------------------------------------------------------------
+
+Status: COMPLETE
+
+Targets are constructed from the observation immediately following
+each sequence window.
+
+Includes:
+
+- target-date alignment
+- target position handling
+- result identity
+- market identity
+- strict temporal separation
+
+Focused tests:
+42 passed
+
+
+------------------------------------------------------------
+16.4 — SEQUENCE DATASET VALIDATION
+------------------------------------------------------------
+
+Status: COMPLETE
+
+Integrated sequence windows and targets into validated sequence
+samples and the final sequence dataset.
+
+Validation includes:
+
+- window/target alignment
+- sequence length
+- target-date boundary
+- target exclusion from input sequence
+- complete dataset consistency
+
+Focused tests:
+41 passed
+
+
+------------------------------------------------------------
+16.5 — POINT-IN-TIME / LEAKAGE VALIDATION
+------------------------------------------------------------
+
+Status: COMPLETE
+
+Implemented sequence-specific leakage validation.
+
+Protected against:
+
+- target inside input sequence
+- target-date violations
+- future observations
+- temporal ordering violations
+- missing target dates
+- invalid sequence/target relationships
+
+Focused tests:
+27 passed
+
+
+------------------------------------------------------------
+16.6 — TRAIN / VALIDATION TEMPORAL SPLITTING
+------------------------------------------------------------
+
+Status: COMPLETE
+
+Implemented chronological train/validation splitting.
+
+Rules:
+
+Training:
+target_date <= split_date
+
+Validation:
+target_date > split_date
+
+A sample cannot appear in both partitions.
+
+Focused tests:
+21 passed
+
+
+------------------------------------------------------------
+16.7 — SEQUENCE DATASET INTEGRATION
+------------------------------------------------------------
+
+Status: COMPLETE
+
+Integrated:
+
+- sequence windows
+- sequence targets
+- validated sequence dataset
+- leakage validation
+- temporal splitting
+
+Existing implementations are orchestrated rather than duplicated.
+
+Focused tests:
+28 passed
+
+
+------------------------------------------------------------
+16.8 — DATASET DETERMINISM / REPRODUCIBILITY
+------------------------------------------------------------
+
+Status: COMPLETE
+
+Deterministic and reproducible sequence behavior was verified.
+
+Verified through the Phase 16 comprehensive testing suite:
+
+- deterministic windows
+- deterministic targets
+- deterministic datasets
+- deterministic integration
+- reproducible schema/version information
+- reproducible artifact serialization
+- reproducible artifact integrity
+
+No random sequence-generation behavior was introduced.
+
+
+------------------------------------------------------------
+16.9 — SCHEMA / ARTIFACT INTEGRATION
+------------------------------------------------------------
+
+Status: COMPLETE
+
+Integrated sequence datasets with the existing:
+
+- feature schema validation
+- feature version identity
+- artifact serialization
+- artifact integrity
+
+Implemented:
+
+SequenceDatasetArtifact
+SequenceArtifactIntegrity
+SHA-256 deterministic fingerprinting
+canonical serialization
+integrity validation
+
+The existing feature artifact architecture remains authoritative.
+
+Focused tests:
+27 passed
+
+
+------------------------------------------------------------
+16.10 — COMPREHENSIVE PHASE 16 TESTING
+------------------------------------------------------------
+
+Status: COMPLETE
+
+Comprehensive testing covered:
+
+- sequence contract
+- windows
+- targets
+- dataset validation
+- leakage/PIT behavior
+- temporal splitting
+- determinism
+- reproducibility
+- schema/version integration
+- artifact integrity
+- boundary conditions
+- invalid inputs
+- immutability
+- end-to-end invariants
+
+Phase 16.10 comprehensive:
+58 passed in 0.26s
+
+Combined Phase 16 regression:
+320 passed in 0.77s
+
+
+------------------------------------------------------------
+16.11 — DOCUMENTATION / RELEASE
+------------------------------------------------------------
+
+Status: IN PROGRESS
+
+Documentation synchronization includes:
+
+- project status
+- changelog
+- README
+- overview
+- architecture decisions
+- testing checkpoint
+- roadmap position
+
+Git commit and push require explicit release confirmation.
+
+------------------------------------------------------------
+PHASE 16 FINAL CHECKPOINT
+------------------------------------------------------------
+
+16.1   COMPLETE
+16.2   COMPLETE
+16.3   COMPLETE
+16.4   COMPLETE
+16.5   COMPLETE
+16.6   COMPLETE
+16.7   COMPLETE
+16.8   COMPLETE
+16.9   COMPLETE
+16.10  COMPLETE
+16.11  IN PROGRESS
+
+Phase 16 comprehensive:
+58 passed
+
+Combined Phase 16:
+320 passed
+
+Next development phase:
+Phase 17 — Feature / Dataset Versioning
+============================================================

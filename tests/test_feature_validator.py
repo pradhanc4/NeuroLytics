@@ -477,6 +477,7 @@ def test_validity_getter_rejects_invalid_result_type():
 
 def test_validation_supports_all_feature_types():
     records = (
+        # Phase 13
         make_record(
             feature_name="col1_lag_1",
             value=1,
@@ -519,6 +520,38 @@ def test_validation_supports_all_feature_types():
             feature_type="cross_position",
             source="cross_position_features",
         ),
+
+        # Phase 15
+        make_record(
+            feature_name=(
+                "panna_family_frequency_count_5_FamilyA"
+            ),
+            value=3,
+            feature_type="historical_family_frequency",
+            source="features.historical_family_frequency",
+        ),
+        make_record(
+            feature_name=(
+                "jodi_family_frequency_percentage_7_FamilyB"
+            ),
+            value=42.5,
+            feature_type="historical_family_frequency",
+            source="features.historical_family_frequency",
+        ),
+        make_record(
+            feature_name="panna_family_recency_FamilyA",
+            value=2,
+            feature_type="family_recency",
+            source="features.family_recency",
+        ),
+        make_record(
+            feature_name=(
+                "panna_family_seen_within_lookback_5_FamilyA"
+            ),
+            value=True,
+            feature_type="family_recency",
+            source="features.family_recency",
+        ),
     )
 
     result = validate_feature_dataset(
@@ -526,8 +559,88 @@ def test_validation_supports_all_feature_types():
     )
 
     assert result.status == VALID
-    assert result.feature_count == 7
-    assert result.schema_count == 7
+    assert result.feature_count == 11
+    assert result.schema_count == 11
+
+
+def test_historical_family_frequency_feature_is_valid():
+    record = make_record(
+        feature_name=(
+            "panna_family_frequency_count_5_FamilyA"
+        ),
+        value=4,
+        feature_type="historical_family_frequency",
+        source="features.historical_family_frequency",
+    )
+
+    result = validate_feature_dataset(
+        make_dataset(
+            records=(record,),
+        )
+    )
+
+    assert result.status == VALID
+    assert result.issues == ()
+    assert result.feature_count == 1
+    assert result.schema_count == 1
+
+
+def test_historical_family_frequency_percentage_is_valid():
+    record = make_record(
+        feature_name=(
+            "panel_family_frequency_percentage_10_FamilyB"
+        ),
+        value=37.5,
+        feature_type="historical_family_frequency",
+        source="features.historical_family_frequency",
+    )
+
+    result = validate_feature_dataset(
+        make_dataset(
+            records=(record,),
+        )
+    )
+
+    assert result.status == VALID
+    assert result.issues == ()
+
+
+def test_family_recency_feature_is_valid():
+    record = make_record(
+        feature_name="jodi_family_recency_FamilyA",
+        value=3,
+        feature_type="family_recency",
+        source="features.family_recency",
+    )
+
+    result = validate_feature_dataset(
+        make_dataset(
+            records=(record,),
+        )
+    )
+
+    assert result.status == VALID
+    assert result.issues == ()
+
+
+def test_family_seen_within_lookback_feature_is_valid():
+    record = make_record(
+        feature_name=(
+            "panel_family_seen_within_lookback_7_FamilyA"
+        ),
+        value=True,
+        feature_type="family_recency",
+        source="features.family_recency",
+    )
+
+    result = validate_feature_dataset(
+        make_dataset(
+            records=(record,),
+        )
+    )
+
+    assert result.status == VALID
+    assert result.issues == ()
 
 
 def test_feature_version_is_preserved():

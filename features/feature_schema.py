@@ -25,6 +25,10 @@ FEATURE_TYPES = (
     "recency_distribution",
     "recency_bucket",
     "change_trend",
+
+    # Phase 15
+    "historical_family_frequency",
+    "family_recency",
 )
 
 

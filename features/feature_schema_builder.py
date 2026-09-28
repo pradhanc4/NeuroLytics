@@ -175,6 +175,52 @@ def _extract_window(
 
         return None
 
+    if feature_type == "historical_family_frequency":
+        # Phase 15:
+        # panna_family_frequency_count_5_FamilyA
+        # panna_family_frequency_percentage_5_FamilyA
+        # jodi_family_frequency_count_7_FamilyB
+        # panel_family_frequency_percentage_10_FamilyC
+        #
+        # Structure:
+        # family_type_family_frequency_metric_window_family
+        #
+        # Example:
+        # panna_family_frequency_count_5_FamilyA
+        # parts = [
+        #     "panna",
+        #     "family",
+        #     "frequency",
+        #     "count",
+        #     "5",
+        #     "FamilyA",
+        # ]
+        if len(parts) >= 5:
+            return _safe_integer(parts[4])
+
+        return None
+
+    if feature_type == "family_recency":
+        # Phase 15:
+        #
+        # Recency feature:
+        # panna_family_recency_FamilyA
+        #
+        # Seen-within-lookback feature:
+        # panna_family_seen_within_lookback_5_FamilyA
+        #
+        # Only the latter has a meaningful lookback.
+        if (
+            len(parts) >= 6
+            and parts[1] == "family"
+            and parts[2] == "seen"
+            and parts[3] == "within"
+            and parts[4] == "lookback"
+        ):
+            return _safe_integer(parts[5])
+
+        return None
+
     # These feature families either do not have a single
     # window or their window is represented elsewhere.
     if feature_type in (

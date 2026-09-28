@@ -1063,3 +1063,195 @@ Git commit/push: PENDING EXPLICIT RELEASE CONFIRMATION
 Latest verified full regression:
 
 3206 passed in 41.58s
+
+
+## Phase 16 — Sequence Dataset Builder
+
+### Phase 16.1 — Sequence Dataset Contract / Foundation
+Status: COMPLETE
+
+Established the immutable sequence dataset contract.
+
+Implemented:
+- `SequenceDatasetConfig`
+- `SequenceSample`
+- `SequenceDataset`
+- sequence length and position contracts
+- strict target-date boundary rules
+- sequence feature-shape validation
+
+---
+
+### Phase 16.2 — Sequence Window Construction
+Status: COMPLETE
+
+Implemented chronological sequence-window construction.
+
+Implemented:
+- `SequenceWindow`
+- `SequenceWindowDataset`
+- deterministic chronological windows
+- configurable sequence length
+- incomplete-sequence handling
+- observation/result/market identity preservation
+- duplicate-date and chronological validation
+
+Verification:
+- 40 focused tests passed
+
+---
+
+### Phase 16.3 — Target Construction
+Status: COMPLETE
+
+Implemented target construction from the observation immediately following each sequence window.
+
+Implemented:
+- `SequenceTarget`
+- `SequenceTargetDataset`
+- target-date alignment
+- target position handling
+- result/market identity preservation
+- strict temporal separation between sequence and target
+
+Verification:
+- 42 focused tests passed
+
+---
+
+### Phase 16.4 — Sequence Dataset Validation
+Status: COMPLETE
+
+Integrated sequence windows and targets into the validated sequence dataset.
+
+Implemented:
+- window/target alignment validation
+- sequence sample construction
+- complete dataset validation
+- sequence length validation
+- target-date validation
+- target exclusion from input sequence
+
+Verification:
+- 41 focused tests passed
+
+---
+
+### Phase 16.5 — Point-in-Time / Leakage Validation
+Status: COMPLETE
+
+Implemented sequence-specific point-in-time and leakage validation.
+
+Implemented:
+- sequence target boundary validation
+- target-in-sequence detection
+- future-row detection
+- temporal ordering validation
+- missing target-date validation
+- terminal-window handling
+- component-level leakage validation
+- dataset-level leakage validation
+
+Verification:
+- 27 focused tests passed
+
+---
+
+### Phase 16.6 — Train / Validation Temporal Splitting
+Status: COMPLETE
+
+Implemented chronological sequence dataset splitting.
+
+Rules:
+- training targets are on or before the configured split date
+- validation targets are strictly after the split date
+- samples cannot exist in both partitions
+- sample ordering remains deterministic
+
+Verification:
+- 21 focused tests passed
+
+---
+
+### Phase 16.7 — Sequence Dataset Integration
+Status: COMPLETE
+
+Integrated the Phase 16 sequence components without duplicating existing logic.
+
+Integrated:
+- sequence windows
+- sequence targets
+- validated sequence dataset
+- point-in-time validation
+- temporal splitting
+
+Verification:
+- 28 focused tests passed
+
+---
+
+### Phase 16.8 — Dataset Determinism / Reproducibility
+Status: COMPLETE
+
+Verified deterministic and reproducible sequence dataset behavior through the Phase 16 comprehensive test suite.
+
+Verified:
+- deterministic sequence construction
+- deterministic target construction
+- deterministic integrated dataset output
+- reproducible schema/version information
+- reproducible artifact serialization
+- reproducible artifact integrity
+
+No random behavior was introduced into the sequence dataset pipeline.
+
+---
+
+### Phase 16.9 — Schema / Artifact Integration
+Status: COMPLETE
+
+Integrated the sequence dataset with the existing schema, version identity, artifact serialization, and integrity architecture.
+
+Implemented:
+- `SequenceDatasetArtifact`
+- sequence artifact integrity
+- deterministic canonical serialization
+- SHA-256 artifact fingerprinting
+- feature schema validation reuse
+- feature version identity validation reuse
+- leakage-free artifact requirements
+- artifact integrity validation
+
+The implementation does not create a replacement for the existing feature artifact infrastructure.
+
+Verification:
+- 27 focused tests passed
+
+---
+
+### Phase 16.10 — Comprehensive Phase 16 Testing
+Status: COMPLETE
+
+Comprehensive Phase 16 testing covered:
+
+- complete pipeline construction
+- sequence contract validation
+- window/target alignment
+- point-in-time and leakage stress
+- temporal split validation
+- determinism and reproducibility
+- schema/version integration
+- artifact integrity
+- boundary conditions
+- immutability
+- invalid input handling
+- end-to-end sequence invariants
+
+Verification:
+
+```text
+Phase 16.10 comprehensive:
+58 passed in 0.26s
+
+Combined Phase 16 regression:
+320 passed in 0.77s

@@ -101,3 +101,32 @@ No future information may be used when generating a historical prediction.
 ## Project Status
 
 Phase 1 - Project Foundation
+
+
+### 2. `README.md`
+
+```markdown
+## Phase 16 — Sequence Dataset Builder
+
+Phase 16 establishes the sequence dataset layer required for future sequence-based machine learning while preserving NeuroLytics' existing SQL-first, point-in-time-safe architecture.
+
+### Phase 16 Components
+
+```text
+Historical Observations
+        ↓
+Sequence Windows
+        ↓
+Sequence Targets
+        ↓
+Validated Sequence Dataset
+        ↓
+Point-in-Time / Leakage Validation
+        ↓
+Temporal Train / Validation Split
+        ↓
+Schema / Version Integration
+        ↓
+Sequence Dataset Artifact
+        ↓
+Deterministic Integrity Validation

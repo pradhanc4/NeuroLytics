@@ -23,6 +23,12 @@ from features.frequency_change_features import (
 from features.frequency_features import (
     build_frequency_features,
 )
+from features.family_recency import (
+    build_family_recency_features,
+)
+from features.historical_family_frequency import (
+    build_historical_family_frequency_features,
+)
 from features.historical_frequency_features import (
     build_historical_frequency_features,
 )
@@ -171,6 +177,13 @@ def _extract_feature_value(
         if record.feature_name.endswith("_max"):
             return record.maximum
 
+    if hasattr(record, "stability_percentage"):
+        if record.feature_name.endswith("_stability_percentage"):
+            return record.stability_percentage
+
+    if hasattr(record, "trend_direction"):
+        return record.trend_direction
+
     raise ValueError(
         "Unable to extract feature value: "
         f"{record.feature_name}"
@@ -245,6 +258,7 @@ def _validate_feature_records(
 def build_unified_feature_dataset(
     history: PointInTimeHistory,
     config: FeatureConfig,
+    db=None,
 ) -> UnifiedFeatureDataset:
     """
     Build the complete point-in-time feature dataset.
@@ -257,6 +271,15 @@ def build_unified_feature_dataset(
 
     Phase 14 features that require PointInTimeHistory receive the
     canonical history object directly.
+
+    Phase 15.6/15.7 family features require the SQLAlchemy session
+    because authoritative family mappings are database-backed. They
+    are integrated when ``db`` is supplied.
+
+    Phase 15.11/15.12 scalar transition/relationship summaries are
+    integrated directly. Event-level transition and relationship
+    records remain standalone until their explicit schema/aggregation
+    contract is introduced.
 
     No feature performs prediction.
     """
@@ -565,6 +588,40 @@ def build_unified_feature_dataset(
         "change_trend",
         "change_trend_features",
     )
+
+    # ------------------------------------------------------------
+    # Phase 15.6 / 15.7 - Family frequency and recency
+    # ------------------------------------------------------------
+
+    if db is not None:
+        historical_family_frequency_result = (
+            build_historical_family_frequency_features(
+                db,
+                history,
+                history.target_date,
+                config,
+            )
+        )
+
+        _append_records(
+            records,
+            historical_family_frequency_result,
+            "historical_family_frequency",
+            "historical_family_frequency",
+        )
+
+        family_recency_result = build_family_recency_features(
+            db,
+            history,
+            config,
+        )
+
+        _append_records(
+            records,
+            family_recency_result,
+            "family_recency",
+            "family_recency",
+        )
 
     # ------------------------------------------------------------
     # Unified validation
