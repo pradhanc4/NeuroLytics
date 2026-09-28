@@ -99,6 +99,17 @@ def test_unified_dataset_contains_all_feature_engine_types():
         "frequency",
         "sequence",
         "cross_position",
+        "time",
+        "historical_interval",
+        "observation_density",
+        "historical_frequency",
+        "rolling_frequency",
+        "frequency_change",
+        "frequency_concentration",
+        "recency_expansion",
+        "recency_distribution",
+        "recency_bucket",
+        "change_trend",
     }
 
 
@@ -136,6 +147,17 @@ def test_unified_dataset_contains_all_feature_sources():
         "frequency_features",
         "sequence_features",
         "cross_position_features",
+        "time_features",
+        "historical_interval_features",
+        "observation_density_features",
+        "historical_frequency_features",
+        "rolling_frequency_features",
+        "frequency_change_features",
+        "frequency_concentration_features",
+        "recency_expansion_features",
+        "recency_distribution_features",
+        "recency_bucket_features",
+        "change_trend_features",
     }
 
 
@@ -382,6 +404,324 @@ def test_unified_dataset_contains_cross_position_features():
     ) == 5
 
 
+def test_unified_dataset_contains_time_features():
+    history = make_history(
+        (),
+        target_date=date(2026, 1, 5),
+    )
+
+    result = build_unified_feature_dataset(
+        history,
+        FeatureConfig(),
+    )
+
+    assert get_unified_feature_value(
+        result,
+        "time_day_of_week_number",
+    ) == 0
+
+    assert get_unified_feature_value(
+        result,
+        "time_month",
+    ) == 1
+
+    assert get_unified_feature_value(
+        result,
+        "time_quarter",
+    ) == 1
+
+
+def test_unified_dataset_contains_historical_interval_features():
+    history = make_history(
+        (
+            make_observation(
+                1,
+                date(2026, 1, 1),
+                (1, 2, 3, 4, 5, 6, 7, 8),
+            ),
+            make_observation(
+                2,
+                date(2026, 1, 3),
+                (2, 3, 4, 5, 6, 7, 8, 9),
+            ),
+        ),
+        target_date=date(2026, 1, 5),
+    )
+
+    result = build_unified_feature_dataset(
+        history,
+        FeatureConfig(),
+    )
+
+    assert get_unified_feature_value(
+        result,
+        "historical_interval_days_since_last",
+    ) == 2
+
+    assert get_unified_feature_value(
+        result,
+        "historical_interval_span_days",
+    ) == 2
+
+
+def test_unified_dataset_contains_observation_density_features():
+    history = make_history(
+        (
+            make_observation(
+                1,
+                date(2026, 1, 1),
+                (1, 2, 3, 4, 5, 6, 7, 8),
+            ),
+            make_observation(
+                2,
+                date(2026, 1, 3),
+                (2, 3, 4, 5, 6, 7, 8, 9),
+            ),
+        ),
+        target_date=date(2026, 1, 5),
+    )
+
+    result = build_unified_feature_dataset(
+        history,
+        FeatureConfig(),
+    )
+
+    assert get_unified_feature_value(
+        result,
+        "observation_density_count_7",
+    ) == 2
+
+
+def test_unified_dataset_contains_historical_frequency_features():
+    history = make_history(
+        (
+            make_observation(
+                1,
+                date(2026, 1, 1),
+                (1, 2, 3, 4, 5, 6, 7, 8),
+            ),
+            make_observation(
+                2,
+                date(2026, 1, 2),
+                (1, 3, 4, 5, 6, 7, 8, 9),
+            ),
+        )
+    )
+
+    result = build_unified_feature_dataset(
+        history,
+        FeatureConfig(),
+    )
+
+    assert get_unified_feature_value(
+        result,
+        "col1_frequency_count_3_1",
+    ) == 2
+
+
+def test_unified_dataset_contains_rolling_frequency_features():
+    history = make_history(
+        (
+            make_observation(
+                1,
+                date(2026, 1, 1),
+                (1, 2, 3, 4, 5, 6, 7, 8),
+            ),
+            make_observation(
+                2,
+                date(2026, 1, 2),
+                (1, 3, 4, 5, 6, 7, 8, 9),
+            ),
+        )
+    )
+
+    result = build_unified_feature_dataset(
+        history,
+        FeatureConfig(),
+    )
+
+    assert get_unified_feature_value(
+        result,
+        "col1_rolling_frequency_3_1",
+    ) == pytest.approx(100.0)
+
+
+def test_unified_dataset_contains_frequency_change_features():
+    history = make_history(
+        (
+            make_observation(
+                1,
+                date(2026, 1, 1),
+                (1, 2, 3, 4, 5, 6, 7, 8),
+            ),
+            make_observation(
+                2,
+                date(2026, 1, 2),
+                (2, 3, 4, 5, 6, 7, 8, 9),
+            ),
+            make_observation(
+                3,
+                date(2026, 1, 3),
+                (2, 3, 4, 5, 6, 7, 8, 9),
+            ),
+        ),
+        target_date=date(2026, 1, 5),
+    )
+
+    result = build_unified_feature_dataset(
+        history,
+        FeatureConfig(),
+    )
+
+    assert (
+        get_unified_feature_value(
+            result,
+            "col1_frequency_change_1_3_3_1",
+        )
+        is not None
+    )
+
+
+def test_unified_dataset_contains_frequency_concentration_features():
+    history = make_history(
+        (
+            make_observation(
+                1,
+                date(2026, 1, 1),
+                (1, 2, 3, 4, 5, 6, 7, 8),
+            ),
+            make_observation(
+                2,
+                date(2026, 1, 2),
+                (1, 3, 4, 5, 6, 7, 8, 9),
+            ),
+        )
+    )
+
+    result = build_unified_feature_dataset(
+        history,
+        FeatureConfig(),
+    )
+
+    assert get_unified_feature_value(
+        result,
+        "col1_frequency_dominant_digit_3",
+    ) == 1
+
+
+def test_unified_dataset_contains_recency_expansion_features():
+    history = make_history(
+        (
+            make_observation(
+                1,
+                date(2026, 1, 1),
+                (1, 2, 3, 4, 5, 6, 7, 8),
+            ),
+            make_observation(
+                2,
+                date(2026, 1, 2),
+                (2, 3, 4, 5, 6, 7, 8, 9),
+            ),
+        )
+    )
+
+    result = build_unified_feature_dataset(
+        history,
+        FeatureConfig(),
+    )
+
+    assert get_unified_feature_value(
+        result,
+        "col1_digit_2_recency_count_3",
+    ) == 1
+
+
+def test_unified_dataset_contains_recency_distribution_features():
+    history = make_history(
+        (
+            make_observation(
+                1,
+                date(2026, 1, 1),
+                (1, 2, 3, 4, 5, 6, 7, 8),
+            ),
+            make_observation(
+                2,
+                date(2026, 1, 2),
+                (2, 3, 4, 5, 6, 7, 8, 9),
+            ),
+        )
+    )
+
+    result = build_unified_feature_dataset(
+        history,
+        FeatureConfig(),
+    )
+
+    assert get_unified_feature_value(
+        result,
+        "col1_digit_2_recency_distribution_count_3",
+    ) == 1
+
+
+def test_unified_dataset_contains_recency_bucket_features():
+    history = make_history(
+        (
+            make_observation(
+                1,
+                date(2026, 1, 1),
+                (1, 2, 3, 4, 5, 6, 7, 8),
+            ),
+            make_observation(
+                2,
+                date(2026, 1, 2),
+                (2, 3, 4, 5, 6, 7, 8, 9),
+            ),
+        )
+    )
+
+    result = build_unified_feature_dataset(
+        history,
+        FeatureConfig(),
+    )
+
+    assert get_unified_feature_value(
+        result,
+        "col1_digit_2_recency_bucket_label_3",
+    ) == "RECENT_0_3"
+
+
+def test_unified_dataset_contains_change_trend_features():
+    history = make_history(
+        (
+            make_observation(
+                1,
+                date(2026, 1, 1),
+                (1, 2, 3, 4, 5, 6, 7, 8),
+            ),
+            make_observation(
+                2,
+                date(2026, 1, 2),
+                (2, 3, 4, 5, 6, 7, 8, 9),
+            ),
+        )
+    )
+
+    result = build_unified_feature_dataset(
+        history,
+        FeatureConfig(),
+    )
+
+    assert get_unified_feature_value(
+        result,
+        "col1_change",
+    ) == 1
+
+    assert get_unified_feature_value(
+        result,
+        "col1_change_direction",
+    ) == "INCREASE"
+
+
 def test_zero_values_are_preserved_in_unified_dataset():
     history = make_history(
         (
@@ -544,12 +884,30 @@ def test_configured_positions_are_respected():
         result
     )
 
+    position_feature_names = {
+        name
+        for name in names
+        if name.startswith("col")
+    }
+
+    assert position_feature_names
+
     assert all(
         name.startswith(
             ("col1_", "col2_")
         )
-        for name in names
+        for name in position_feature_names
     )
+
+    assert "col3_latest_value" not in names
+    assert "col4_latest_value" not in names
+    assert "col5_latest_value" not in names
+    assert "col6_latest_value" not in names
+    assert "col7_latest_value" not in names
+    assert "col8_latest_value" not in names
+
+    assert "time_day_of_week_number" in names
+    assert "observation_density_total_count" in names
 
 
 def test_unified_feature_values_returns_mapping():

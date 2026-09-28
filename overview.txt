@@ -1,0 +1,1042 @@
+# NeuroLytics ΓÇö Master Project Continuation Prompt
+
+You are continuing development of my long-running project **NeuroLytics**.
+
+Treat this document as the current project state and continuation context. Do NOT restart the project, redesign completed phases, or assume previous work is missing.
+
+The project is being developed locally on Windows.
+
+---
+
+# 1. PROJECT IDENTITY
+
+Project name:
+
+**NeuroLytics**
+
+Project type:
+
+Advanced local Machine Learning + Data Analytics + Prediction Platform.
+
+Current architecture:
+
+* Python
+* Flask/backend architecture
+* SQLite database
+* SQLAlchemy ORM
+* Machine Learning pipeline
+* Feature engineering
+* Analytics modules
+* Reference/family systems
+* Validation systems
+* Prediction/ensemble infrastructure
+* Automated regression testing with pytest
+* Local Windows development environment
+
+Current project directory:
+
+```text
+D:\NeuroLytics
+```
+
+Virtual environment:
+
+```text
+(venv)
+```
+
+Typical CMD prompt:
+
+```text
+(venv) D:\NeuroLytics>
+```
+
+Use **Windows CMD commands**, not PowerShell.
+
+---
+
+# 2. IMPORTANT DEVELOPMENT RULES
+
+These rules must be preserved throughout the project.
+
+## File modification rule
+
+Whenever you modify or create a project file:
+
+**Always provide the COMPLETE updated file.**
+
+Do not provide only a partial snippet unless I specifically ask for a snippet.
+
+For existing files, first inspect the actual file before modifying it.
+
+If I need to send you a file, use:
+
+```cmd
+type path\to\file.py | clip
+```
+
+I can then paste the clipboard contents into the chat.
+
+Use this approach whenever practical.
+
+---
+
+# 3. DATABASE / DATA RULES
+
+SQL is the production source of truth.
+
+CSV is not the production source of truth.
+
+Historical data uses position columns such as:
+
+```text
+col1
+col2
+col3
+col4
+col5
+col6
+col7
+col8
+```
+
+The original/raw result may look like:
+
+```text
+123 45 678
+```
+
+where:
+
+```text
+123 = Open/Panna
+45  = Jodi
+678 = Close/Panna
+```
+
+The system may normalize these values into individual digit columns for analysis.
+
+IMPORTANT:
+
+* Leading zeros must always be preserved.
+* `"005"` must remain `"005"`.
+* `"007"` must remain `"007"`.
+* `"000"` must remain `"000"`.
+* `"05"` must remain `"05"`.
+* `"00"` must remain `"00"`.
+* Numeric conversion must never destroy identifier formatting.
+
+Digit `0` is a valid observed value.
+
+Do NOT treat:
+
+```text
+0
+```
+
+as equivalent to:
+
+```text
+NULL
+```
+
+Missing calendar dates are not automatically observations.
+
+Duplicate market/date observations must be rejected.
+
+Historical features must be point-in-time correct.
+
+No future:
+
+* observations
+* aggregates
+* mappings
+* labels
+* prediction outputs
+
+may leak into historical features.
+
+---
+
+# 4. ARCHITECTURAL PRINCIPLES
+
+NeuroLytics must reuse existing infrastructure whenever possible.
+
+Before creating:
+
+* validators
+* services
+* models
+* reference systems
+* relationship systems
+* feature helpers
+
+inspect existing project infrastructure first.
+
+Do NOT duplicate functionality that already exists.
+
+Reference mappings are authoritative.
+
+Do NOT infer family classification merely from digit structure unless a future milestone explicitly defines such behavior.
+
+Unmapped values must remain explicitly unmapped.
+
+Inactive reference mappings must not be treated as active.
+
+Historical:
+
+* frequency
+* recency
+* transitions
+* stability
+* trend
+
+must only be introduced in the milestones where they are explicitly defined.
+
+Do not invent speculative windows, thresholds, scoring rules, or formulas before their milestone defines them.
+
+---
+
+# 5. EXISTING DATA / VALIDATION STATUS
+
+Earlier project validation confirmed:
+
+```text
+Total records: 14
+Total NULL values: 0
+Total actual zero values: 11
+Duplicate dates found: 0
+Missing calendar dates: 0
+```
+
+Historical data loaded successfully.
+
+Example previous output:
+
+```text
+Data loaded successfully.
+Rows found: 14
+```
+
+The prediction engine previously reported:
+
+```text
+Historical records loaded: 14
+Latest record date: 2026-08-20
+```
+
+Feature engineering previously reported:
+
+```text
+Historical rows: 14
+Total feature columns: 108
+```
+
+---
+
+# 6. MAJOR PROJECT COMPONENTS
+
+The project contains / has contained modules for:
+
+```text
+database/
+features/
+analysis/
+ml/
+tests/
+backend/
+```
+
+Database infrastructure includes components such as:
+
+```text
+connection.py
+init_db.py
+models.py
+import_data.py
+validator
+```
+
+ML infrastructure includes components such as:
+
+```text
+training_data.py
+prediction_engine.py
+final_ensemble.py
+ensemble_calibration.py
+random_forest.py
+xgboost.py
+lightgbm.py
+catboost.py
+```
+
+Analysis infrastructure includes:
+
+```text
+feature_engineering.py
+```
+
+There are many additional modules in the project.
+
+DO NOT assume a file is missing merely because it is not listed in this prompt.
+
+Inspect the actual project when needed.
+
+---
+
+# 7. MACHINE LEARNING ARCHITECTURE
+
+The project has used / planned the following ML algorithms:
+
+* Logistic Regression
+* Decision Trees
+* Random Forest
+* Extra Trees
+* Gradient Boosting
+* XGBoost
+* LightGBM
+* CatBoost
+
+Ensemble concepts include:
+
+* stacking
+* weighted ensemble
+* final ensemble
+* probability calibration
+* ensemble diversity
+* explainability
+* SHAP
+* Markov-chain style sequential analysis
+
+The project has previously generated:
+
+```text
+final_ensemble_predictions.csv
+```
+
+There were previous issues involving:
+
+* missing trained model files
+* probability columns
+* circular imports
+* package `__init__.py`
+* prediction engine imports
+* feature validation
+
+Several of these were resolved during earlier development.
+
+Do not assume old errors still exist. Verify the current project state.
+
+---
+
+# 8. COMPLETED PROJECT PHASES
+
+Phases 13 and 14 were completed before Phase 15.
+
+Phase 15 is currently in progress.
+
+The official Phase 15 roadmap is:
+
+```text
+15.1 Foundation & configuration
+15.2 Panna/Panel family features
+15.3 Jodi family features
+15.4 Position-family relationships
+15.5 Cross-position relationships
+15.6 Historical family frequency
+15.7 Family recency
+15.8 Family transitions
+15.9 Position transitions
+15.10 Transition frequency
+15.11 Transition stability
+15.12 Relationship change/trend
+15.13 Unified integration
+15.14 Schema/validation/leakage integration
+15.15 Comprehensive testing
+15.16 Documentation/release
+```
+
+---
+
+# 9. PHASE 15.1 ΓÇö FOUNDATION & CONFIGURATION
+
+STATUS:
+
+**COMPLETE**
+
+The following Phase 15 configuration flags were added to:
+
+```text
+features/feature_config.py
+```
+
+Flags:
+
+```python
+phase15_enabled: bool = True
+panna_panel_features_enabled: bool = True
+jodi_family_features_enabled: bool = True
+position_family_relationships_enabled: bool = True
+cross_position_relationships_enabled: bool = True
+family_frequency_features_enabled: bool = True
+family_recency_features_enabled: bool = True
+family_transition_features_enabled: bool = True
+position_transition_features_enabled: bool = True
+transition_frequency_features_enabled: bool = True
+transition_stability_features_enabled: bool = True
+relationship_change_trend_features_enabled: bool = True
+```
+
+Existing `_validate_boolean()` validation was reused.
+
+No speculative windows or thresholds were introduced.
+
+Phase 15.1 tests were added to:
+
+```text
+tests/test_feature_config.py
+```
+
+Tests covered:
+
+* default values
+* False configuration
+* True configuration
+* invalid non-boolean values
+* all flags disabled
+* mixed configuration
+
+Earlier baseline regression:
+
+```text
+3304 passed in 36.80s
+```
+
+Phase 15.1 is complete.
+
+---
+
+# 10. PHASE 15.2 ΓÇö PANNA/PANEL FAMILY FEATURES
+
+STATUS:
+
+**COMPLETE**
+
+Production file created:
+
+```text
+features/panna_panel_family.py
+```
+
+It provides:
+
+```python
+resolve_panna_family(db, panna)
+resolve_panel_family(db, panel)
+```
+
+Important behavior:
+
+* uses existing Panna reference infrastructure
+* uses existing Panel family infrastructure
+* uses existing validators
+* preserves leading zeros
+* only active mappings are considered mapped
+* inactive mappings are explicitly unmapped
+* no family inference from digit structure
+* no historical frequency
+* no recency
+* no transitions
+
+Existing models used:
+
+```python
+PannaReference
+PanelFamily
+PanelFamilyMember
+```
+
+Panna reference structure includes:
+
+```text
+panna
+digit_1
+digit_2
+digit_3
+panna_type
+is_active
+```
+
+Panel family structure includes:
+
+```text
+family_name
+description
+is_active
+```
+
+Panel family members include:
+
+```text
+family_id
+panel
+digit_1
+digit_2
+digit_3
+is_active
+```
+
+Tests created:
+
+```text
+tests/test_panna_panel_family.py
+```
+
+New tests:
+
+```text
+14 passed
+```
+
+Existing Panna/Panel subsystem:
+
+```text
+114 passed
+```
+
+Full regression after 15.2:
+
+```text
+3318 passed in 30.84s
+```
+
+Phase 15.2 is complete.
+
+---
+
+# 11. PHASE 15.3 ΓÇö JODI FAMILY FEATURES
+
+STATUS:
+
+**COMPLETE**
+
+Production file:
+
+```text
+features/jodi_family.py
+```
+
+Production resolver:
+
+```python
+resolve_jodi_family(db, jodi)
+```
+
+Current implementation behavior:
+
+* uses existing Jodi validator
+* uses existing Jodi family reference infrastructure
+* preserves `"05"`
+* preserves `"00"`
+* normalizes whitespace
+* requires active Jodi member
+* requires active Jodi family
+* returns explicit unmapped result
+* does not infer family from digits
+* does not perform relationship analysis
+* does not perform historical frequency
+* does not perform recency
+* does not perform transition analysis
+
+Expected mapped result:
+
+```python
+{
+    "jodi": "05",
+    "family": "Family A",
+    "family_id": 1,
+    "is_mapped": True,
+    "is_active": True,
+}
+```
+
+Expected unmapped result:
+
+```python
+{
+    "jodi": "05",
+    "family": None,
+    "family_id": None,
+    "is_mapped": False,
+    "is_active": False,
+}
+```
+
+Existing Jodi models:
+
+```python
+JodiFamily
+JodiFamilyMember
+```
+
+Jodi family includes:
+
+```text
+family_name
+description
+is_active
+```
+
+Jodi family member includes:
+
+```text
+family_id
+jodi
+digit_1
+digit_2
+is_active
+```
+
+Existing Jodi infrastructure includes:
+
+```text
+database/jodi_validator.py
+database/jodi_service.py
+database/jodi_family_relationship.py
+```
+
+Existing service:
+
+```text
+JodiFamilyService
+```
+
+Existing relationship service:
+
+```text
+JodiFamilyRelationshipService
+```
+
+New tests:
+
+```text
+tests/test_jodi_family.py
+```
+
+New resolver tests:
+
+```text
+9 passed in 0.18s
+```
+
+Existing Jodi subsystem regression:
+
+```text
+61 passed in 1.15s
+```
+
+Full project regression:
+
+```text
+3327 passed in 30.88s
+```
+
+The increase was:
+
+```text
+3318 ΓåÆ 3327
+```
+
+which corresponds exactly to the 9 new Phase 15.3 tests.
+
+Therefore:
+
+**Phase 15.3 is COMPLETE and regression-safe.**
+
+---
+
+# 12. CURRENT TEST CHECKPOINT
+
+LATEST VERIFIED FULL REGRESSION:
+
+```text
+3339 passed in 31.25s
+```
+
+This is the latest authoritative project regression result.
+
+Do not revert to the old 794-test count.
+
+The old 794 figure is obsolete.
+
+Current verified test count:
+
+**3339 passed**
+
+Phase 15.4 added:
+
+```text
+12 new tests
+```
+
+Regression progression:
+
+```text
+3327 -> 3339
+```
+
+# 13. CURRENT PHASE
+
+We are currently at:
+
+```text
+PHASE 15
+```
+
+Completed:
+
+```text
+15.1 ✓
+15.2 ✓
+15.3 ✓
+15.4 ✓
+```
+
+Next:
+
+```text
+15.5 — Cross-Position Relationships
+```
+
+# 14. PHASE 15.4 — POSITION-FAMILY RELATIONSHIPS
+
+STATUS:
+
+**COMPLETE**
+
+Phase 15.4 was implemented after inspecting the existing position,
+point-in-time, Panna, Jodi, and Panel family infrastructure.
+
+## Production file
+
+Created:
+
+```text
+features/position_family.py
+```
+
+The module provides:
+
+```python
+PositionFamilyRecord
+PositionFamilyResult
+build_position_family_features()
+get_position_family_record()
+get_position_family_records()
+```
+
+## Position grouping
+
+The existing eight-position historical representation is grouped as:
+
+```text
+col1-col3 -> Panna
+col4-col5 -> Jodi
+col6-col8 -> Panel
+```
+
+Family identity is resolved through the existing authoritative reference
+systems:
+
+```text
+Panna:
+    PannaReference.panna_type
+
+Jodi:
+    JodiFamily
+    JodiFamilyMember
+
+Panel:
+    PanelFamily
+    PanelFamilyMember
+```
+
+No new PositionFamily database model was introduced.
+
+## Point-in-time behavior
+
+Only the latest historical observation strictly before the target date is used.
+
+The implementation reuses:
+
+```text
+features/point_in_time.py
+features/historical_data_loader.py
+```
+
+No future observation is used.
+
+## Design decisions
+
+Phase 15.4 intentionally does NOT introduce:
+
+```text
+historical frequency
+recency
+transitions
+transition frequency
+transition stability
+relationship trends
+probabilities
+prediction scores
+family inference from digit structure
+```
+
+Those belong to later Phase 15 milestones.
+
+## Mapping behavior
+
+The implementation preserves leading-zero identifiers:
+
+```text
+005
+007
+000
+05
+00
+```
+
+Missing mappings are explicitly represented as unmapped.
+
+Inactive mappings are not treated as active.
+
+No family is inferred from digit structure.
+
+## Tests
+
+Created:
+
+```text
+tests/test_position_family.py
+```
+
+Focused Phase 15.4 tests:
+
+```text
+12 passed in 0.22s
+```
+
+Tests cover:
+
+* Panna/Jodi/Panel position grouping
+* active family resolution
+* leading-zero preservation
+* unmapped families
+* inactive mappings
+* latest-prior-observation behavior
+* future-observation exclusion
+* empty point-in-time history
+* result accessors
+* invalid position count
+
+## Related subsystem regression
+
+```text
+23 passed in 0.56s
+```
+
+Command:
+
+```cmd
+pytest tests	est_panna_panel_family.py tests	est_jodi_family.py -q
+```
+
+## Full regression
+
+Before Phase 15.4:
+
+```text
+3327 passed in 30.88s
+```
+
+After Phase 15.4:
+
+```text
+3339 passed in 31.25s
+```
+
+Increase:
+
+```text
+3327 -> 3339
+```
+
+Exactly 12 new Phase 15.4 tests were added.
+
+## Phase 15.4 conclusion
+
+**Phase 15.4 is COMPLETE and regression-safe.**
+
+# 15. HOW TO CONTINUE AFTER THIS PROMPT
+
+When I paste this prompt into a new chat, first acknowledge the current state using the information above.
+
+Then continue from:
+
+```text
+Phase 15.4 ΓÇö Position-Family Relationships
+```
+
+Do NOT restart Phase 15.1.
+
+Do NOT recreate Phase 15.2.
+
+Do NOT recreate Phase 15.3.
+
+Do NOT repeat completed tests unless needed for regression verification.
+
+First inspect the existing position architecture.
+
+Then:
+
+1. Define the 15.4 contract.
+2. Identify reusable existing infrastructure.
+3. Define expected output schema.
+4. Define edge cases.
+5. Create tests first or alongside implementation.
+6. Provide complete production files.
+7. Run focused tests.
+8. Run subsystem regression.
+9. Run full regression.
+10. Update the project checkpoint.
+11. Continue to the next milestone.
+
+---
+
+# 16. REQUIRED TESTING WORKFLOW
+
+For every new Phase 15 milestone:
+
+### Step 1 ΓÇö Focused tests
+
+Example:
+
+```cmd
+python -m pytest tests\test_<new_feature>.py -q
+```
+
+### Step 2 ΓÇö Related subsystem regression
+
+Run all relevant existing tests.
+
+### Step 3 ΓÇö Full regression
+
+```cmd
+python -m pytest -q
+```
+
+Only mark a milestone complete after the full regression is successful.
+
+Record:
+
+```text
+previous test count
+new tests added
+new total test count
+execution time
+```
+
+---
+
+# 17. PROJECT STATUS / CHANGELOG
+
+The project has project-status and changelog documentation that should be kept synchronized with major milestone completion.
+
+When a major milestone is completed, update:
+
+* project status
+* changelog
+* phase status
+* test checkpoint
+* newly created files
+* major architectural decisions
+
+Before editing those files, inspect their current contents.
+
+Use:
+
+```cmd
+type <file> | clip
+```
+
+and paste the contents so the complete file can be updated without accidentally removing existing history.
+
+---
+
+# 18. IMPORTANT COMMUNICATION STYLE
+
+I prefer:
+
+* direct instructions
+* exact Windows CMD commands
+* sequential implementation
+* complete files
+* no guessed APIs
+* no invented database models
+* no unnecessary redesign
+* clear checkpoint after each milestone
+
+If you need a project file from me, tell me exactly which file and give me the CMD command:
+
+```cmd
+type path\to\file.py | clip
+```
+
+I will paste it.
+
+When giving a new file, give the entire file.
+
+When changing an existing file, give the entire updated file.
+
+---
+
+# 19. CURRENT PROJECT CHECKPOINT
+
+Latest known state:
+
+```text
+Project: NeuroLytics
+Root: D:\NeuroLytics
+Environment: Windows CMD + Python venv
+
+Phase 13: COMPLETE
+Phase 14: COMPLETE
+
+Phase 15:
+15.1 Foundation & Configuration: COMPLETE
+15.2 Panna/Panel Family Features: COMPLETE
+15.3 Jodi Family Features: COMPLETE
+15.4 Position-Family Relationships: COMPLETE
+15.5 Cross-Position Relationships: NEXT
+
+Latest full regression:
+
+3339 passed in 31.25s
+```
+
+Continue from **Phase 15.5 — Cross-Position Relationships**.
+
+Phase 15.4 production file:
+
+```text
+features/position_family.py
+```
+
+Phase 15.4 tests:
+
+```text
+tests/test_position_family.py
+```
+
+Do not lose the completed Phase 15.1–15.4 state.
+

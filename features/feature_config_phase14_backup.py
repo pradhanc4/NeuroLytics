@@ -41,19 +41,6 @@ class FeatureConfig:
         - expanded recency
         - recency buckets
         - trend features
-
-    Phase 15:
-        - Panna/Panel family features
-        - Jodi family features
-        - position-family relationships
-        - cross-position relationships
-        - historical family frequency
-        - family recency
-        - family transitions
-        - position transitions
-        - transition frequency
-        - transition stability
-        - relationship change/trend
     """
 
     # ------------------------------------------------------------------
@@ -183,34 +170,6 @@ class FeatureConfig:
         7,
     )
 
-    # ------------------------------------------------------------------
-    # Phase 15 - Family / Relationship / Transition features
-    # ------------------------------------------------------------------
-
-    phase15_enabled: bool = True
-
-    panna_panel_features_enabled: bool = True
-
-    jodi_family_features_enabled: bool = True
-
-    position_family_relationships_enabled: bool = True
-
-    cross_position_relationships_enabled: bool = True
-
-    family_frequency_features_enabled: bool = True
-
-    family_recency_features_enabled: bool = True
-
-    family_transition_features_enabled: bool = True
-
-    position_transition_features_enabled: bool = True
-
-    transition_frequency_features_enabled: bool = True
-
-    transition_stability_features_enabled: bool = True
-
-    relationship_change_trend_features_enabled: bool = True
-
 
 def _validate_positive_integer(
     value: int,
@@ -305,7 +264,7 @@ def _validate_comparison_windows(
 def validate_feature_config(
     config: FeatureConfig,
 ) -> None:
-    """Validate the complete Phase 13, Phase 14, and Phase 15 configuration."""
+    """Validate the complete Phase 13 and Phase 14 configuration."""
 
     if not isinstance(config, FeatureConfig):
         raise TypeError(
@@ -544,70 +503,6 @@ def validate_feature_config(
     _validate_positive_integer_tuple(
         config.trend_windows,
         "trend_windows",
-    )
-
-    # ------------------------------------------------------------------
-    # Phase 15 - Family / Relationship / Transition
-    # ------------------------------------------------------------------
-
-    _validate_boolean(
-        config.phase15_enabled,
-        "phase15_enabled",
-    )
-
-    _validate_boolean(
-        config.panna_panel_features_enabled,
-        "panna_panel_features_enabled",
-    )
-
-    _validate_boolean(
-        config.jodi_family_features_enabled,
-        "jodi_family_features_enabled",
-    )
-
-    _validate_boolean(
-        config.position_family_relationships_enabled,
-        "position_family_relationships_enabled",
-    )
-
-    _validate_boolean(
-        config.cross_position_relationships_enabled,
-        "cross_position_relationships_enabled",
-    )
-
-    _validate_boolean(
-        config.family_frequency_features_enabled,
-        "family_frequency_features_enabled",
-    )
-
-    _validate_boolean(
-        config.family_recency_features_enabled,
-        "family_recency_features_enabled",
-    )
-
-    _validate_boolean(
-        config.family_transition_features_enabled,
-        "family_transition_features_enabled",
-    )
-
-    _validate_boolean(
-        config.position_transition_features_enabled,
-        "position_transition_features_enabled",
-    )
-
-    _validate_boolean(
-        config.transition_frequency_features_enabled,
-        "transition_frequency_features_enabled",
-    )
-
-    _validate_boolean(
-        config.transition_stability_features_enabled,
-        "transition_stability_features_enabled",
-    )
-
-    _validate_boolean(
-        config.relationship_change_trend_features_enabled,
-        "relationship_change_trend_features_enabled",
     )
 
 

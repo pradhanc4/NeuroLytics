@@ -4,6 +4,9 @@ from dataclasses import dataclass
 from datetime import date
 from typing import Mapping
 
+from features.change_trend_features import (
+    build_change_trend_features,
+)
 from features.cross_position_features import (
     build_cross_position_features,
 )
@@ -11,11 +14,26 @@ from features.feature_config import (
     FeatureConfig,
     validate_feature_config,
 )
+from features.frequency_concentration_features import (
+    build_frequency_concentration_features,
+)
+from features.frequency_change_features import (
+    build_frequency_change_features,
+)
 from features.frequency_features import (
     build_frequency_features,
 )
+from features.historical_frequency_features import (
+    build_historical_frequency_features,
+)
+from features.historical_interval_features import (
+    build_historical_interval_features,
+)
 from features.lag_features import (
     build_lag_features,
+)
+from features.observation_density_features import (
+    build_observation_density_features,
 )
 from features.point_in_time import (
     PointInTimeHistory,
@@ -23,14 +41,29 @@ from features.point_in_time import (
 from features.position_features import (
     build_position_features,
 )
+from features.recency_bucket_features import (
+    build_recency_bucket_features,
+)
+from features.recency_distribution_features import (
+    build_recency_distribution_features,
+)
+from features.recency_expansion_features import (
+    build_recency_expansion_features,
+)
 from features.recency_features import (
     build_recency_features,
 )
 from features.rolling_features import (
     build_rolling_features,
 )
+from features.rolling_frequency_features import (
+    build_rolling_frequency_features,
+)
 from features.sequence_features import (
     build_sequence_features,
+)
+from features.time_features import (
+    build_time_features,
 )
 
 
@@ -68,7 +101,12 @@ class UnifiedFeatureDataset:
         )
 
     @property
-    def values(self) -> Mapping[str, int | float | str | bool | None]:
+    def values(
+        self,
+    ) -> Mapping[
+        str,
+        int | float | str | bool | None,
+    ]:
         """Return feature values keyed by feature name."""
 
         return {
@@ -83,7 +121,7 @@ def _append_records(
     feature_type: str,
     source: str,
 ) -> None:
-    """Append feature-engine records to the unified dataset."""
+    """Append specialized feature records."""
 
     for record in source_result.records:
         records.append(
@@ -100,21 +138,19 @@ def _append_records(
         )
 
 
-def _extract_feature_value(record) -> int | float | str | bool | None:
+def _extract_feature_value(
+    record,
+) -> int | float | str | bool | None:
     """Extract a value from specialized feature records."""
 
     if hasattr(record, "count") and hasattr(
         record,
         "percentage",
     ):
-        if record.feature_name.endswith(
-            "_count"
-        ):
+        if record.feature_name.endswith("_count"):
             return record.count
 
-        if record.feature_name.endswith(
-            "_percentage"
-        ):
+        if record.feature_name.endswith("_percentage"):
             return record.percentage
 
     if hasattr(
@@ -123,35 +159,20 @@ def _extract_feature_value(record) -> int | float | str | bool | None:
     ):
         return record.observations_since_last_seen
 
-    if hasattr(
-        record,
-        "mean",
-    ):
-        if record.feature_name.endswith(
-            "_mean"
-        ):
+    if hasattr(record, "mean"):
+        if record.feature_name.endswith("_mean"):
             return record.mean
 
-    if hasattr(
-        record,
-        "minimum",
-    ):
-        if record.feature_name.endswith(
-            "_min"
-        ):
+    if hasattr(record, "minimum"):
+        if record.feature_name.endswith("_min"):
             return record.minimum
 
-    if hasattr(
-        record,
-        "maximum",
-    ):
-        if record.feature_name.endswith(
-            "_max"
-        ):
+    if hasattr(record, "maximum"):
+        if record.feature_name.endswith("_max"):
             return record.maximum
 
     raise ValueError(
-        f"Unable to extract feature value: "
+        "Unable to extract feature value: "
         f"{record.feature_name}"
     )
 
@@ -228,8 +249,16 @@ def build_unified_feature_dataset(
     """
     Build the complete point-in-time feature dataset.
 
-    No target-date or future observation is accessed directly.
-    Every component receives the same PointInTimeHistory object.
+    Phase 13 features receive the canonical PointInTimeHistory.
+
+    Phase 14 features that currently operate on historical
+    observations receive the already-filtered history.observations.
+    Therefore they cannot access the target-date or future rows.
+
+    Phase 14 features that require PointInTimeHistory receive the
+    canonical history object directly.
+
+    No feature performs prediction.
     """
 
     if not isinstance(
@@ -243,6 +272,10 @@ def build_unified_feature_dataset(
     validate_feature_config(config)
 
     records: list[UnifiedFeatureRecord] = []
+
+    # ------------------------------------------------------------
+    # Phase 13 - Leakage-safe foundation
+    # ------------------------------------------------------------
 
     lag_result = build_lag_features(
         history,
@@ -329,6 +362,213 @@ def build_unified_feature_dataset(
         "cross_position",
         "cross_position_features",
     )
+
+    # ------------------------------------------------------------
+    # Phase 14.2 / 14.3 - Time and cyclical time
+    # ------------------------------------------------------------
+
+    time_result = build_time_features(
+        history.target_date,
+    )
+
+    _append_records(
+        records,
+        time_result,
+        "time",
+        "time_features",
+    )
+
+    # ------------------------------------------------------------
+    # Phase 14.4 - Historical intervals
+    # ------------------------------------------------------------
+
+    historical_interval_result = (
+        build_historical_interval_features(
+            target_date=history.target_date,
+            history=history.observations,
+            config=config,
+        )
+    )
+
+    _append_records(
+        records,
+        historical_interval_result,
+        "historical_interval",
+        "historical_interval_features",
+    )
+
+    # ------------------------------------------------------------
+    # Phase 14.5 - Observation density
+    # ------------------------------------------------------------
+
+    observation_density_result = (
+        build_observation_density_features(
+            target_date=history.target_date,
+            history=history.observations,
+            config=config,
+        )
+    )
+
+    _append_records(
+        records,
+        observation_density_result,
+        "observation_density",
+        "observation_density_features",
+    )
+
+    # ------------------------------------------------------------
+    # Phase 14.6 - Historical frequency expansion
+    # ------------------------------------------------------------
+
+    historical_frequency_result = (
+        build_historical_frequency_features(
+            target_date=history.target_date,
+            history=history.observations,
+            config=config,
+        )
+    )
+
+    _append_records(
+        records,
+        historical_frequency_result,
+        "historical_frequency",
+        "historical_frequency_features",
+    )
+
+    # ------------------------------------------------------------
+    # Phase 14.7 - Rolling frequency
+    # ------------------------------------------------------------
+
+    rolling_frequency_result = (
+        build_rolling_frequency_features(
+            target_date=history.target_date,
+            history=history.observations,
+            config=config,
+        )
+    )
+
+    _append_records(
+        records,
+        rolling_frequency_result,
+        "rolling_frequency",
+        "rolling_frequency_features",
+    )
+
+    # ------------------------------------------------------------
+    # Phase 14.8 - Frequency change
+    # ------------------------------------------------------------
+
+    frequency_change_result = (
+        build_frequency_change_features(
+            target_date=history.target_date,
+            history=history.observations,
+            config=config,
+        )
+    )
+
+    _append_records(
+        records,
+        frequency_change_result,
+        "frequency_change",
+        "frequency_change_features",
+    )
+
+    # ------------------------------------------------------------
+    # Phase 14.9 - Frequency concentration/diversity
+    # ------------------------------------------------------------
+
+    frequency_concentration_result = (
+        build_frequency_concentration_features(
+            target_date=history.target_date,
+            history=history.observations,
+            config=config,
+        )
+    )
+
+    _append_records(
+        records,
+        frequency_concentration_result,
+        "frequency_concentration",
+        "frequency_concentration_features",
+    )
+
+    # ------------------------------------------------------------
+    # Phase 14.10 - Recency expansion
+    # ------------------------------------------------------------
+
+    recency_expansion_result = (
+        build_recency_expansion_features(
+            history,
+            config,
+        )
+    )
+
+    _append_records(
+        records,
+        recency_expansion_result,
+        "recency_expansion",
+        "recency_expansion_features",
+    )
+
+    # ------------------------------------------------------------
+    # Phase 14.11 - Recency distribution
+    # ------------------------------------------------------------
+
+    recency_distribution_result = (
+        build_recency_distribution_features(
+            history,
+            config,
+        )
+    )
+
+    _append_records(
+        records,
+        recency_distribution_result,
+        "recency_distribution",
+        "recency_distribution_features",
+    )
+
+    # ------------------------------------------------------------
+    # Phase 14.12 - Recency buckets
+    # ------------------------------------------------------------
+
+    recency_bucket_result = (
+        build_recency_bucket_features(
+            history.observations,
+            history.target_date,
+            config,
+        )
+    )
+
+    _append_records(
+        records,
+        recency_bucket_result,
+        "recency_bucket",
+        "recency_bucket_features",
+    )
+
+    # ------------------------------------------------------------
+    # Phase 14.13 - Change and trend
+    # ------------------------------------------------------------
+
+    change_trend_result = (
+        build_change_trend_features(
+            history.observations,
+            history.target_date,
+            config,
+        )
+    )
+
+    _append_records(
+        records,
+        change_trend_result,
+        "change_trend",
+        "change_trend_features",
+    )
+
+    # ------------------------------------------------------------
+    # Unified validation
+    # ------------------------------------------------------------
 
     _validate_feature_records(records)
     _validate_unique_feature_names(records)

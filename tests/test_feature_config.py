@@ -28,6 +28,20 @@ def test_default_feature_config_is_valid():
     assert config.recency_lookback == 10
     assert config.position_features_enabled is True
 
+    # Phase 15 defaults
+    assert config.phase15_enabled is True
+    assert config.panna_panel_features_enabled is True
+    assert config.jodi_family_features_enabled is True
+    assert config.position_family_relationships_enabled is True
+    assert config.cross_position_relationships_enabled is True
+    assert config.family_frequency_features_enabled is True
+    assert config.family_recency_features_enabled is True
+    assert config.family_transition_features_enabled is True
+    assert config.position_transition_features_enabled is True
+    assert config.transition_frequency_features_enabled is True
+    assert config.transition_stability_features_enabled is True
+    assert config.relationship_change_trend_features_enabled is True
+
 
 def test_feature_version_getter():
     config = FeatureConfig(
@@ -356,3 +370,182 @@ def test_custom_valid_configuration():
         3,
         10,
     )
+
+
+# ============================================================================
+# Phase 15 - Configuration Contract Tests
+# ============================================================================
+
+
+def test_phase15_can_be_disabled():
+    config = replace(
+        FeatureConfig(),
+        phase15_enabled=False,
+    )
+
+    validate_feature_config(config)
+
+    assert config.phase15_enabled is False
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "panna_panel_features_enabled",
+        "jodi_family_features_enabled",
+        "position_family_relationships_enabled",
+        "cross_position_relationships_enabled",
+        "family_frequency_features_enabled",
+        "family_recency_features_enabled",
+        "family_transition_features_enabled",
+        "position_transition_features_enabled",
+        "transition_frequency_features_enabled",
+        "transition_stability_features_enabled",
+        "relationship_change_trend_features_enabled",
+    ],
+)
+def test_phase15_feature_flags_accept_false(field_name):
+    config = replace(
+        FeatureConfig(),
+        **{field_name: False},
+    )
+
+    validate_feature_config(config)
+
+    assert getattr(config, field_name) is False
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "phase15_enabled",
+        "panna_panel_features_enabled",
+        "jodi_family_features_enabled",
+        "position_family_relationships_enabled",
+        "cross_position_relationships_enabled",
+        "family_frequency_features_enabled",
+        "family_recency_features_enabled",
+        "family_transition_features_enabled",
+        "position_transition_features_enabled",
+        "transition_frequency_features_enabled",
+        "transition_stability_features_enabled",
+        "relationship_change_trend_features_enabled",
+    ],
+)
+def test_phase15_boolean_flags_accept_true(field_name):
+    config = replace(
+        FeatureConfig(),
+        **{field_name: True},
+    )
+
+    validate_feature_config(config)
+
+    assert getattr(config, field_name) is True
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    [
+        "phase15_enabled",
+        "panna_panel_features_enabled",
+        "jodi_family_features_enabled",
+        "position_family_relationships_enabled",
+        "cross_position_relationships_enabled",
+        "family_frequency_features_enabled",
+        "family_recency_features_enabled",
+        "family_transition_features_enabled",
+        "position_transition_features_enabled",
+        "transition_frequency_features_enabled",
+        "transition_stability_features_enabled",
+        "relationship_change_trend_features_enabled",
+    ],
+)
+@pytest.mark.parametrize(
+    "invalid_value",
+    [
+        0,
+        1,
+        "true",
+        "false",
+        None,
+        [],
+    ],
+)
+def test_phase15_boolean_flags_reject_non_boolean_values(
+    field_name,
+    invalid_value,
+):
+    config = replace(
+        FeatureConfig(),
+        **{field_name: invalid_value},
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="boolean",
+    ):
+        validate_feature_config(config)
+
+
+def test_phase15_configuration_can_disable_all_feature_families():
+    config = FeatureConfig(
+        phase15_enabled=False,
+        panna_panel_features_enabled=False,
+        jodi_family_features_enabled=False,
+        position_family_relationships_enabled=False,
+        cross_position_relationships_enabled=False,
+        family_frequency_features_enabled=False,
+        family_recency_features_enabled=False,
+        family_transition_features_enabled=False,
+        position_transition_features_enabled=False,
+        transition_frequency_features_enabled=False,
+        transition_stability_features_enabled=False,
+        relationship_change_trend_features_enabled=False,
+    )
+
+    validate_feature_config(config)
+
+    assert config.phase15_enabled is False
+    assert config.panna_panel_features_enabled is False
+    assert config.jodi_family_features_enabled is False
+    assert config.position_family_relationships_enabled is False
+    assert config.cross_position_relationships_enabled is False
+    assert config.family_frequency_features_enabled is False
+    assert config.family_recency_features_enabled is False
+    assert config.family_transition_features_enabled is False
+    assert config.position_transition_features_enabled is False
+    assert config.transition_frequency_features_enabled is False
+    assert config.transition_stability_features_enabled is False
+    assert config.relationship_change_trend_features_enabled is False
+
+
+def test_phase15_configuration_can_mix_enabled_and_disabled_features():
+    config = FeatureConfig(
+        phase15_enabled=True,
+        panna_panel_features_enabled=True,
+        jodi_family_features_enabled=False,
+        position_family_relationships_enabled=True,
+        cross_position_relationships_enabled=False,
+        family_frequency_features_enabled=True,
+        family_recency_features_enabled=False,
+        family_transition_features_enabled=True,
+        position_transition_features_enabled=False,
+        transition_frequency_features_enabled=True,
+        transition_stability_features_enabled=False,
+        relationship_change_trend_features_enabled=True,
+    )
+
+    validate_feature_config(config)
+
+    assert config.phase15_enabled is True
+    assert config.panna_panel_features_enabled is True
+    assert config.jodi_family_features_enabled is False
+    assert config.position_family_relationships_enabled is True
+    assert config.cross_position_relationships_enabled is False
+    assert config.family_frequency_features_enabled is True
+    assert config.family_recency_features_enabled is False
+    assert config.family_transition_features_enabled is True
+    assert config.position_transition_features_enabled is False
+    assert config.transition_frequency_features_enabled is True
+    assert config.transition_stability_features_enabled is False
+    assert config.relationship_change_trend_features_enabled is True

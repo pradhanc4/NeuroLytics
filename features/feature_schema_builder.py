@@ -15,6 +15,18 @@ DEFAULT_AVAILABILITY_RULE = (
 )
 
 
+POSITIONS = (
+    "col1",
+    "col2",
+    "col3",
+    "col4",
+    "col5",
+    "col6",
+    "col7",
+    "col8",
+)
+
+
 def _extract_position(
     feature_name: str,
 ) -> str | None:
@@ -22,16 +34,7 @@ def _extract_position(
 
     first_part = feature_name.split("_", 1)[0]
 
-    if first_part in (
-        "col1",
-        "col2",
-        "col3",
-        "col4",
-        "col5",
-        "col6",
-        "col7",
-        "col8",
-    ):
+    if first_part in POSITIONS:
         return first_part
 
     return None
@@ -53,22 +56,133 @@ def _extract_lag(
     return None
 
 
+def _safe_integer(
+    value: str,
+) -> int | None:
+    """Convert a string to an integer when possible."""
+
+    try:
+        return int(value)
+    except ValueError:
+        return None
+
+
 def _extract_window(
     feature_name: str,
     feature_type: str,
 ) -> int | None:
-    """Extract window size when encoded in the feature name."""
+    """
+    Extract a single meaningful window/lookback from a
+    feature name.
+
+    Feature families with multiple independent windows, such as
+    frequency_change, intentionally return None because no single
+    window accurately represents the feature.
+    """
 
     parts = feature_name.split("_")
 
     if feature_type == "rolling":
+        # Phase 13:
+        # col1_rolling_5_mean
         if len(parts) >= 3:
-            try:
-                return int(parts[2])
-            except ValueError:
-                return None
+            return _safe_integer(parts[2])
 
-    if feature_type == "frequency":
+        return None
+
+    if feature_type == "historical_frequency":
+        # Phase 14:
+        # col1_frequency_count_5_0
+        # col1_frequency_percentage_5_0
+        if len(parts) >= 4:
+            return _safe_integer(parts[3])
+
+        return None
+
+    if feature_type == "rolling_frequency":
+        # Phase 14:
+        # col1_rolling_frequency_5_0
+        if len(parts) >= 4:
+            return _safe_integer(parts[3])
+
+        return None
+
+    if feature_type == "frequency_concentration":
+        # Phase 14:
+        # col1_frequency_dominant_digit_5
+        # col1_frequency_entropy_5
+        if len(parts) >= 5:
+            return _safe_integer(parts[4])
+
+        return None
+
+    if feature_type == "observation_density":
+        # Phase 14:
+        # observation_density_count_7
+        # observation_density_rate_7
+        if len(parts) >= 4:
+            return _safe_integer(parts[3])
+
+        return None
+
+    if feature_type == "recency_expansion":
+        # Phase 14:
+        # col1_digit_0_recency_expansion_count_3
+        # col1_digit_0_recency_expansion_rate_3
+        # col1_digit_0_recency_expansion_last_distance_3
+        # col1_digit_0_recency_expansion_seen_3
+        if parts:
+            return _safe_integer(parts[-1])
+
+        return None
+
+    if feature_type == "recency_distribution":
+        # Phase 14:
+        # col1_digit_0_recency_distribution_count_3
+        # col1_digit_0_recency_distribution_mean_distance_3
+        if parts:
+            return _safe_integer(parts[-1])
+
+        return None
+
+    if feature_type == "recency_bucket":
+        # Phase 14:
+        # col1_digit_0_recency_bucket_label_3
+        # col1_digit_0_recency_bucket_index_3
+        # col1_digit_0_recency_bucket_is_unseen_3
+        if parts:
+            return _safe_integer(parts[-1])
+
+        return None
+
+    if feature_type == "change_trend":
+        # Change features have no window:
+        # col1_change
+        # col1_absolute_change
+        # col1_change_direction
+        #
+        # Trend features do:
+        # col1_trend_mean_3
+        # col1_trend_std_5
+        # col1_trend_slope_7
+        if "trend" in parts:
+            trend_index = parts.index("trend")
+
+            if len(parts) > trend_index + 2:
+                return _safe_integer(
+                    parts[-1]
+                )
+
+        return None
+
+    # These feature families either do not have a single
+    # window or their window is represented elsewhere.
+    if feature_type in (
+        "frequency",
+        "time",
+        "historical_interval",
+        "frequency_change",
+    ):
         return None
 
     return None

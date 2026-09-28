@@ -68,6 +68,7 @@ def test_feature_schema_contains_expected_metadata():
 
 def test_all_supported_feature_types_are_defined():
     assert FEATURE_TYPES == (
+        # Phase 13
         "lag",
         "rolling",
         "recency",
@@ -75,6 +76,19 @@ def test_all_supported_feature_types_are_defined():
         "frequency",
         "sequence",
         "cross_position",
+
+        # Phase 14
+        "time",
+        "historical_interval",
+        "observation_density",
+        "historical_frequency",
+        "rolling_frequency",
+        "frequency_change",
+        "frequency_concentration",
+        "recency_expansion",
+        "recency_distribution",
+        "recency_bucket",
+        "change_trend",
     )
 
 

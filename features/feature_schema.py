@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 
 FEATURE_TYPES = (
+    # Phase 13
     "lag",
     "rolling",
     "recency",
@@ -11,7 +12,21 @@ FEATURE_TYPES = (
     "frequency",
     "sequence",
     "cross_position",
+
+    # Phase 14
+    "time",
+    "historical_interval",
+    "observation_density",
+    "historical_frequency",
+    "rolling_frequency",
+    "frequency_change",
+    "frequency_concentration",
+    "recency_expansion",
+    "recency_distribution",
+    "recency_bucket",
+    "change_trend",
 )
+
 
 POSITIONS = (
     "col1",
