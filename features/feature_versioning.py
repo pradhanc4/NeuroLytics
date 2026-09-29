@@ -15,7 +15,11 @@ from features.feature_schema import (
 from features.unified_dataset import (
     UnifiedFeatureDataset,
 )
-
+from features.versioning_contract import (
+    FeatureVersionReference,
+    build_feature_version_reference,
+    validate_feature_version_reference,
+)
 
 VERSION_ALGORITHM = "sha256"
 VERSION_PREFIX = "feature-"
@@ -271,6 +275,85 @@ def validate_feature_version_identity(
             "match its canonical definition."
         )
 
+def build_feature_version_reference_from_identity(
+    identity: FeatureVersionIdentity,
+) -> FeatureVersionReference:
+    """
+    Build a versioning-contract reference from an existing
+    FeatureVersionIdentity.
+
+    The existing FeatureVersionIdentity remains the authoritative
+    source of the feature version, identity, and algorithm.
+    """
+
+    validate_feature_version_identity(
+        identity
+    )
+
+    return build_feature_version_reference(
+        feature_version=identity.feature_version,
+        identity=identity.identity,
+        algorithm=identity.algorithm,
+    )
+
+
+def validate_feature_version_reference_against_identity(
+    reference: FeatureVersionReference,
+    identity: FeatureVersionIdentity,
+) -> None:
+    """
+    Validate that a FeatureVersionReference belongs to a
+    FeatureVersionIdentity.
+
+    This does not recalculate or replace the existing feature
+    identity. It validates consistency between the two contracts.
+    """
+
+    validate_feature_version_reference(
+        reference
+    )
+
+    validate_feature_version_identity(
+        identity
+    )
+
+    if reference.feature_version != identity.feature_version:
+        raise ValueError(
+            "Feature version reference does not match "
+            "the FeatureVersionIdentity feature version."
+        )
+
+    if reference.identity != identity.identity:
+        raise ValueError(
+            "Feature version reference does not match "
+            "the FeatureVersionIdentity identity."
+        )
+
+    if reference.algorithm != identity.algorithm:
+        raise ValueError(
+            "Feature version reference does not match "
+            "the FeatureVersionIdentity algorithm."
+        )
+
+
+def is_feature_version_reference_consistent(
+    reference: FeatureVersionReference,
+    identity: FeatureVersionIdentity,
+) -> bool:
+    """
+    Return whether a feature-version reference is consistent
+    with a FeatureVersionIdentity.
+    """
+
+    try:
+        validate_feature_version_reference_against_identity(
+            reference,
+            identity,
+        )
+    except (TypeError, ValueError):
+        return False
+
+    return True
 
 def is_feature_version_reproducible(
     first: FeatureVersionIdentity,

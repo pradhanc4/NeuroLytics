@@ -1,3 +1,313 @@
+### Phase 31 Closure Update - 2026-09-30
+
+Phase 31 - GRU is COMPLETE LOCALLY.
+
+Implemented a deterministic NumPy GRU classifier for NeuroLytics digit sequences with configurable recurrent hidden size, sequence windows, update/reset/new gates, recurrent forward computation, backpropagation-through-time training, gradient clipping, early stopping, next-digit probability prediction, Top-K prediction, evaluation metrics, position-wise GRU models, chronological splitting, deterministic artifact identity, model validation, persistence/loading, lineage validation, and reproducibility.
+
+Phase 31 dedicated regression: 46 passed, 0 warnings.
+
+Phase 31 full project regression: 4849 passed in 59.77s, 0 failures, 0 errors, 0 warnings.
+
+The regression increased from 4803 to 4849 tests (+46).
+
+GRU model version: 31.0.0.
+
+Model kind: gru.
+
+No new third-party dependency was required; the implementation uses the existing NumPy runtime already available through the project environment.
+
+GitHub commit/push was not performed.
+
+## Phase 31 Milestones
+
+31.1 GRU Model Foundation — COMPLETE
+31.2 Configuration Contract — COMPLETE
+31.3 Digit Sequence Dataset Contract — COMPLETE
+31.4 Dataset Validation — COMPLETE
+31.5 Chronological Split — COMPLETE
+31.6 Deterministic Parameter Initialization — COMPLETE
+31.7 Input One-Hot Encoding — COMPLETE
+31.8 Update Gate — COMPLETE
+31.9 Reset Gate — COMPLETE
+31.10 Candidate / New State — COMPLETE
+31.11 Recurrent Forward Pass — COMPLETE
+31.12 Softmax Output Layer — COMPLETE
+31.13 Backpropagation Through Time — COMPLETE
+31.14 Gradient Clipping — COMPLETE
+31.15 Deterministic Training Loop — COMPLETE
+31.16 Training History — COMPLETE
+31.17 Early Stopping / Best-State Restore — COMPLETE
+31.18 Next-Digit Probability Prediction — COMPLETE
+31.19 Next-Digit Top-K Prediction — COMPLETE
+31.20 Log-Likelihood — COMPLETE
+31.21 Evaluation Metrics — COMPLETE
+31.22 Position-Wise GRU Models — COMPLETE
+31.23 Baseline Comparison — COMPLETE
+31.24 Deterministic Artifact Identity — COMPLETE
+31.25 Model Validation — COMPLETE
+31.26 Persistence / Loading — COMPLETE
+31.27 Artifact Lineage Validation — COMPLETE
+31.28 Reproducibility — COMPLETE
+31.29 Regression Coverage — COMPLETE
+31.30 Final Verification — COMPLETE
+
+Next roadmap phase: Phase 32 — Transformer
+
+### Phase 30 Closure Update - 2026-09-30
+
+Phase 30 - LSTM is COMPLETE LOCALLY.
+
+Implemented a deterministic NumPy LSTM classifier for NeuroLytics digit sequences with configurable recurrent hidden size, sequence windows, gated recurrent computation, backpropagation-through-time training, gradient clipping, early stopping, next-digit probability prediction, Top-K prediction, evaluation metrics, position-wise LSTM models, chronological splitting, deterministic artifact identity, model validation, persistence/loading, lineage validation, and reproducibility.
+
+Phase 30 dedicated regression: 46 passed, 0 warnings.
+
+Phase 30 full project regression: 4803 passed in 59.55s, 0 failures, 0 errors, 0 warnings.
+
+The regression increased from 4757 to 4803 tests (+46).
+
+LSTM model version: 30.0.0.
+
+Model kind: lstm.
+
+No new third-party dependency was required; the implementation uses the existing NumPy runtime already available through the project environment.
+
+GitHub commit/push was not performed.
+
+## Phase 30 Milestones
+
+30.1 LSTM Model Foundation — COMPLETE
+30.2 Configuration Contract — COMPLETE
+30.3 Digit Sequence Dataset Contract — COMPLETE
+30.4 Dataset Validation — COMPLETE
+30.5 Chronological Split — COMPLETE
+30.6 Deterministic Parameter Initialization — COMPLETE
+30.7 Input One-Hot Encoding — COMPLETE
+30.8 Forget / Input / Output / Candidate Gates — COMPLETE
+30.9 Recurrent Forward Pass — COMPLETE
+30.10 Softmax Output Layer — COMPLETE
+30.11 Backpropagation Through Time — COMPLETE
+30.12 Gradient Clipping — COMPLETE
+30.13 Deterministic Training Loop — COMPLETE
+30.14 Training History — COMPLETE
+30.15 Early Stopping / Best-State Restore — COMPLETE
+30.16 Next-Digit Probability Prediction — COMPLETE
+30.17 Next-Digit Top-K Prediction — COMPLETE
+30.18 Log-Likelihood — COMPLETE
+30.19 Evaluation Metrics — COMPLETE
+30.20 Position-Wise LSTM Models — COMPLETE
+30.21 Baseline Comparison — COMPLETE
+30.22 Deterministic Artifact Identity — COMPLETE
+30.23 Model Validation — COMPLETE
+30.24 Persistence / Loading — COMPLETE
+30.25 Artifact Lineage Validation — COMPLETE
+30.26 Reproducibility — COMPLETE
+30.27 Regression Coverage — COMPLETE
+30.28 Final Verification — COMPLETE
+
+### Phase 29 Closure Update - 2026-09-30
+
+Phase 29 - Hidden Markov Models (HMM) is COMPLETE LOCALLY.
+
+Phase 30 - LSTM is COMPLETE LOCALLY.
+
+Implemented deterministic discrete Hidden Markov Models for NeuroLytics digit sequences with explicit latent states and observed digit symbols, forward inference, backward inference, posterior state probabilities, Viterbi decoding, Baum-Welch expectation-maximization training, next-observation probability prediction, evaluation metrics, position-wise HMMs, deterministic artifact identity, model validation, persistence/loading, lineage validation, and reproducibility.
+
+Phase 29 dedicated regression: 71 passed, 0 warnings.
+
+Phase 29 full project regression: 4757 passed in 68.65s, 0 failures, 0 errors, 0 warnings.
+
+The regression increased from 4686 to 4757 tests (+71).
+
+HMM model version: 29.0.0.
+
+Model kind: hidden_markov.
+
+No new third-party dependency was required beyond the existing project environment.
+
+GitHub commit/push was not performed.
+
+## Phase 29 Milestones
+
+29.1 HMM Model Foundation — COMPLETE
+29.2 Configuration Contract — COMPLETE
+29.3 Hidden-State / Observation Dataset Contract — COMPLETE
+29.4 Dataset Validation — COMPLETE
+29.5 Deterministic Parameter Initialization — COMPLETE
+29.6 Forward Algorithm — COMPLETE
+29.7 Scaling / Numerical Stability — COMPLETE
+29.8 Backward Algorithm — COMPLETE
+29.9 Forward-Backward Posterior Inference — COMPLETE
+29.10 Viterbi Decoding — COMPLETE
+29.11 Baum-Welch Expectation Step — COMPLETE
+29.12 Baum-Welch Maximization Step — COMPLETE
+29.13 Deterministic HMM Training — COMPLETE
+29.14 Training Convergence Contract — COMPLETE
+29.15 Next-Observation Probability Prediction — COMPLETE
+29.16 Next-Observation Top-K Prediction — COMPLETE
+29.17 Log-Likelihood — COMPLETE
+29.18 Evaluation Metrics — COMPLETE
+29.19 Position-Wise HMM Models — COMPLETE
+29.20 Baseline Comparison — COMPLETE
+29.21 Deterministic Artifact Identity — COMPLETE
+29.22 Model Validation — COMPLETE
+29.23 Persistence / Loading — COMPLETE
+29.24 Artifact Lineage Validation — COMPLETE
+29.25 Reproducibility — COMPLETE
+29.26 Regression Coverage — COMPLETE
+29.27 Final Verification — COMPLETE
+
+### Phase 28 Closure Update - 2026-09-30
+
+Phase 28 - Markov Models is COMPLETE LOCALLY.
+
+Implemented deterministic categorical Markov-chain modeling for NeuroLytics digit sequences, including configurable order 1-10, smoothing, transition counts/probabilities, sequence dataset contracts, next-state prediction, probability prediction, log-likelihood, evaluation metrics, position-wise models, baseline comparison, deterministic artifact identity, model validation, persistence/loading, lineage validation, reproducibility, and stationary-distribution propagation.
+
+Phase 28 dedicated regression: 52 passed, 0 warnings.
+
+Phase 28 full project regression: 4686 passed in 67.21s, 0 failures, 0 errors, 0 warnings.
+
+The regression increased from 4634 to 4686 tests (+52).
+
+Markov model version: 28.0.0.
+
+Model kind: markov.
+
+No new third-party dependency was required.
+
+GitHub commit/push was not performed.
+
+## Phase 28 Milestones
+
+28.1 Markov Model Foundation — COMPLETE
+28.2 Configuration Contract — COMPLETE
+28.3 Digit Sequence Dataset Contract — COMPLETE
+28.4 Dataset Validation — COMPLETE
+28.5 Transition Count Engine — COMPLETE
+28.6 Transition Probability Engine — COMPLETE
+28.7 Smoothing / Zero-Probability Handling — COMPLETE
+28.8 Order-1 Markov Chain — COMPLETE
+28.9 Higher-Order Markov Chain — COMPLETE
+28.10 Next-State Prediction — COMPLETE
+28.11 Probability Prediction — COMPLETE
+28.12 Log-Likelihood — COMPLETE
+28.13 Evaluation Metrics — COMPLETE
+28.14 Position-Wise Markov Models — COMPLETE
+28.15 Baseline Comparison — COMPLETE
+28.16 Deterministic Artifact Identity — COMPLETE
+28.17 Model Validation — COMPLETE
+28.18 Persistence / Loading — COMPLETE
+28.19 Artifact Lineage Validation — COMPLETE
+28.20 Reproducibility — COMPLETE
+28.21 Stationary Distribution Propagation — COMPLETE
+28.22 Regression Coverage — COMPLETE
+28.23 Final Verification — COMPLETE
+
+### Phase 27 Closure Update - 2026-09-30
+
+Phase 27 - CatBoost is COMPLETE LOCALLY.
+
+Implemented deterministic CatBoost classification with SQL/sequence dataset compatibility, chronological splitting, binary and multiclass objectives, probability prediction, evaluation metrics, feature importance, position-wise models, baseline comparison, deterministic artifact identity, validation, persistence/loading, version-reference validation, reproducibility, and early-stopping support.
+
+Phase 27 dedicated regression: 46 passed, 0 warnings.
+
+Phase 27 full project regression: 4634 passed in 149.50s, 0 failures, 0 errors, 0 warnings.
+
+The regression increased from 4588 to 4634 tests (+46).
+
+CatBoost dependency: catboost==1.2.10.
+
+CatBoost model version: 27.0.0.
+
+CatBoost runtime version: 1.2.10.
+
+Model kind: catboost.
+
+GitHub commit/push was not performed.
+
+## Phase 27 Milestones
+
+27.1 CatBoost Dependency Foundation — COMPLETE
+27.2 Configuration Contract — COMPLETE
+27.3 Dataset Contract — COMPLETE
+27.4 Dataset Validation — COMPLETE
+27.5 Sequence Dataset Adapter — COMPLETE
+27.6 Chronological Split — COMPLETE
+27.7 Model Factory — COMPLETE
+27.8 Training Engine — COMPLETE
+27.9 Binary / Multiclass Prediction — COMPLETE
+27.10 Probability Integrity — COMPLETE
+27.11 Evaluation Metrics — COMPLETE
+27.12 Feature Importance — COMPLETE
+27.13 Position-Wise Models — COMPLETE
+27.14 Baseline Comparison — COMPLETE
+27.15 Artifact Identity — COMPLETE
+27.16 Pipeline Validation — COMPLETE
+27.17 Version Lineage — COMPLETE
+27.18 Persistence — COMPLETE
+27.19 Reproducibility — COMPLETE
+27.20 Regression Coverage — COMPLETE
+27.21 Final Verification — COMPLETE
+
+### Phase 26 Closure Update - 2026-09-30
+
+Phase 26 - LightGBM is COMPLETE LOCALLY.
+
+Implemented deterministic LightGBM classification with SQL/sequence dataset compatibility, chronological splitting, binary and multiclass objectives, probability prediction, evaluation metrics, feature importance, position-wise models, baseline comparison, deterministic artifact identity, validation, persistence/loading, version-reference validation, reproducibility, and early-stopping support.
+
+Phase 26 dedicated regression: 44 passed, 0 warnings.
+
+Phase 26 full project regression: 4588 passed in 74.00s, 0 failures, 0 errors, 0 warnings.
+
+The regression increased from 4544 to 4588 tests (+44).
+
+LightGBM dependency: lightgbm==4.6.0.
+
+LightGBM model version: 26.0.0.
+
+Model kind: lightgbm.
+
+GitHub commit/push was not performed.
+
+## Phase 26 Milestones
+
+26.1 LightGBM Dependency Foundation — COMPLETE
+26.2 Configuration Contract — COMPLETE
+26.3 Dataset Contract — COMPLETE
+26.4 Dataset Validation — COMPLETE
+26.5 Sequence Dataset Adapter — COMPLETE
+26.6 Chronological Split — COMPLETE
+26.7 Model Factory — COMPLETE
+26.8 Training Engine — COMPLETE
+26.9 Binary / Multiclass Prediction — COMPLETE
+26.10 Probability Integrity — COMPLETE
+26.11 Evaluation Metrics — COMPLETE
+26.12 Feature Importance — COMPLETE
+26.13 Position-Wise Models — COMPLETE
+26.14 Baseline Comparison — COMPLETE
+26.15 Artifact Identity — COMPLETE
+26.16 Pipeline Validation — COMPLETE
+26.17 Version Lineage — COMPLETE
+26.18 Persistence — COMPLETE
+26.19 Reproducibility — COMPLETE
+26.20 Regression Coverage — COMPLETE
+26.21 Final Verification — COMPLETE
+
+### Phase 25 Closure Update - 2026-09-30
+
+Phase 25 - XGBoost is COMPLETE LOCALLY.
+
+Implemented deterministic XGBoost classification with SQL/sequence dataset compatibility, chronological splitting, binary and multiclass objectives, probability prediction, evaluation metrics, feature importance, position-wise models, baseline comparison, artifact identity, validation, persistence/loading, version-reference validation, reproducibility, and early-stopping support.
+
+Phase 25 dedicated regression: 38 passed, 0 warnings.
+
+Phase 25 full project regression: 4544 passed in 75.27s, 0 failures, 0 errors, 0 warnings.
+
+The regression increased from 4506 to 4544 tests (+38).
+
+XGBoost dependency: xgboost==3.0.5.
+
+GitHub commit/push was not performed.
+
 # NeuroLytics — Project Status
 
 ## Project Overview
@@ -7,22 +317,51 @@ Architecture: SQL-first, local development
 Primary language: Python  
 Database: SQLite / SQLAlchemy  
 Backend foundation: Flask  
-Current official phase: Phase 14 — Time / Frequency / Recency Feature Expansion  
-Current status: COMPLETE  
-Latest Phase 14 focused regression: 358 passed in 1.39s  
-Latest full project regression: 3206 passed in 41.58s  
+Current official phase: Phase 31 - GRU  
+Current status: COMPLETE LOCALLY - WARNING CLEAN
+Latest Phase 31 focused regression: 46 passed, 0 warnings  
+Latest Phase 30 focused regression: 46 passed, 0 warnings  
+Latest Phase 29 focused regression: 71 passed, 0 warnings
+Latest Phase 28 focused regression: 52 passed, 0 warnings
+Latest Phase 27 focused regression: 46 passed, 0 warnings
+Latest Phase 26 focused regression: 44 passed, 0 warnings  
+Latest Phase 25 focused regression: 38 passed, 0 warnings
+Latest Phase 24 focused regression: 36 passed, 0 warnings  
+Latest warning-cleanup regression: 95 passed, 0 warnings  
+Latest full project regression: 4849 passed in 59.77s  
+Phase 25 full project regression: 4544 passed in 75.27s  
+Phase 24 full project regression: 4506 passed in 71.58s  
+Phase 24 failures: 0  
+Phase 24 errors: 0  
+Phase 26 warnings: 0  
+Phase 24 warnings: 0  
+Phase 22 full project regression: 4437 passed in 71.47s  
+Phase 22 failures: 0  
+Phase 22 errors: 0  
+Phase 22 warnings: 23 total project warnings; 1 Phase 22-specific warning  
+Phase 21 full project regression: 4406 passed in 71.03s  
+Phase 20 focused regression: 31 passed  
+Phase 20 full project regression: 4380 passed in 71.25s  
 
 ---
 
 ## Overall Status
 
-NeuroLytics has completed Phases 1 through 9 and Phase 13 independently.
+NeuroLytics has completed Phases 1 through 9 and Phases 13 through 31 independently, with Phases 10–12 retaining their historical related-implementation status.
 
 Phase 9.3 is complete/paused at milestone 9.3.75.
 
 Phases 10–12 contain related accumulated analytics functionality, but are not falsely marked independently complete until their formal intended scopes are explicitly reviewed and verified.
 
 Phase 14 — Time / Frequency / Recency Feature Expansion is COMPLETE.
+
+Phase 15 — Family / Relationship / Transition Features is COMPLETE.
+
+Phase 16 — Sequence Dataset Builder is COMPLETE.
+
+Phase 17 — Feature / Dataset Versioning is COMPLETE.
+
+Phase 18 — Statistical Baseline is COMPLETE.
 
 No known regression failures remain in the current test suite.
 
@@ -211,7 +550,24 @@ No fabricated historical observations are used for engineering validation.
 | 12 | Sequence / Transition | RELATED IMPLEMENTATION EXISTS; NOT INDEPENDENTLY CLOSED |
 | 13 | Leakage-Safe Feature Framework | COMPLETE |
 | 14 | Time / Frequency / Recency Features | COMPLETE |
-| 15–76 | Future ML / Evaluation / Product Phases | NOT STARTED |
+| 15 | Family / Relationship / Transition Features | COMPLETE |
+| 16 | Sequence Dataset Builder | COMPLETE |
+| 17 | Feature / Dataset Versioning | COMPLETE |
+| 18 | Statistical Baseline | COMPLETE |
+| 19 | Bayesian Models | COMPLETE |
+| 20 | Logistic Regression | COMPLETE |
+| 21 | Decision Tree | COMPLETE | 
+| 22 | Random Forest | COMPLETE |
+| 23 | Extra Trees | COMPLETE |
+| 24 | Gradient Boosting | COMPLETE |
+| 25 | XGBoost | COMPLETE |
+| 26 | LightGBM | COMPLETE |
+| 27 | CatBoost | COMPLETE |
+| 28 | Markov Models | COMPLETE |
+| 29 | Hidden Markov Models | COMPLETE |
+| 30 | LSTM | COMPLETE |
+| 31 | GRU | COMPLETE |
+| 32-76 | Future ML / Evaluation / Product Phases | NOT STARTED |
 
 ---
 
@@ -1436,15 +1792,15 @@ Real historical data can be introduced later without redesigning the Phase 14 fe
 
 ---
 
-# Next Roadmap Position
+## Next Roadmap Position
 
 The next approved roadmap phase is:
 
-Phase 15 — Family / Relationship / Transition Features
+**Phase 31 — GRU**
 
-Phase 15 should build on the completed Phase 13 and Phase 14 feature architecture.
+Phase 31 should build on the completed sequence-model architecture established through Phases 16, 28, 29, and 30.
 
-It must not create a parallel feature pipeline.
+It must not create a parallel data-contract pipeline.
 
 Future phases must continue to preserve:
 
@@ -1491,3 +1847,550 @@ Phase 14 testing: COMPLETE
 Phase 14 documentation: COMPLETE
 
 Git commit/push: PENDING EXPLICIT RELEASE CONFIRMATION
+
+
+NeuroLytics — Phase 17 Overview
+Phase 17 — Versioning, Compatibility & Lineage
+
+Objective:
+Build a deterministic, leakage-safe versioning framework that connects feature definitions, generated datasets, compatibility checks, lineage, artifacts, reproducibility, and integrity validation.
+
+Step	Component	Status
+17.1	Versioning Contract / Foundation	✅ Complete
+17.2	Feature Version Identity Validation	✅ Complete
+17.3	Dataset Version Identity	✅ Complete
+17.4	Version Compatibility Rules	✅ Complete
+17.5	Version Comparison / Change Detection	✅ Complete
+17.6	Version Lineage	✅ Complete
+17.7	Versioned Artifact Integration	✅ Complete
+17.8	Version Determinism / Reproducibility	✅ Complete
+17.9	Version Validation / Integrity	✅ Complete
+17.10	Comprehensive Phase 17 Testing	✅ Complete
+17.11	Documentation / Release	⏳ Current
+17.1 — Versioning Contract / Foundation
+
+Established the common contract for:
+
+Feature version references
+Dataset version references
+Feature → Dataset lineage references
+Version reference validation
+Deterministic serialization
+
+Core production file:
+
+features/versioning_contract.py
+17.2 — Feature Version Identity Validation
+
+Established deterministic feature-version identity validation using the existing feature configuration and schema definitions.
+
+Core:
+
+features/feature_versioning.py
+17.3 — Dataset Version Identity
+
+Established deterministic dataset-version identities based on the concrete generated dataset and its associated feature identity.
+
+Core:
+
+features/dataset_versioning.py
+
+Dataset identity maintains the relationship with:
+
+Feature Version
+Feature Identity
+Dataset Version
+Dataset Identity
+17.4 — Version Compatibility Rules
+
+Added compatibility validation between feature and dataset versions.
+
+Checks include:
+
+Feature version compatibility
+Feature identity compatibility
+Algorithm compatibility
+Structural validity of references
+
+Core:
+
+features/version_compatibility.py
+17.5 — Version Comparison / Change Detection
+
+Added deterministic comparison between version references.
+
+Detects changes in:
+
+Feature version
+Feature identity
+Dataset version
+Dataset identity
+Algorithm
+
+Core:
+
+features/version_comparison.py
+17.6 — Version Lineage
+
+Established explicit lineage between a feature version and the dataset generated from that feature definition.
+
+Relationship:
+
+Feature Version
+      ↓
+Feature Identity
+      ↓
+Dataset Version
+      ↓
+Dataset Identity
+
+Core:
+
+features/version_lineage.py
+
+Validation, serialization, comparison, reproducibility, and getters were covered.
+
+Focused test result:
+
+20 passed in 0.09s
+17.7 — Versioned Artifact Integration
+
+Integrated version identities and references with the existing artifact/integrity framework.
+
+Conceptually:
+
+FeatureArtifact
+      │
+      ├── FeatureVersionIdentity
+      │
+      ├── FeatureVersionReference
+      │
+      ├── DatasetVersionReference
+      │
+      └── ArtifactIntegrity
+             ↓
+      VersionedFeatureArtifact
+
+Important architectural rule maintained:
+
+Existing artifact and integrity systems remain the source of truth.
+
+Core:
+
+features/versioned_artifact.py
+17.8 — Version Determinism / Reproducibility
+
+Established reproducibility validation across:
+
+Version identities
+Serialized references
+Artifact integrity
+Versioned feature artifacts
+Dataset/feature relationships
+
+Core:
+
+features/version_reproducibility.py
+17.9 — Version Validation / Integrity
+
+Established centralized validation of the complete versioning chain.
+
+Validation covers:
+
+Feature Identity
+       ↓
+Dataset Identity
+       ↓
+Version References
+       ↓
+Compatibility
+       ↓
+Artifact Integrity
+       ↓
+Versioned Artifact
+
+Core:
+
+features/version_validation.py
+17.10 — Comprehensive Phase 17 Testing
+
+All Phase 17 test suites were executed together.
+
+Final result:
+
+294 passed in 16.57s
+
+This is the current official Phase 17 comprehensive test result.
+
+17.11 — Documentation / Release
+
+Remaining work:
+
+Update project_status.md
+Update CHANGELOG.md
+Verify Phase 17 files
+Run final regression suite
+Verify Git status
+Review Phase 17 release contents
+Only after your explicit approval → commit
+Only after your explicit approval → push to GitHub
+Phase 17 final architecture
+                 ┌──────────────────────┐
+                 │ Feature Configuration │
+                 │      + Schemas        │
+                 └──────────┬───────────┘
+                            ↓
+                 Feature Version Identity
+                            ↓
+                 Feature Version Reference
+                            ↓
+                    Compatibility
+                            ↓
+                 Dataset Version Identity
+                            ↓
+                 Dataset Version Reference
+                            ↓
+                     Version Lineage
+                            ↓
+                  Versioned Artifact
+                            ↓
+                  Artifact Integrity
+                            ↓
+              Validation + Reproducibility
+
+# Phase 19 — Bayesian Models
+
+Status: COMPLETE
+
+Phase 19 introduced a deterministic Bayesian modeling layer on top of the Phase 18 Statistical Baseline.
+
+Completed milestones:
+
+19.1 Bayesian Modeling Contract / Foundation
+19.2 Bayesian Dataset Preparation
+19.3 Prior Distribution Framework
+19.4 Likelihood Framework
+19.5 Posterior Distribution Framework
+19.6 Bayesian Parameter Estimation
+19.7 Bayesian Digit Probability Model
+19.8 Bayesian Position Model
+19.9 Bayesian Conditional Model
+19.10 Bayesian Updating Engine
+19.11 Posterior Predictive Distribution
+19.12 Bayesian Uncertainty / Credible Intervals
+19.13 Bayesian Model Validation
+19.14 Bayesian Baseline Comparison
+19.15 Bayesian Artifact / Version Integration
+19.16 Determinism / Reproducibility
+19.17 Comprehensive Phase 19 Testing
+19.18 Documentation / Local Release
+
+Production module:
+
+analytics/bayesian_models.py
+
+The implementation reuses StatisticalBaselineDataset and the Phase 17 dataset versioning contract.
+
+Digit 0 remains a valid observation.
+
+No historical observations are fabricated.
+
+No new external dependency was added for credible intervals.
+
+Phase 19 focused regression before final full regression:
+
+18 passed
+
+GitHub commit/push remains pending explicit release confirmation.
+
+Next roadmap phase: Phase 20 — Logistic Regression
+
+
+---
+
+# Phase 20 — Logistic Regression
+
+Status: COMPLETE
+
+## Scope
+
+Phase 20 adds a production Logistic Regression baseline while reusing the existing sequence dataset, temporal-split, feature-version, and dataset-version contracts.
+
+## Milestones Completed
+
+20.1 Logistic Regression Contract / Foundation — COMPLETE
+20.2 Logistic Regression Dataset Preparation — COMPLETE
+20.3 Target / Label Preparation — COMPLETE
+20.4 Feature Matrix Preparation — COMPLETE
+20.5 Train / Validation Split — COMPLETE
+20.6 Logistic Regression Training Engine — COMPLETE
+20.7 Binary Classification Framework — COMPLETE
+20.8 Multiclass Classification Framework — COMPLETE
+20.9 Position-Wise Logistic Models — COMPLETE
+20.10 Regularization Framework — COMPLETE
+20.11 Hyperparameter Configuration — COMPLETE
+20.12 Probability & Score Generation — COMPLETE
+20.13 Logistic Regression Evaluation — COMPLETE
+20.14 Baseline Comparison — COMPLETE
+20.15 Model Validation — COMPLETE
+20.16 Artifact / Version Integration — COMPLETE
+20.17 Determinism / Reproducibility — COMPLETE
+20.18 Model Persistence / Loading — COMPLETE
+20.19 Prediction Interface — COMPLETE
+20.20 Comprehensive Phase 20 Testing — COMPLETE
+20.21 Documentation / Local Release — COMPLETE
+
+## Production Module
+
+analytics/logistic_regression.py
+
+## Test Module
+
+tests/test_logistic_regression.py
+
+## Dependency
+
+scikit-learn 1.9.1
+joblib 1.6.0
+
+The dependency was added to requirements.txt.
+
+## Model Capabilities
+
+- validated Logistic Regression configuration
+- binary classification
+- multiclass classification
+- L1, L2, elasticnet, and no-penalty configuration handling
+- solver/penalty compatibility validation
+- chronological train/validation splitting
+- deterministic feature-matrix construction
+- position-wise model construction
+- class probability generation
+- class prediction
+- accuracy, precision, recall, F1, log loss, and confusion matrix
+- baseline log-loss comparison
+- model validation
+- model artifact identity
+- version-reference validation
+- joblib persistence and loading
+- reproducibility checks
+
+## Leakage / Integrity Rules
+
+Training and validation are separated chronologically.
+
+No random train/test shuffling is used by the production temporal split.
+
+Sequence targets remain strictly after their input sequence through the existing Phase 16 contracts.
+
+Existing Phase 17 version references are validated rather than replaced.
+
+Digit 0 remains a valid classification label.
+
+The Logistic Regression module does not create a second feature-engineering system.
+
+## Verification
+
+Focused Phase 20 suite:
+
+31 passed
+
+Full project regression:
+
+4380 passed in 71.25s
+
+Result:
+
+0 failed
+
+0 errors
+
+## Release State
+
+Phase 20 is complete locally.
+
+GitHub commit/push remains pending explicit user release confirmation.
+
+Next roadmap phase: Phase 21 — Decision Tree.
+
+
+
+# Phase 25 - XGBoost
+
+Status: COMPLETE LOCALLY
+
+Version: 25.0.0
+
+Model kind: xgboost
+
+Dependency: xgboost==3.0.5
+
+## Phase 25 Milestones
+
+### 25.1 - XGBoost Dependency Foundation
+
+Added the pinned XGBoost dependency to requirements.txt and verified the installed runtime version.
+
+### 25.2 - Configuration Contract
+
+Implemented XGBoostConfig with deterministic controls for estimators, depth, learning rate, child weight, row/column subsampling, gamma, L1/L2 regularization, objective, evaluation metric, early stopping, random state, jobs, and tree method.
+
+### 25.3 - Dataset Contract
+
+Implemented XGBoostDataset with feature names, feature version, dataset identity, target name, chronological dates, numeric feature matrix, and integer targets.
+
+### 25.4 - Dataset Validation
+
+Added validation for feature identity, widths, unique names, unique chronological dates, numeric values, and minimum class cardinality.
+
+### 25.5 - Sequence Dataset Adapter
+
+Added conversion from SequenceDataset into the XGBoost dataset contract while preserving target position and deterministic flattened feature names.
+
+### 25.6 - Chronological Split
+
+Implemented deterministic temporal train/validation splitting with protection against single-class training partitions.
+
+### 25.7 - Model Factory
+
+Implemented XGBClassifier construction with automatic binary versus multiclass objective selection. Multiclass default log-loss is translated to mlogloss for XGBoost compatibility.
+
+### 25.8 - Training Engine
+
+Implemented deterministic training with optional validation-set support and early-stopping configuration. Validation data must contain the same class set as training data.
+
+### 25.9 - Binary / Multiclass Prediction
+
+Implemented class prediction and probability prediction for supported XGBoost classification objectives.
+
+### 25.10 - Probability Integrity
+
+Normalized probability rows before downstream sklearn log-loss evaluation so each probability vector is a valid distribution.
+
+### 25.11 - Evaluation Metrics
+
+Implemented accuracy, weighted precision, weighted recall, weighted F1, log-loss, and class-aligned confusion matrix metrics.
+
+### 25.12 - Feature Importance
+
+Implemented feature-importance extraction with strict feature-width validation.
+
+### 25.13 - Position-Wise Models
+
+Implemented deterministic position-model construction and lookup using sorted position names.
+
+### 25.14 - Baseline Comparison
+
+Implemented log-loss comparison against a supplied baseline without changing the project's descriptive evaluation contract.
+
+### 25.15 - Artifact Identity
+
+Implemented deterministic SHA-256 artifact identity using model kind/version, configuration, feature version, dataset identity, target, and model classes.
+
+### 25.16 - Pipeline Validation
+
+Implemented model and pipeline validation with structured VALID/INVALID status and explicit issue codes.
+
+### 25.17 - Version Lineage
+
+Integrated feature-version and dataset-version reference validation with the existing NeuroLytics versioning contract.
+
+### 25.18 - Persistence
+
+Implemented joblib save/load support with persisted-model type validation.
+
+### 25.19 - Reproducibility
+
+Verified deterministic training/artifact identity under fixed random state and configuration.
+
+### 25.20 - Regression Coverage
+
+Added 38 dedicated Phase 25 tests covering configuration, dataset validation, temporal splitting, training, binary/multiclass behavior, probabilities, evaluation, feature importance, position models, baselines, artifacts, persistence, validation, early stopping, version references, and reproducibility.
+
+### 25.21 - Final Verification
+
+Phase 25 focused regression: 38 passed, 0 warnings.
+
+Full project regression: 4544 passed in 75.27s.
+
+Failures: 0
+
+Errors: 0
+
+Warnings: 0
+
+Previous baseline: 4506 passed.
+
+Net increase: +38 tests.
+
+GitHub commit/push was not performed.
+
+---
+
+# Phase 24 — Gradient Boosting
+
+Status: COMPLETE LOCALLY
+
+## Milestones
+
+24.1 Contract / Foundation — COMPLETE
+24.2 Dataset Preparation — COMPLETE
+24.3 Target / Label Validation — COMPLETE
+24.4 Feature Matrix Validation — COMPLETE
+24.5 Chronological Train / Validation Split — COMPLETE
+24.6 Gradient Boosting Training Engine — COMPLETE
+24.7 Binary Classification — COMPLETE
+24.8 Multiclass Classification — COMPLETE
+24.9 Position-Wise Gradient Boosting Models — COMPLETE
+24.10 Learning-Rate / Estimator Configuration — COMPLETE
+24.11 Tree Complexity Controls — COMPLETE
+24.12 Subsampling Controls — COMPLETE
+24.13 Early-Stopping Configuration — COMPLETE
+24.14 Probability / Score Generation — COMPLETE
+24.15 Feature Importance — COMPLETE
+24.16 Model Evaluation — COMPLETE
+24.17 Baseline Log-Loss Comparison — COMPLETE
+24.18 Model Validation — COMPLETE
+24.19 Artifact / Version Identity — COMPLETE
+24.20 Determinism / Reproducibility — COMPLETE
+24.21 Persistence / Loading — COMPLETE
+24.22 Prediction Interface — COMPLETE
+24.23 Comprehensive Testing — COMPLETE
+24.24 Documentation / Local Release — COMPLETE
+
+## Production Outputs
+
+analytics/gradient_boosting.py
+tests/test_gradient_boosting.py
+docs/PHASE_24_GRADIENT_BOOSTING.md
+
+## Test Outputs
+
+Dedicated Phase 24:
+36 passed
+24 warnings
+0 failures
+0 errors
+
+Full project:
+4506 passed
+48 warnings
+0 failures
+0 errors
+70.82 seconds
+
+Regression delta:
+4470 → 4506
++36 tests
+
+## Warning Notes
+
+Phase 24 warnings are sklearn Gradient Boosting FutureWarnings related to the deprecated criterion parameter. Existing project warnings also remain, including Logistic Regression deprecation warnings. No test failures or errors remain.
+
+## Release State
+
+Phase 24 is closed locally.
+
+GitHub commit/push remains pending explicit user approval.
+
+Next roadmap phase: Phase 25 — XGBoost.

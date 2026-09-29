@@ -4,3 +4,8 @@ Flask-SQLAlchemy
 python-dotenv
 pydantic
 pytest
+scikit-learn==1.9.1
+joblib==1.6.0
+xgboost==3.0.5
+lightgbm==4.6.0
+catboost==1.2.10
