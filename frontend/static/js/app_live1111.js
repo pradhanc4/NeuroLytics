@@ -294,6 +294,40 @@
     });
   }
 
+  function renderDigitFrequency(frequency, rows) {
+    const e = $("digit-bars");
+    if (!e) return;
+    const counts = Array(10).fill(0);
+    const source = Array.isArray(frequency?.digits) ? frequency.digits : [];
+    source.forEach(item => {
+      const d = Number(item.digit);
+      if (Number.isInteger(d) && d >= 0 && d <= 9) {
+        const pctValue = Number(item.percentage);
+        const countValue = Number(item.count);
+        counts[d] = Number.isFinite(countValue) && countValue > 0
+          ? countValue
+          : (Number.isFinite(pctValue) ? pctValue : 0);
+      }
+    });
+    if (!source.length) {
+      (rows || []).forEach(row => {
+        String(row.open || "").padStart(3, "0").split("").forEach(d => {
+          if (/^\d$/.test(d)) counts[Number(d)]++;
+        });
+      });
+    }
+    const max = Math.max(...counts, 1);
+    const total = counts.reduce((a,b) => a + b, 0) || 1;
+    e.innerHTML = counts.map((count, digit) => {
+      const share = count / total;
+      return '<div class="digit-item" title="Digit ' + digit + ' · ' + count + ' observations · ' +
+        (share * 100).toFixed(2) + '%">' +
+        '<div class="digit-track"><div class="digit-fill" style="height:' +
+        Math.max(3, (count / max) * 100) + '%"></div></div>' +
+        '<strong>' + digit + '</strong><small>' + (share * 100).toFixed(1) + '%</small></div>';
+    }).join("");
+  }
+
   function renderMovement(rows) {
     const e = $("movement-chart"); if (!e) return;
     const values = rows.slice(0, 60).reverse().map(r => {
@@ -414,14 +448,11 @@
 
       renderMetrics(model);
       renderMovement(rows);
+      renderWeightLadders(rows);
       renderRanking(jodi, "jodi");
       renderRanking(panel, "panel");
 
-      const digitValues = {};
-      (frequency.digits || []).forEach(item => {
-        digitValues[item.digit] = Number(item.percentage || 0) / 100;
-      });
-      bars("digit-bars", digitValues);
+      renderDigitFrequency(frequency, rows);
 
       const panelCounts = {};
       rows.forEach(row => {
