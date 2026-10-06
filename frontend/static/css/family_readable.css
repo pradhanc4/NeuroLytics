@@ -1,0 +1,16 @@
+.family-head-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.copy-family-btn{border:1px solid #2c4663;background:#102238;color:#9fc0df;border-radius:6px;padding:4px 8px;font-size:8px;font-weight:900;cursor:pointer}
+.copy-family-btn:hover{background:#18324e;color:#fff}
+.family-scroll{height:390px!important;padding-right:8px}
+.readable-tier{padding:10px 0}
+.readable-tier .family-tier-head{position:sticky;top:0;z-index:1;background:#0d1a2b;padding:6px 4px;border-bottom:1px solid #22364f}
+.readable-tier .family-tier-head b{font-size:9px}
+.readable-tier .family-tier-head span{font-size:8px;color:#7892ad}
+.readable-tier .family-members{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-top:7px}
+.readable-tier .family-chip{display:flex!important;justify-content:space-between;align-items:center;gap:6px;min-width:0;padding:6px 8px;background:#0b1828;border:1px solid #203650;border-radius:6px;line-height:1.25}
+.readable-tier .family-chip b{font-size:10px;color:#d4e3f2;white-space:nowrap}
+.readable-tier .family-chip small{font-size:8px;color:#8ea8c2;white-space:nowrap;text-align:right}
+.readable-tier .family-empty{grid-column:1/-1}
+.family-card{overflow:hidden}
+.family-card-head h3{line-height:1.25}
+@media(max-width:500px){.readable-tier .family-members{grid-template-columns:1fr}.family-scroll{height:330px!important}}

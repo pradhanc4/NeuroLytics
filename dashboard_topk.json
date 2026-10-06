@@ -1,0 +1,1 @@
+{"actual_available_observations":3,"evaluated_observations":20,"hit_rates":[[1,0.0],[2,0.0],[3,0.0],[5,0.0],[10,0.0]],"ks":[1,2,3,5,10],"mean_reciprocal_rank":0.0803030303030303,"report_identity":"top-k-evaluation-report-1040583f8a47b1841590abcc5c2cb74b3743d58c6e7dcefc44ac439de2be6a07","source_type":"panel","status":"AVAILABLE","version":"44.0.0"}

@@ -143,6 +143,40 @@ class HistoricalResult(Base):
     )
 
 
+class SequentialPredictionStage(Base):
+    """Stores the first-arriving Open + Jodi-first stage before final results exist."""
+
+    __tablename__ = "sequential_prediction_stages"
+    __table_args__ = (
+        UniqueConstraint("market_id", "result_date", name="uq_sequential_stage_market_date"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    market_id: Mapped[int] = mapped_column(ForeignKey("markets.id"), nullable=False, index=True)
+    result_date: Mapped[date] = mapped_column(Date, nullable=False, index=True)
+    open_result: Mapped[str] = mapped_column(String(3), nullable=False)
+    jodi_first_digit: Mapped[str] = mapped_column(String(1), nullable=False)
+    status: Mapped[str] = mapped_column(String(30), nullable=False, default="STAGE_1")
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, server_default=func.now())
+
+
+class PredictionFeedback(Base):
+    """Stores explicit prediction outcome feedback for retraining analysis."""
+
+    __tablename__ = "prediction_feedback"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    market_id: Mapped[int | None] = mapped_column(ForeignKey("markets.id"), nullable=True, index=True)
+    result_date: Mapped[date | None] = mapped_column(Date, nullable=True, index=True)
+    stage: Mapped[str] = mapped_column(String(30), nullable=False)
+    predicted_value: Mapped[str] = mapped_column(String(20), nullable=False)
+    actual_value: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    is_correct: Mapped[bool] = mapped_column(nullable=False)
+    model_identity: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    notes: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, server_default=func.now())
+
+
 class PannaReference(Base):
     """Stores validated Panna/Panel reference values."""
 

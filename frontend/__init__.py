@@ -1,0 +1,6 @@
+"""NeuroLytics frontend foundation package."""
+
+FRONTEND_VERSION = "77.0.0"
+FRONTEND_BOUNDARY = "FRONTEND_FOUNDATION_BOUNDARY"
+
+__all__ = ["FRONTEND_VERSION", "FRONTEND_BOUNDARY"]

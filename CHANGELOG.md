@@ -1,3 +1,87 @@
+## 2026-10-02 — Phase 87: Admin / Configuration Dashboard
+
+Implemented a read-only Admin / Configuration Dashboard over existing production contracts. Added admin:read authorization, service/security/rate-limit/policy/serving/dependency/scope projections, eight GET-only admin routes, and frontend administration panels. Raw API keys and key hashes are never exposed. No runtime mutation, retraining, promotion, rollback, MLOps, CI/CD, Docker, Kubernetes, cloud, or OAuth/OIDC infrastructure was introduced.
+
+Dedicated regression: 55 passed. Next: Phase 88 — Full Frontend Integration.
+
+---
+
+## 2026-10-02 — Phase 86: Prediction Interface
+
+COMPLETE LOCALLY — dedicated regression: 55 passed; Phase 76–86 integration: 457 passed; full regression: 7,615 passed in 156.11s (2m36s), 0 failures, 0 errors.
+
+Phase 86 upgrades the existing frontend Prediction view into a validated Prediction Interface over the existing Phase 68 serving boundary, Phase 69 inference API, and Phase 76 production service.
+
+Added serving-context KPIs, request ID, read-only model/version/artifact fields, editable numeric features JSON, model-context refresh, client-side validation, POST /v1/inference submission, and authoritative result/error display.
+
+No new prediction engine, ML logic, retraining, promotion, rollback, MLOps, CI/CD, Docker, Kubernetes, cloud, OAuth/OIDC, or distributed infrastructure was introduced.
+
+Compileall: PASS. git diff --check: PASS.
+
+Previous baseline: 7,560 passed. Phase 86 increase: +55 tests.
+
+Next: Phase 87 — Admin / Configuration Dashboard.
+
+---
+
+## 2026-10-02 — Phase 85: Model Health Dashboard
+
+COMPLETE LOCALLY — dedicated regression: 55 passed; Phase 76–85 integration: 402 passed; full regression: 7,560 passed in 789.34s (13m09s), 0 failures, 0 errors.
+
+Added analytics/model_health_dashboard.py, tests/test_phase85_model_health_dashboard.py, and docs/PHASE_85_MODEL_HEALTH_DASHBOARD.md.
+
+Integrated read-only Model Health API routes for the authoritative Phase 57 scorecard with model-health:read authorization and shared rate limiting.
+
+Added Model Health frontend navigation, KPIs, scorecard, thresholds, component table, lineage, validation, and refresh controls.
+
+No health recalculation, retraining, promotion, rollback, activation, deletion, cloud infrastructure, MLOps, CI/CD, Docker, Kubernetes, OAuth/OIDC, or distributed infrastructure was introduced.
+
+Compileall: PASS. git diff --check: PASS.
+
+Previous baseline: 7,505 passed. Phase 85 increase: +55 tests.
+
+Next: Phase 86 — Prediction Interface.
+
+---
+
+## 2026-10-02 — Phase 84: Drift / Monitoring Dashboard
+
+COMPLETE LOCALLY — dedicated regression: 50 passed; Phase 76–84 integration: 347 passed; full regression: 7,505 passed in 156.37s, 0 failures, 0 errors.
+
+Added analytics/drift_dashboard.py, tests/test_phase84_drift_monitoring_dashboard.py, and docs/PHASE_84_DRIFT_MONITORING_DASHBOARD.md.
+
+Integrated read-only production routes for unified Data, Model, Calibration, Ranking, Feature, and Concept Drift views, with configurable drift:read authorization and shared rate limiting.
+
+Added the Drift / Monitoring frontend dashboard with six-domain panels, availability/drift KPIs, source evidence, and observation inspection.
+
+No new drift engine, remediation, retraining, model promotion, cloud infrastructure, MLOps, CI/CD, Docker, Kubernetes, OAuth/OIDC, or distributed infrastructure was introduced.
+
+Compileall: PASS. git diff --check: PASS.
+
+Previous baseline: 7,455 passed. Phase 84 increase: +50 tests.
+
+Next: Phase 85 — Model Health Dashboard.
+
+---
+
+## 2026-09-30 — Phase 56: Alert / Threshold Framework
+
+COMPLETE LOCALLY — dedicated regression: 63 passed; full regression: 5,907 passed in 61.15s, 0 failures, 0 errors, 0 warnings.
+
+Added analytics/alert_threshold.py, tests/test_alert_threshold.py, and docs/PHASE_56_ALERT_THRESHOLD_FRAMEWORK.md.
+
+Next: Phase 57 — Model Health Scorecard.
+
+---
+
+## 2026-09-30 — Phase 55: Concept Drift Detection
+
+COMPLETE LOCALLY — dedicated regression: 58 passed; full regression: 5,844 passed, 0 failures, 0 errors, 0 warnings.
+
+Added analytics/concept_drift.py, tests/test_concept_drift.py, and docs/PHASE_55_CONCEPT_DRIFT_DETECTION.md.
+
+---
+
 # NeuroLytics — Changelog
 
 All notable NeuroLytics development milestones are recorded here.
@@ -1777,3 +1861,379 @@ No GitHub commit or push was performed.
 ### Next
 
 Phase 25 — XGBoost
+
+## 2026-09-30 — Phase 57: Model Health Scorecard
+
+COMPLETE LOCALLY — dedicated regression: 80 passed; full regression: 5,987 passed in 61.47s, 0 failures, 0 errors, 0 warnings.
+
+Added:
+- analytics/model_health.py
+- tests/test_model_health.py
+- docs/PHASE_57_MODEL_HEALTH_SCORECARD.md
+
+Capabilities:
+- normalized 0–1 health components
+- configurable component weights
+- weighted aggregate health score
+- HEALTHY / DEGRADED / CRITICAL classification
+- configurable health thresholds
+- source lineage preservation
+- deterministic SHA-256 report identity
+- summary and component accessors
+- strict scorecard validation
+- action-free operational boundary
+
+No new third-party dependency.
+GitHub commit/push not performed.
+
+Next: Phase 58 — Model Comparison Over Time
+
+---
+
+## 2026-09-30 — Phase 58: Model Comparison Over Time
+
+COMPLETE LOCALLY — dedicated regression: 65 passed; full regression: 6,052 passed in 61.33s, 0 failures, 0 errors, 0 warnings.
+
+Added:
+- analytics/model_comparison.py
+- tests/test_model_comparison.py
+- docs/PHASE_58_MODEL_COMPARISON_OVER_TIME.md
+
+Capabilities:
+- Phase 57 model-health snapshots
+- explicit baseline/comparison periods
+- common model accounting
+- baseline-only and comparison-only model accounting
+- health-score absolute change
+- health-score relative change
+- zero-baseline safe handling
+- improved/declined/unchanged descriptive classifications
+- source lineage preservation
+- deterministic SHA-256 report identity
+- summary and accessor APIs
+- strict validation
+- action-free comparison boundary
+
+No new third-party dependency.
+GitHub commit/push not performed.
+
+Next: Phase 59 — Model Champion / Challenger Framework
+
+---
+
+## 2026-09-30 — Phase 59: Model Champion / Challenger Framework
+
+COMPLETE LOCALLY — dedicated regression: 70 passed; full regression: 6,122 passed in 64.17s, 0 failures, 0 errors, 0 warnings.
+
+Added:
+- analytics/champion_challenger.py
+- tests/test_champion_challenger.py
+- docs/PHASE_59_MODEL_CHAMPION_CHALLENGER_FRAMEWORK.md
+
+Capabilities:
+- explicit champion assignment
+- explicit challenger assignments
+- active/inactive role state
+- common-model eligibility enforcement
+- temporal comparison evidence
+- absolute and relative challenger-vs-champion health changes
+- zero-score safe handling
+- source lineage preservation
+- deterministic SHA-256 report identity
+- summary/evidence/model accessors
+- strict validation
+- explicit no-selection/no-promotion boundary
+
+No new third-party dependency.
+GitHub commit/push not performed.
+
+Next: Phase 60 — Model Selection / Promotion Framework
+
+---
+
+
+## Phase 60 — Model Selection / Promotion Framework — 2026-09-30
+
+- Added `analytics/model_selection.py` version 60.0.0.
+- Added configurable promotion policy, challenger eligibility decisions, deterministic selection, promotion/hold/ineligible collections, strict validation, summary/accessor APIs, and deterministic report identity.
+- Preserved Phase 59 champion/challenger lineage and explicitly prevented automatic champion or production mutation.
+- Added 86 dedicated regression tests.
+- Dedicated regression: 86 passed, 0 failures, 0 errors, 0 warnings.
+- Production import and compileall verified.
+- git diff --check verified; only normal Windows LF/CRLF notices remained.
+- No new dependency.
+- GitHub commit/push not performed.
+
+Next: Phase 61 — Model Version Lifecycle.
+
+
+## Phase 61 — Model Version Lifecycle — 2026-09-30
+
+- Added analytics/model_version_lifecycle.py version 61.0.0.
+- Added immutable model-version records and lifecycle states: CANDIDATE, ACTIVE, DEPRECATED, RETIRED, REJECTED.
+- Added validated lifecycle transitions, source/artifact lineage, parent-version lineage, lifecycle collections, accessors, summary, strict validation, and deterministic report identity.
+- Preserved Phase 60 selection lineage and kept lifecycle representation separate from production mutation.
+- Added 80 dedicated regression tests.
+- Dedicated regression: 80 passed, 0 failures, 0 errors, 0 warnings.
+- Production import and compile verification completed.
+- No new dependency. GitHub commit/push not performed.
+
+Next: Phase 62 — Retraining Decision Framework.
+
+## Phase 62 — Retraining Decision Framework — 2026-09-30
+
+- Added deterministic normalized monitoring-evidence contract.
+- Added explicit retraining rules with threshold and consecutive-period controls.
+- Added HOLD/RETRAIN decision report with source lineage and deterministic SHA-256 identity.
+- Added strict validation, summary/accessor APIs, and 76 dedicated regression tests.
+- Kept training, dataset generation, promotion, rollback, deployment, and production mutation outside Phase 62.
+
+## Phase 63 — Retraining Dataset Pipeline — 2026-09-30
+
+- Added `analytics/retraining_dataset.py` version `63.0.0`.
+- Added deterministic retraining dataset preparation from approved Phase 62 RETRAIN decisions.
+- Enforced VALID/CLEAN FeatureArtifact inputs, common feature-version lineage, feature-name/order alignment, unique target dates, and complete target coverage.
+- Added chronological TRAIN / VALIDATION / TEST partitioning with configurable ratios.
+- Preserved model, decision, data, feature-version, and per-artifact lineage.
+- Added deterministic SHA-256 dataset report identity and strict validation/accessor APIs.
+- Added 80 dedicated Phase 63 regression tests.
+- Dedicated regression: 80 passed, 0 failures, 0 errors, 0 warnings.
+- Compileall and git diff integrity verification passed.
+- No new third-party dependency and no GitHub commit/push.
+- Phase 64 — Automated Retraining Framework is next.
+
+## Phase 64 — Automated Retraining Framework — 2026-09-30
+
+- Added `analytics/automated_retraining.py` version `64.0.0`.
+- Added controlled retraining from validated Phase 63 datasets.
+- Added deterministic Random Forest training configuration with fixed random state and single-threaded default.
+- Added TRAIN / VALIDATION / TEST evaluation using accuracy, weighted F1, and log loss.
+- Added deterministic model and artifact identities with dataset, decision, data, and feature-version lineage.
+- Added optional joblib persistence and loading.
+- Added strict report/configuration validation and accessors.
+- Added 70 dedicated Phase 64 regression tests.
+- Dedicated regression: 70 passed, 0 failures, 0 errors, 0 warnings.
+- No new third-party dependency; existing scikit-learn/joblib infrastructure reused.
+- No GitHub commit/push.
+- Phase 65 — Post-Retraining Validation is next.
+
+## Phase 65 — Post-Retraining Validation — 2026-09-30
+
+- Added `analytics/post_retraining_validation.py` version `65.0.0`.
+- Added independent validation of Phase 64 retraining reports against Phase 63 dataset lineage.
+- Added dataset, decision, feature-version, feature-name, model, artifact, and model-version reconciliation.
+- Added TRAIN/VALIDATION/TEST split reconciliation.
+- Added metric finiteness and bounds validation.
+- Added configurable minimum accuracy, minimum F1, and maximum log-loss validation criteria.
+- Added optional/required persistence validation and persisted model class validation.
+- Added deterministic validation report identity and strict validation.
+- Added 70 dedicated Phase 65 regression tests.
+- Dedicated regression: 70 passed, 0 failures, 0 errors, 0 warnings.
+- No training, promotion, lifecycle mutation, deployment, rollback, or production traffic change.
+- No new third-party dependency; GitHub commit/push not performed.
+- Phase 66 — Model Rollout / Controlled Activation Boundary is next.
+
+## Phase 66 — Model Rollout / Controlled Activation Boundary — 2026-09-30
+
+- Added `analytics/model_rollout.py` version `66.0.0`.
+- Added deterministic rollout policy and validation checks above Phase 65.
+- Added model/artifact/validation/selection lineage reconciliation.
+- Added READY/BLOCKED rollout states and explicit authorization state.
+- Added lifecycle CANDIDATE→ACTIVE transition preview using Phase 61 transition rules.
+- Added a hard non-executing activation boundary; production activation is intentionally not performed.
+- Added 60 dedicated Phase 66 regression tests.
+- Dedicated regression: 60 passed, 0 failures, 0 errors, 0 warnings.
+- No new third-party dependency; GitHub commit/push not performed.
+- Phase 67 — Production Activation / Rollout Executor Boundary is next.
+
+## 2026-10-01 — Phase 67: Production Activation / Rollout Executor Boundary
+
+COMPLETE LOCALLY — dedicated regression: 70 passed in 25.18s; 0 failures, 0 errors, 0 warnings.
+
+Added analytics/production_activation.py, tests/test_production_activation.py, and docs/PHASE_67_PRODUCTION_ACTIVATION_ROLLOUT_EXECUTOR_BOUNDARY.md.
+
+Phase 67 adds an explicit executor boundary after Phase 66 authorization. It revalidates rollout/model lineage and candidate state before execution, creates a deterministic activation receipt and lifecycle transition representation, and exposes rollback preview metadata without executing rollback.
+
+No new third-party dependency. Production import, compileall, and git diff --check passed. No GitHub commit/push was performed.
+
+Next: Phase 68 — Production Serving / Inference Boundary.
+
+## 2026-10-01 — Phase 68: Production Serving / Inference Boundary
+
+COMPLETE LOCALLY — dedicated regression: 70 passed in 12.12s; 0 failures, 0 errors, 0 warnings.
+
+Added analytics/production_serving.py, tests/test_production_serving.py, and docs/PHASE_68_PRODUCTION_SERVING_INFERENCE_BOUNDARY.md.
+
+Phase 68 establishes the deterministic production serving/inference contract after Phase 67 activation. It validates serving plans and inference requests, binds model/version/artifact identities, invokes a supplied predictor, and returns immutable inference responses.
+
+No new third-party dependency. Production import, compileall, and git diff --check passed. No GitHub commit/push was performed.
+
+Next: Phase 69 — Production API / Inference Service Boundary.
+
+
+## 2026-09-30 - Phase 69 Production API / Inference Service Boundary
+
+- Phase 69 is COMPLETE LOCALLY.
+- Added analytics/production_api.py with version 69.0.0.
+- Added tests/test_production_api.py with 70 dedicated regression tests.
+- Added docs/PHASE_69_PRODUCTION_API_INFERENCE_SERVICE_BOUNDARY.md.
+- Added Flask API boundary with /health, /ready, and /v1/inference.
+- Delegated model-bound inference validation and deterministic identity to Phase 68.
+- Added structured HTTP error mapping for malformed input, unsupported content type, inference rejection, unknown routes, wrong methods, oversized payloads, and unavailable serving plans.
+- No new third-party dependency.
+- Dedicated regression: 70 passed, 0 failures, 0 errors, 0 warnings.
+- Full project regression, production import, compileall, and git diff --check are the final verification gates for this phase.
+- GitHub commit/push was not performed.
+- Next: Phase 70 — API Security / Authentication / Authorization Boundary.
+
+
+## 2026-09-30 - Phase 70 API Security / Authentication / Authorization Boundary
+
+- Phase 70 is COMPLETE LOCALLY.
+- Added analytics/api_security.py version 70.0.0.
+- Added tests/test_api_security.py with 70 dedicated tests.
+- Added docs/PHASE_70_API_SECURITY_AUTHENTICATION_AUTHORIZATION_BOUNDARY.md.
+- Implemented hashed API-key credentials, constant-time verification, roles, scopes, revocation, authentication decisions, authorization decisions, and structured security failures.
+- Integrated secure API application factory with public health and protected readiness/inference routes.
+- No new third-party dependency.
+- Dedicated regression: 70 passed, 0 failures, 0 errors, 0 warnings.
+- Full project regression and final integrity gates are recorded in PROJECT_STATUS.md.
+- No GitHub commit/push was performed.
+- Next: Phase 71 — API Rate Limiting / Abuse Protection Boundary.
+
+
+## 2026-10-01 — Phase 71: API Rate Limiting / Abuse Protection Boundary
+
+COMPLETE LOCALLY.
+
+Added:
+- analytics/api_rate_limit.py
+- tests/test_api_rate_limit.py
+- docs/PHASE_71_API_RATE_LIMITING_ABUSE_PROTECTION_BOUNDARY.md
+
+Updated:
+- analytics/production_api.py
+- PROJECT_STATUS.md
+- BLUEPRINT.md
+
+Implemented dependency-free sustained and burst rate limiting using a monotonic clock and in-memory event windows.
+
+Default secure policy: 60 requests per 60 seconds with a 10-request burst limit within 1 second.
+
+Authenticated traffic is limited per credential identity. Missing, invalid, revoked, and insufficient-scope authentication attempts are limited per request IP.
+
+Health remains public and outside the limiter. Readiness and inference are protected when the secure application factory is used.
+
+Rate limiting runs before JSON parsing and before inference execution.
+
+HTTP 429 responses include structured error details plus Retry-After and X-RateLimit headers.
+
+Dedicated Phase 71 regression: 70 passed in 5.58s, 0 failures, 0 errors, 0 warnings.
+
+Adjacent Phase 68–71 regression: 280 passed in 22.33s, 0 failures, 0 errors, 0 warnings.
+
+No new third-party dependency. GitHub commit/push was not performed.
+
+Next: Phase 72 boundary definition.
+
+
+## Phase 71 Final Verification — 2026-10-01
+
+Authoritative full project regression: 6994 passed in 130.26s (0:02:10), 0 failures, 0 errors, 0 warnings.
+
+Production import: PASS. Compileall: PASS. git diff --check: PASS.
+
+Phase 71 is fully closed locally. No GitHub commit or push was performed.
+
+
+## 2026-10-01 — Phase 72: Performance / Monitoring API
+
+- Phase 72 is COMPLETE LOCALLY.
+- Added `analytics/performance_monitoring_api.py` version `72.0.0`.
+- Added `tests/test_performance_monitoring_api.py` with 48 dedicated regression tests.
+- Added `docs/PHASE_72_PERFORMANCE_MONITORING_API.md`.
+- Exposed existing performance, performance-over-time, degradation, model-health, model-drift, data-drift, feature-drift, calibration-drift, ranking-drift, concept-drift, and prediction-distribution reports through a deterministic read-only service.
+- Reused existing report validators and summary functions; no duplicate metric computation was introduced.
+- Added structured health, summary, aggregate monitoring, and named-report endpoints through a standalone Flask factory.
+- Preserved source report identities and report identities.
+- Added deterministic JSON serialization for dates, datetimes, mappings, sequences, and sets.
+- Invalid configured reports return HTTP 503; missing report types return HTTP 404.
+- No training, prediction generation, SQL mutation, feature mutation, model activation, rollback, or lifecycle mutation is performed.
+- Phase 70 authentication/authorization and Phase 71 rate limiting remain separate boundaries and are not duplicated by Phase 72.
+- Dedicated Phase 72 regression: 48 passed, 0 failures, 0 errors, 0 warnings.
+- No new third-party dependency.
+- GitHub commit/push was not performed.
+- Next canonical phase: Phase 73 — Authentication / Authorization.
+
+
+## Phase 72 Final Verification — 2026-10-01
+
+- Dedicated Phase 72 regression: 48 passed, 0 failures, 0 errors, 0 warnings.
+- Adjacent Phase 68–72 regression: 328 passed in 22.53s, 0 failures, 0 errors, 0 warnings.
+- Full project regression: 7042 passed in 125.26s (2m 05s), 0 failures, 0 errors, 0 warnings.
+- Regression delta from Phase 71: +48 tests.
+- Production import: PASS.
+- Compileall: PASS.
+- git diff --check: PASS.
+- Phase 72 is fully closed locally.
+
+
+## 2026-10-01 — Phase 73: Authentication / Authorization
+
+- Phase 73 is COMPLETE LOCALLY.
+- Added `analytics/monitoring_api_authorization.py` version `73.0.0`.
+- Integrated Phase 70 authentication/authorization primitives into the Phase 72 monitoring API.
+- Added monitoring scope enforcement with default `monitoring:read` scope.
+- Protected `/v1/monitoring*` routes when security is enabled while preserving public `/health` compatibility.
+- Added structured 401/403 authentication and authorization mappings.
+- Preserved Phase 70 hashing, revocation, and scope evaluation rather than duplicating them.
+- Added `tests/test_phase73_authentication_authorization.py` with 28 dedicated tests.
+- Added `docs/PHASE_73_AUTHENTICATION_AUTHORIZATION.md`.
+- Dedicated Phase 73 regression: 28 passed, 0 failures, 0 errors, 0 warnings.
+- Phase 72 + Phase 73 focused regression: 76 passed, 0 failures, 0 errors, 0 warnings.
+- Adjacent Phase 68–73 regression: 356 passed in 24.34s, 0 failures, 0 errors, 0 warnings.
+- No raw API keys are exposed by the integration.
+- No new third-party dependency.
+- No GitHub commit/push performed.
+- Next: Phase 74 — Production Monitoring Security Integration / Request Protection.
+
+
+## Phase 73 Final Verification — 2026-10-01
+
+- Dedicated Phase 73 regression: 28 passed, 0 failures, 0 errors, 0 warnings.
+- Phase 72 + Phase 73 focused regression: 76 passed, 0 failures, 0 errors, 0 warnings.
+- Adjacent Phase 68–73 regression: 356 passed in 24.34s, 0 failures, 0 errors, 0 warnings.
+- Full project regression: 7070 passed in 137.91s (2m 17s), 0 failures, 0 errors, 0 warnings.
+- Regression delta from Phase 72: +28 tests.
+- Production import: PASS.
+- Compileall: PASS.
+- git diff --check: PASS.
+- Phase 73 is fully closed locally.
+
+
+## 2026-10-01 - Phase 47 Performance Monitoring Framework
+
+- Phase 47 is COMPLETE LOCALLY under the authoritative 1–100 roadmap.
+- Hardened analytics/performance_monitoring.py validation for snapshot chronology, metric-set reconciliation, baseline values, and latest values.
+- Expanded tests/test_performance_monitoring.py with four validation-regression cases.
+- Dedicated Phase 47 regression: 46 passed, 0 failures, 0 errors, 0 warnings.
+- Adjacent Phase 46–48 regression: 157 passed, 0 failures, 0 errors, 0 warnings.
+- Added docs/ROADMAP_1_100.md as the authoritative roadmap.
+- No new third-party dependency.
+- GitHub commit/push was not performed.
+- Next roadmap phase: Phase 48 — Performance Degradation Detection.
+
+
+## 2026-10-01 - Phase 48–74 Completion Wave
+
+- Reconciled Phases 48–73 as complete local implementations already present in the repository.
+- Updated the authoritative 1–100 roadmap to mark Phases 48–74 COMPLETE.
+- Added Phase 74 API Validation / Error Handling boundary.
+- Added analytics/api_validation.py version 74.0.0.
+- Added tests/test_api_validation.py with 30 dedicated tests.
+- Integrated Phase 74 validation into analytics/production_api.py without changing Phase 69 response semantics.
+- Phase 74 dedicated regression: 30 passed, 0 failures, 0 errors, 0 warnings.
+- Phase 69 + Phase 74 regression: 100 passed, 0 failures, 0 errors, 0 warnings.
+- No new third-party dependency.
+- Next roadmap phase: Phase 75 — API Integration Testing.
+- GitHub commit/push was not performed.

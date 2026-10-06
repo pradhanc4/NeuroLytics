@@ -1,4 +1,4 @@
-# Python
+﻿# Python
 __pycache__/
 *.py[cod]
 *.pyo
@@ -56,3 +56,15 @@ reports/generated/
 node_modules/
 dist/
 build/
+# Local/private NeuroLytics data and generated scratch files
+data/RawData.xlsx
+data/*checkpoint*.json
+chat.txt
+_served_app.js
+tmp_*.json
+phase76_collect.txt
+
+data/
+models/
+reports/
+
